@@ -56,7 +56,8 @@ The bitmap font numbers (they're inverted):
     ██  ███
      █████
       ███
-    
+
+
      █████
       ███
        ██
@@ -65,7 +66,8 @@ The bitmap font numbers (they're inverted):
      ████
       ███
        ██
-    
+
+
     ███████
     ██
     ███
@@ -74,7 +76,8 @@ The bitmap font numbers (they're inverted):
      ██  ██
     ██  ███
      █████
-    
+
+
      █████
     ██  ███
      ██  ██
@@ -83,7 +86,8 @@ The bitmap font numbers (they're inverted):
         ███
      ██  ██
       ████
-    
+
+
        ████
         ██
    ████████
@@ -92,7 +96,8 @@ The bitmap font numbers (they're inverted):
     ██  ██
    ███  ██
         ███
-    
+
+
      █████
     ██  ███
      ██  ██
@@ -101,7 +106,8 @@ The bitmap font numbers (they're inverted):
      ██
      ███
       █████
-    
+
+
      █████
     ███  ██
     ██  ███
@@ -110,7 +116,8 @@ The bitmap font numbers (they're inverted):
     ██  ███
      ██  ██
       ████
-    
+
+
      ████
       ██
        ██
@@ -119,7 +126,8 @@ The bitmap font numbers (they're inverted):
         ██
    ██    ██
     ███████
-    
+
+
      █████
     ██  ███
    ██    ██
@@ -128,7 +136,8 @@ The bitmap font numbers (they're inverted):
     ███  ██
     ██  ██
      ████
-    
+
+
      ████
     ██  ██
          ██
