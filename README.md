@@ -47,6 +47,7 @@ Key to unlock doors:
 
 The bitmap font numbers (they're inverted):
 
+
       XXX
      XXXXX
     XXX  XX
