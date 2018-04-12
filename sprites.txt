@@ -1,0 +1,4124 @@
+0000 | XXXX   |
+0001 |XX XX   |
+0002 |X X   X |
+0003 |XXXXXXXX|
+0004 |X  XX X |
+0005 |X    XX |
+0006 |XXX X XX|
+0007 |XXX X   |
+0008 |X    XX |
+0009 |XX  XX  |
+000a |X   X X |
+000b |X  X X X|
+000c |        |
+000d |XXX X   |
+000e |   X    |
+000f |XXXXX XX|
+0010 |  X     |
+0011 |X     X |
+0012 |XXXX    |
+0013 |  X     |
+0014 | X     X|
+0015 |XXXX   X|
+0016 |X X X  X|
+0017 |X     X |
+0018 |X    X X|
+0019 |      X |
+001a |X    X X|
+001b |       X|
+001c |X    X X|
+001d |        |
+001e |X    X X|
+001f |      X |
+0020 |X    X X|
+0021 |      X |
+0022 |X X X  X|
+0023 |        |
+0024 |X    X X|
+0025 |      X |
+0026 |X    X X|
+0027 |        |
+0028 |XXX  XX |
+0029 |X   X  X|
+002a |X X X  X|
+002b |  X XX X|
+002c |X   XX X|
+002d |X  X XX |
+002e |      X |
+002f |  X     |
+0030 | XXXX  X|
+0031 |XXXX    |
+0032 |X X  X X|
+0033 |X  XX  X|
+0034 |  X X  X|
+0035 | X    XX|
+0036 |XX X    |
+0037 |     XX |
+0038 |  X     |
+0039 |X X  X X|
+003a |XXXX   X|
+003b |  X     |
+003c | X X X X|
+003d |XXXX   X|
+003e |  X     |
+003f |X XX XXX|
+0040 |XXXX  X |
+0041 |X X XX X|
+0042 |X    X  |
+0043 |      X |
+0044 |XX X    |
+0045 |XXXXX XX|
+0046 |X    X X|
+0047 |       X|
+0048 |X X X  X|
+0049 |XXX  X  |
+004a |X   XX X|
+004b |X  X XX |
+004c |      X |
+004d |  X     |
+004e |  X XX  |
+004f |XXXX XX |
+0050 |X X XX X|
+0051 |X    X  |
+0052 |      X |
+0053 |XX X    |
+0054 |XXXXX XX|
+0055 |X    X X|
+0056 |      X |
+0057 |X X X  X|
+0058 |X     X |
+0059 |X    X X|
+005a |       X|
+005b |X X X  X|
+005c |  X  X  |
+005d |X   XX X|
+005e |X  X XX |
+005f |      X |
+0060 |  X  X  |
+0061 |X  XX  X|
+0062 | XXX    |
+0063 |    XX  |
+0064 |  X     |
+0065 |X X XX  |
+0066 |XXXXX   |
+0067 |  X     |
+0068 | XX X   |
+0069 |XXXXX XX|
+006a |  X     |
+006b |X  X    |
+006c |XXXXX X |
+006d |  X     |
+006e |  XXXX  |
+006f |XXXXXX  |
+0070 |X X XX X|
+0071 |X    X  |
+0072 |      X |
+0073 |XX X    |
+0074 |XXXXX XX|
+0075 |X    X X|
+0076 |       X|
+0077 |XXXX    |
+0078 |X  XXX X|
+0079 |X X XX X|
+007a |X     X |
+007b |      X |
+007c | XX X X |
+007d |X  X    |
+007e |      XX|
+007f | X  XX  |
+0080 |  X  X X|
+0081 |XXXX   X|
+0082 |X X  XX |
+0083 |XXX X XX|
+0084 |X X  X X|
+0085 |XXX XX  |
+0086 |X    X X|
+0087 |XXX X XX|
+0088 |X    XX |
+0089 |XXX XX  |
+008a |X X   X |
+008b |X       |
+008c |X X X  X|
+008d |        |
+008e |X  X X X|
+008f |        |
+0090 |XXX X   |
+0091 |XXX     |
+0092 |X  X XX |
+0093 |XX X    |
+0094 |XXXXX  X|
+0095 |X X   X |
+0096 |    X  X|
+0097 |X XXXX X|
+0098 |XXXX XX |
+0099 |XXXXXX X|
+009a |X  X X X|
+009b |X  X XX |
+009c |XX  X X |
+009d |   X    |
+009e |XXXXX   |
+009f |  X     |
+00a0 |XXX  XXX|
+00a1 |XXXX    |
+00a2 |X X   X |
+00a3 |      XX|
+00a4 |X    XX |
+00a5 |X X  X X|
+00a6 |XXX X   |
+00a7 |X XX X X|
+00a8 |X X  X X|
+00a9 |X  X X X|
+00aa |X X     |
+00ab |X XX X X|
+00ac |X XX    |
+00ad |X  X X X|
+00ae |X X X XX|
+00af |X XX X X|
+00b0 |X XXX XX|
+00b1 |X  X X X|
+00b2 |X XX XX |
+00b3 |XX  X X |
+00b4 |   X    |
+00b5 |XXXX   X|
+00b6 |X X  X  |
+00b7 |XX  XX  |
+00b8 |XX      |
+00b9 |      X |
+00ba |XX X    |
+00bb |    X XX|
+00bc |XXX X   |
+00bd |X    XX |
+00be |X X     |
+00bf |X X   X |
+00c0 | XXX X  |
+00c1 |X    XX |
+00c2 |X X X XX|
+00c3 |X X   X |
+00c4 |X    X  |
+00c5 |X    XX |
+00c6 |X XX XX |
+00c7 |X X X  X|
+00c8 |  XX X X|
+00c9 |X    X X|
+00ca |    X X |
+00cb |  X     |
+00cc |    X X |
+00cd |XXXXXX X|
+00ce |X X   X |
+00cf |     X  |
+00d0 |X X  X X|
+00d1 |XX  XX  |
+00d2 |XX  X  X|
+00d3 |     X  |
+00d4 |X XX    |
+00d5 |      X |
+00d6 |X X   X |
+00d7 |      X |
+00d8 |X    XX |
+00d9 |XXX X X |
+00da |X X X  X|
+00db |X       |
+00dc |X    X X|
+00dd |X X X X |
+00de |X X X  X|
+00df |X    XX |
+00e0 |X    X X|
+00e1 |X XX X X|
+00e2 |X X X  X|
+00e3 |  X  XX |
+00e4 |X    X X|
+00e5 |XX  X XX|
+00e6 | XX     |
+00e7 |  X     |
+00e8 |XX  X  X|
+00e9 |XXXX X  |
+00ea |  X X  X|
+00eb |     XXX|
+00ec |XX  X  X|
+00ed |     XX |
+00ee |X XX    |
+00ef |XXXX XXX|
+00f0 |X    X X|
+00f1 |XX X    |
+00f2 |X X   X |
+00f3 |     X  |
+00f4 |  X     |
+00f5 |XX  X  X|
+00f6 |XXXX X  |
+00f7 |  X X  X|
+00f8 |      XX|
+00f9 |X  X X X|
+00fa |X X  X X|
+00fb |X X X   |
+00fc |X   X X |
+00fd |   XX   |
+00fe | XX  X X|
+00ff |XX X    |
+0100 |XX  X  X|
+0101 |     XX |
+0102 |X  X    |
+0103 |      X |
+0104 |XXX X  X|
+0105 |     XX |
+0106 |XX   X X|
+0107 |X  XXX  |
+0108 |XX X    |
+0109 |    X   |
+010a |XX   X  |
+010b |X   XX X|
+010c |XX X    |
+010d |     X  |
+010e |X X X  X|
+010f |     X X|
+0110 |XX X    |
+0111 |XXX X XX|
+0112 |X  X X X|
+0113 |XX   X X|
+0114 |X  X X X|
+0115 |XX      |
+0116 |X X X   |
+0117 |X XXX  X|
+0118 |X X X X |
+0119 |XXXXXXXX|
+011a |X  X X X|
+011b |X XX    |
+011c |X XXX  X|
+011d |X XXXX X|
+011e |XXXXXXXX|
+011f |X  X X X|
+0120 |X XXX XX|
+0121 |XX  X X |
+0122 |   X    |
+0123 |XX X    |
+0124 | XX     |
+0125 | XX X X |
+0126 |X  X    |
+0127 |     X X|
+0128 |X X   X |
+0129 |       X|
+012a |X    XX |
+012b |XXX  X X|
+012c | XX     |
+012d |XX   XX |
+012e |XXX  X X|
+012f |XX X    |
+0130 |XXXXX XX|
+0131 |X X X  X|
+0132 |  X XX X|
+0133 |X    X X|
+0134 |XXX  X X|
+0135 |XXX  XX |
+0136 |XX  XX  |
+0137 |X X  X X|
+0138 |XX  XX  |
+0139 |XX  X  X|
+013a |    X  X|
+013b |XX X    |
+013c |      X |
+013d |X X X  X|
+013e |        |
+013f |X    X X|
+0140 |XX  XX  |
+0141 |  X     |
+0142 |X  X X  |
+0143 |XXXX   X|
+0144 |X X X  X|
+0145 | X      |
+0146 |X    X X|
+0147 |X  XX  X|
+0148 |X X X  X|
+0149 |   X    |
+014a |X    X X|
+014b |X    X  |
+014c |X X X  X|
+014d |        |
+014e |X    X X|
+014f |X    X X|
+0150 |X    X X|
+0151 |X       |
+0152 |X    X X|
+0153 |X     XX|
+0154 | XX     |
+0155 |  X  X  |
+0156 |X  XX XX|
+0157 |   X    |
+0158 |  X  X X|
+0159 |X X  X X|
+015a |X   XX X|
+015b |XX X    |
+015c |  X    X|
+015d |X X X  X|
+015e |      X |
+015f |XX   X X|
+0160 |X  XXX  |
+0161 |XX X    |
+0162 |   XX XX|
+0163 |XX   X X|
+0164 |X  XX X |
+0165 |XX X    |
+0166 |   X  X |
+0167 |X X  X X|
+0168 |X  XXX X|
+0169 |XX  X  X|
+016a |    X   |
+016b |XX X    |
+016c |    XX  |
+016d |X X X  X|
+016e |       X|
+016f |X    X X|
+0170 |X   X  X|
+0171 |X    X X|
+0172 |X   X X |
+0173 |X X X  X|
+0174 | X   X  |
+0175 |X    X X|
+0176 |X  XX  X|
+0177 |XX X    |
+0178 |     X X|
+0179 |X X   X |
+017a |      X |
+017b |  X     |
+017c |X   XX  |
+017d |XXXXX   |
+017e |XX   XX |
+017f |X    XXX|
+0180 |XX X    |
+0181 |     XX |
+0182 |X X X  X|
+0183 |  XXXX  |
+0184 |X    X X|
+0185 |X    XXX|
+0186 |XX   XX |
+0187 |XX XXXXX|
+0188 |  X  X  |
+0189 |X   X X |
+018a | X X    |
+018b |   X  X |
+018c |X X  X X|
+018d |X     XX|
+018e |XX X    |
+018f |     X  |
+0190 |X X  X X|
+0191 |XX XXXXX|
+0192 |XX X    |
+0193 |    X X |
+0194 |X X X  X|
+0195 |        |
+0196 |X    X X|
+0197 |X    X X|
+0198 |X X  X X|
+0199 |X   X X |
+019a |  X X  X|
+019b |     XXX|
+019c |X    X X|
+019d |X   X X |
+019e |X X  X X|
+019f |X   X X |
+01a0 | X  X  X|
+01a1 |X       |
+01a2 |X    X X|
+01a3 |X   X X |
+01a4 | XX     |
+01a5 |  X     |
+01a6 |X XXXXXX|
+01a7 |XXXX   X|
+01a8 |X X X  X|
+01a9 |        |
+01aa |X    X X|
+01ab |X  X   X|
+01ac |X X  X X|
+01ad |X XX X X|
+01ae |XX  X  X|
+01af |  X  XX |
+01b0 |X  X    |
+01b1 |    X X |
+01b2 |XX  X  X|
+01b3 |XX X XXX|
+01b4 |X XX    |
+01b5 |     X  |
+01b6 |X X X  X|
+01b7 |  X  XX |
+01b8 |XX X    |
+01b9 |      X |
+01ba |XXX X  X|
+01bb |X X XXXX|
+01bc |X    X X|
+01bd |XX  X XX|
+01be | XX     |
+01bf |X X X  X|
+01c0 |        |
+01c1 |X    X X|
+01c2 |XXX  XXX|
+01c3 |X    X X|
+01c4 |XXX X   |
+01c5 |X X  X X|
+01c6 |X  XX XX|
+01c7 |  X X  X|
+01c8 | XXXXXXX|
+01c9 |X    X X|
+01ca |X  XX XX|
+01cb |  X  X  |
+01cc |X  X   X|
+01cd | XXX    |
+01ce |  XX XXX|
+01cf |  X  X  |
+01d0 |X   XXX |
+01d1 | XXX    |
+01d2 |   X    |
+01d3 |   X    |
+01d4 |  XX   X|
+01d5 |XXX  XX |
+01d6 |XXX  XXX|
+01d7 |X X  X X|
+01d8 |X X X X |
+01d9 |XX  X  X|
+01da |X  X X  |
+01db |XXXX    |
+01dc | XXX XXX|
+01dd |  X     |
+01de | XXX  X |
+01df |XXXX  X |
+01e0 | X  XX  |
+01e1 |XXX XXX |
+01e2 |XXXX   X|
+01e3 |XX   XX |
+01e4 |XXX  XXX|
+01e5 |X X  X X|
+01e6 |X X X X |
+01e7 |XX  X  X|
+01e8 |     X  |
+01e9 |XXXX    |
+01ea | XX X  X|
+01eb |  X     |
+01ec | XXXXX X|
+01ed |XXXX  X |
+01ee |  X     |
+01ef |X  X X X|
+01f0 |XXXX  X |
+01f1 |XX X    |
+01f2 |    XXX |
+01f3 |  X     |
+01f4 |X   X X |
+01f5 |XXXX  X |
+01f6 |XX X    |
+01f7 |    X  X|
+01f8 |X X  X X|
+01f9 |X X X X |
+01fa |   XX   |
+01fb | XX  X X|
+01fc |XXX  XXX|
+01fd |X    X X|
+01fe |X X X X |
+01ff |XX X    |
+0200 |     X X|
+0201 |X X   X |
+0202 |      XX|
+0203 |  X     |
+0204 |X   XX  |
+0205 |XXXXX   |
+0206 |  X  X  |
+0207 |X  X   X|
+0208 |  XX    |
+0209 | X  X  X|
+020a |X X  X X|
+020b |X   XXX |
+020c |  X X  X|
+020d |  XX    |
+020e |XXXX    |
+020f | X    XX|
+0210 |XX  X  X|
+0211 |  X     |
+0212 |XXXX    |
+0213 |   XX X |
+0214 |XXX  XX |
+0215 |XXX X   |
+0216 |X X  X X|
+0217 |X XX X X|
+0218 |XX  X  X|
+0219 |XXXXX XX|
+021a |XXXX    |
+021b | X   X  |
+021c |  X     |
+021d | XX X XX|
+021e |XXXX  X |
+021f |  X     |
+0220 |X  XXX  |
+0221 |XXXX  X |
+0222 |XX X    |
+0223 |  X X X |
+0224 |  X     |
+0225 | XXXX  X|
+0226 |XXXX  X |
+0227 |  X     |
+0228 |X  XXX  |
+0229 |XXXX  X |
+022a |XX X    |
+022b |  X   X |
+022c |XXXX    |
+022d |   XX   |
+022e |XX   XX |
+022f |XXX X   |
+0230 |X X  X X|
+0231 |X XX X X|
+0232 |XX  X  X|
+0233 |       X|
+0234 |XXXX    |
+0235 |  X X X |
+0236 |  X     |
+0237 | XX X XX|
+0238 |XXXX  X |
+0239 |  X     |
+023a |X   XXX |
+023b |XXXX  X |
+023c |XX X    |
+023d |   X    |
+023e |  X     |
+023f | XXXX  X|
+0240 |XXXX  X |
+0241 |  X     |
+0242 |X   XXX |
+0243 |XXXX  X |
+0244 |XX X    |
+0245 |    X   |
+0246 |X X  X X|
+0247 |X XX X X|
+0248 |   XX   |
+0249 | XX  X X|
+024a |XXX X   |
+024b |X    X X|
+024c |X XX X X|
+024d | XX     |
+024e |X X   X |
+024f |      XX|
+0250 |  X     |
+0251 |X   XX  |
+0252 |XXXXX   |
+0253 | XX     |
+0254 |X X  X X|
+0255 |X  XX XX|
+0256 |    X  X|
+0257 |X       |
+0258 |X    X X|
+0259 |X  XX XX|
+025a |XX  X  X|
+025b |X   XXXX|
+025c |XXXX    |
+025d |X X   XX|
+025e |XX X    |
+025f |X X  XX |
+0260 |X X  X X|
+0261 |X  XX XX|
+0262 |    X  X|
+0263 |X       |
+0264 |X    X X|
+0265 |X  XX XX|
+0266 |XX  X  X|
+0267 |X   XXXX|
+0268 |XXXX    |
+0269 |XXX  X  |
+026a | XX     |
+026b |X X  X X|
+026c |X X X X |
+026d |   XX   |
+026e | XX X  X|
+026f |     XXX|
+0270 |XX X    |
+0271 |    XXXX|
+0272 |X X  X X|
+0273 |X X X X |
+0274 |   XX   |
+0275 | XX X  X|
+0276 |    X   |
+0277 |XX X    |
+0278 |    X   |
+0279 |X X  X X|
+027a |X X X X |
+027b |XX X    |
+027c |     X  |
+027d |X X  X  |
+027e |X X X X |
+027f |X   X   |
+0280 |X  XX   |
+0281 | X  X X |
+0282 | X  X X |
+0283 | X  X X |
+0284 | X  X X |
+0285 |X X X   |
+0286 |X   X   |
+0287 |X    X  |
+0288 |XX X X  |
+0289 | XX     |
+028a |X X  X X|
+028b |X XX X X|
+028c |XX X    |
+028d |   X  XX|
+028e |X X  X  |
+028f |X XX X X|
+0290 |X   X   |
+0291 |X  XX   |
+0292 | X  XX  |
+0293 |X X    X|
+0294 |XXXX  X |
+0295 |X X  X X|
+0296 |X XX X X|
+0297 |   XX   |
+0298 | XX X  X|
+0299 |      X |
+029a |XX X    |
+029b |     X X|
+029c |X X  X X|
+029d |X XX X X|
+029e |   XX   |
+029f | XX X  X|
+02a0 |      XX|
+02a1 | X  X X |
+02a2 | X  X X |
+02a3 | X  X X |
+02a4 | X  X X |
+02a5 |X X X X |
+02a6 |X X  X  |
+02a7 |XX X X  |
+02a8 |X  XX   |
+02a9 |  X X  X|
+02aa |    X   |
+02ab |XXXX    |
+02ac |      XX|
+02ad |XXX     |
+02ae |    X   |
+02af | XX     |
+02b0 |X XXXX X|
+02b1 |XX X X  |
+02b2 |XXXXXXXX|
+02b3 |  XXX  X|
+02b4 |        |
+02b5 |XXXXXXX |
+02b6 | XX     |
+02b7 |X X X  X|
+02b8 |  XX    |
+02b9 |X    X X|
+02ba |     X  |
+02bb |X X X  X|
+02bc |        |
+02bd |X    X X|
+02be |    X  X|
+02bf |X    X X|
+02c0 |XXXX   X|
+02c1 |X    X X|
+02c2 |   XXX X|
+02c3 |X    X X|
+02c4 |   XXXXX|
+02c5 |X    X X|
+02c6 |     X X|
+02c7 |X X  X X|
+02c8 |X  XX  X|
+02c9 |XX  X  X|
+02ca |      X |
+02cb |XXXX    |
+02cc |    X XX|
+02cd |  X X  X|
+02ce |     X  |
+02cf |XXXX    |
+02d0 |    X X |
+02d1 |X X  X X|
+02d2 |X   X  X|
+02d3 |XX X    |
+02d4 |      XX|
+02d5 |  X     |
+02d6 | X     X|
+02d7 |XXXX   X|
+02d8 | X  XX  |
+02d9 |   X X X|
+02da |XXXX  XX|
+02db |X X  X X|
+02dc |X       |
+02dd |XXXX    |
+02de |    XXX |
+02df |  X     |
+02e0 | XXXXX X|
+02e1 |XXXX X X|
+02e2 |X X  X X|
+02e3 |X   X  X|
+02e4 | X  X X |
+02e5 |  X X  X|
+02e6 |     XXX|
+02e7 |X X X X |
+02e8 |X XXXX X|
+02e9 |X  X  X |
+02ea |XXXXXXXX|
+02eb |XX X    |
+02ec |  X X XX|
+02ed |X X  XX |
+02ee |X      X|
+02ef |XXXX    |
+02f0 |    XXXX|
+02f1 |X X  XX |
+02f2 |XXX X  X|
+02f3 |X X X  X|
+02f4 |    X   |
+02f5 |X    X X|
+02f6 |XXX XX X|
+02f7 |X X  X X|
+02f8 |X   XX X|
+02f9 |X  X X X|
+02fa |X X     |
+02fb |  X     |
+02fc |  X  XX |
+02fd |XXXX X X|
+02fe |   X    |
+02ff |   X X X|
+0300 |  X  X  |
+0301 |X   X X |
+0302 | X X    |
+0303 |    XXX |
+0304 |  X  X  |
+0305 |X   X X |
+0306 |  XX    |
+0307 |     X X|
+0308 |  X     |
+0309 |XXXX   X|
+030a |XXXX X  |
+030b |   X    |
+030c |    X   |
+030d |  X     |
+030e | XXXXX X|
+030f |XXXX X X|
+0310 |   X    |
+0311 |  XXX XX|
+0312 |  X     |
+0313 | XXXXX X|
+0314 |XXXX X X|
+0315 |X X XX X|
+0316 |X       |
+0317 |      X |
+0318 |X X     |
+0319 |XXX  XXX|
+031a |X    X  |
+031b |XX XX   |
+031c |X    X  |
+031d |XX XX  X|
+031e |X    X  |
+031f |XX XX X |
+0320 |X X     |
+0321 |X X  X X|
+0322 |X X   X |
+0323 |       X|
+0324 |  X X X |
+0325 |X XX    |
+0326 |      X |
+0327 |X X     |
+0328 |XX   XX |
+0329 |  X X X |
+032a |X XX    |
+032b |      X |
+032c |X X     |
+032d | XX   XX|
+032e |  X X X |
+032f |X XX    |
+0330 |       X|
+0331 |XX  X X |
+0332 |  X X X |
+0333 |X XX    |
+0334 |       X|
+0335 |XXX X   |
+0336 |X  XX   |
+0337 |X  X X X|
+0338 |XX XX   |
+0339 |X X X  X|
+033a |XX XX   |
+033b |X    X X|
+033c |XXX   XX|
+033d |X X X  X|
+033e |        |
+033f |X    X X|
+0340 |XXX  X  |
+0341 |X X X  X|
+0342 |      XX|
+0343 |X    X X|
+0344 |XXX XXX |
+0345 |X X     |
+0346 |       X|
+0347 |X X  X X|
+0348 |XX  X XX|
+0349 |X X  XX |
+034a |X X X X |
+034b |XX X    |
+034c | X  X X |
+034d |X X  X X|
+034e |XX  XXXX|
+034f |X    X X|
+0350 |XXX     |
+0351 |X X  X X|
+0352 |XX  XX  |
+0353 |XXXX    |
+0354 |    X X |
+0355 |  X  X  |
+0356 |X   X   |
+0357 |  XX    |
+0358 |     XX |
+0359 |X X X  X|
+035a |      X |
+035b |X    X X|
+035c |   XXXXX|
+035d |X    X X|
+035e |   XXX X|
+035f |X X  X X|
+0360 |X   X  X|
+0361 |  X X  X|
+0362 |     XX |
+0363 | X  X X |
+0364 |X X X X |
+0365 |X XXXX X|
+0366 |X  XX X |
+0367 |XXXXXXXX|
+0368 |X    X X|
+0369 |XXX   XX|
+036a |X X X  X|
+036b |XXXXXXXX|
+036c |X    X X|
+036d |XXX  X  |
+036e |X X  X X|
+036f |X X X X |
+0370 |  XXX   |
+0371 |XXX X  X|
+0372 |    XX X|
+0373 |X XX    |
+0374 |     XX |
+0375 | XX X  X|
+0376 |X X     |
+0377 |X X   X |
+0378 |X  X XXX|
+0379 |XX X    |
+037a |     XX |
+037b |XX  X  X|
+037c |X    X  |
+037d |X  X    |
+037e |    X   |
+037f |X X   X |
+0380 |        |
+0381 |X    XX |
+0382 |XXX     |
+0383 |X X   X |
+0384 |      X |
+0385 |X    XX |
+0386 |   XXXXX|
+0387 |X X X X |
+0388 |X X X  X|
+0389 |   XXX  |
+038a |X    X X|
+038b |XXX XXX |
+038c |X X X  X|
+038d |     XXX|
+038e |X    X X|
+038f |     X X|
+0390 |X X     |
+0391 |     X  |
+0392 |X X  X X|
+0393 |XX  X XX|
+0394 |  XXX   |
+0395 |XXX X  X|
+0396 |    XX  |
+0397 |X    X X|
+0398 |XXXX    |
+0399 |X    XX |
+039a |XX XXX X|
+039b |X    X  |
+039c |XXXX  X |
+039d |X X     |
+039e |       X|
+039f |X    X  |
+03a0 |XXXX  XX|
+03a1 |X   X   |
+03a2 |X    X  |
+03a3 |XXXX X  |
+03a4 |X    X  |
+03a5 |XXXX X X|
+03a6 |X X X  X|
+03a7 |    X   |
+03a8 |   XX   |
+03a9 | XX  X X|
+03aa |X   XX X|
+03ab |X X  XX |
+03ac |XX  XX  |
+03ad |XX X    |
+03ae |     X  |
+03af |X    X X|
+03b0 |XXXX X X|
+03b1 |   X    |
+03b2 |      X |
+03b3 |X    X X|
+03b4 |XXXX X  |
+03b5 |X X  X X|
+03b6 |X       |
+03b7 |XXXX    |
+03b8 |     X  |
+03b9 |X X X  X|
+03ba |      XX|
+03bb |XX X    |
+03bc |    X XX|
+03bd |X X  X X|
+03be |X     XX|
+03bf |XXXX    |
+03c0 |   X X  |
+03c1 |  X XX  |
+03c2 |X     X |
+03c3 |      X |
+03c4 | XXX    |
+03c5 |    XXXX|
+03c6 |X X X  X|
+03c7 |  X  XXX|
+03c8 |  X  X X|
+03c9 |X   X  X|
+03ca |XX X    |
+03cb |    X  X|
+03cc |X X  X X|
+03cd |XXX X XX|
+03ce | XX X X |
+03cf |X  X    |
+03d0 |     X  |
+03d1 |X X     |
+03d2 |       X|
+03d3 |X    X  |
+03d4 |XXXX X X|
+03d5 |X X   X |
+03d6 |XXXX XXX|
+03d7 |X X     |
+03d8 |        |
+03d9 |X    X  |
+03da |XX X    |
+03db |X X XX X|
+03dc |X     X |
+03dd |      X |
+03de |  X X  X|
+03df |    X   |
+03e0 |XX X    |
+03e1 |     XX |
+03e2 |X X X  X|
+03e3 |    XX  |
+03e4 |X    X X|
+03e5 |XX X    |
+03e6 |X X   X |
+03e7 |     XXX|
+03e8 |X    XX |
+03e9 |XX X  XX|
+03ea |X X  X X|
+03eb |X    X  |
+03ec |  X X  X|
+03ed |   X    |
+03ee |XXXX    |
+03ef |    XXXX|
+03f0 |X X  X X|
+03f1 |X   X  X|
+03f2 |XX X    |
+03f3 |      X |
+03f4 |XXX  XX |
+03f5 |X    X  |
+03f6 |X X  X X|
+03f7 |X    X  |
+03f8 |    X  X|
+03f9 |   X    |
+03fa |X    X X|
+03fb |X    X  |
+03fc |X X X   |
+03fd |XX X    |
+03fe |      X |
+03ff |X X   X |
+0400 |XXXXXXXX|
+0401 |X    X  |
+0402 |XX X   X|
+0403 |X    XX |
+0404 |XX X  X |
+0405 |X X   X |
+0406 |     X  |
+0407 |X XX X X|
+0408 |XXXX   X|
+0409 |   XX   |
+040a | XX  X X|
+040b |XX X    |
+040c |X X X   |
+040d |X XXX  X|
+040e |XXX  X  |
+040f |XXXXXXXX|
+0410 | X   X X|
+0411 |XX X   X|
+0412 |  X  X X|
+0413 |XX X  X |
+0414 |X  X X X|
+0415 |XXXX   X|
+0416 |XX  X X |
+0417 |   X    |
+0418 |XXX XXX |
+0419 |X X  X X|
+041a |XXXX  X |
+041b |X    X X|
+041c |     XXX|
+041d |X X  X X|
+041e |XXXX   X|
+041f |XX  X  X|
+0420 |X X X X |
+0421 |XX X    |
+0422 |     XX |
+0423 |X X  X X|
+0424 |XX X  XX|
+0425 |    X  X|
+0426 |    X   |
+0427 |  X  X X|
+0428 |X   X  X|
+0429 |X    X X|
+042a |     XX |
+042b |X X  X X|
+042c |X  XX  X|
+042d |  X X  X|
+042e |     X  |
+042f |XXXX    |
+0430 |     XX |
+0431 |X X  X X|
+0432 |X   X  X|
+0433 |  X  X X|
+0434 |XX X  XX|
+0435 |X    X X|
+0436 |XXXX X X|
+0437 |X X   X |
+0438 |     X  |
+0439 |X X  X X|
+043a |X  XX  X|
+043b |XX  X  X|
+043c |      X |
+043d |XX X    |
+043e |      X |
+043f |X X   X |
+0440 |       X|
+0441 |X X X  X|
+0442 |      X |
+0443 |XXX     |
+0444 |      X |
+0445 |X XX    |
+0446 |       X|
+0447 | X  X X |
+0448 |   XX   |
+0449 | XXX X X|
+044a |XX XXX  |
+044b |X X     |
+044c |      X |
+044d |  XXX   |
+044e |XX  X   |
+044f |XXX  X X|
+0450 |    XXXX|
+0451 |X XX    |
+0452 |XXXXX XX|
+0453 | X  X  X|
+0454 |XXXXXXXX|
+0455 |XXX X  X|
+0456 |     XX |
+0457 |    X X |
+0458 |    X X |
+0459 |    X X |
+045a |    X X |
+045b |X    X X|
+045c |      X |
+045d |X   X   |
+045e |   X    |
+045f |XXXXXX X|
+0460 |X  X X X|
+0461 |   X    |
+0462 |X  X X X|
+0463 |  X     |
+0464 |XX  X X |
+0465 |   X    |
+0466 |XX XX X |
+0467 |X    X X|
+0468 |      X |
+0469 |X    X X|
+046a |  X X X |
+046b |X X X  X|
+046c | X  XXXX|
+046d |X    X X|
+046e |XX  XX X|
+046f |X    X X|
+0470 |XX X  XX|
+0471 |X X X  X|
+0472 |        |
+0473 |X    X X|
+0474 |XX X X  |
+0475 |  X  X  |
+0476 |X   X X |
+0477 | X X    |
+0478 |  X X   |
+0479 |  X  X  |
+047a |X   X   |
+047b |  XX    |
+047c |  X  X  |
+047d |X X  X X|
+047e |XX  XX  |
+047f |XXXX    |
+0480 |  X     |
+0481 |X X  X X|
+0482 |X   XX  |
+0483 |XXXX    |
+0484 |     XXX|
+0485 |  X     |
+0486 |XX XX XX|
+0487 |XXXX X  |
+0488 |  XX    |
+0489 |      X |
+048a |X    X X|
+048b |XX X X  |
+048c |X X  X X|
+048d |X   X XX|
+048e |XXXX    |
+048f |   X   X|
+0490 |X X X X |
+0491 |  X     |
+0492 |XX XX XX|
+0493 |XXXX X  |
+0494 |XX  X  X|
+0495 | X X    |
+0496 |X XX    |
+0497 |    X  X|
+0498 |X    X X|
+0499 |XX X  XX|
+049a |X X X  X|
+049b |    X   |
+049c |X    X X|
+049d |XX X    |
+049e |X   X X |
+049f |XX X    |
+04a0 |    XXX |
+04a1 |X X  X X|
+04a2 |X XX X X|
+04a3 |XX  X  X|
+04a4 |  X  XX |
+04a5 |X  X    |
+04a6 |   X XX |
+04a7 |XX  X  X|
+04a8 |XX X XX |
+04a9 |X XX    |
+04aa |   XX   |
+04ab | XX X  X|
+04ac |  X X X |
+04ad |X    X X|
+04ae |XX X    |
+04af | X  X X |
+04b0 | X  X X |
+04b1 | X  X X |
+04b2 | X  X X |
+04b3 | X  X  X|
+04b4 |    XXXX|
+04b5 |X    X X|
+04b6 |XX X   X|
+04b7 |    X X |
+04b8 | XX  X X|
+04b9 |XX X   X|
+04ba |X X X X |
+04bb |   X    |
+04bc |    XX  |
+04bd |X X   X |
+04be |   XXXX |
+04bf |X X X  X|
+04c0 |        |
+04c1 |XXXX    |
+04c2 |     X  |
+04c3 |X X   X |
+04c4 |        |
+04c5 |X X X  X|
+04c6 |    XXXX|
+04c7 |X    X X|
+04c8 |XX X    |
+04c9 |X X  X X|
+04ca |XXX XX  |
+04cb | X   X X|
+04cc |XXX X XX|
+04cd |    X X |
+04ce |    X X |
+04cf |  X  XX |
+04d0 |XXX X XX|
+04d1 |  X  XX |
+04d2 |XXX XX  |
+04d3 |X X  X X|
+04d4 |XXX X XX|
+04d5 | XX     |
+04d6 |     XXX|
+04d7 |       X|
+04d8 |     XX |
+04d9 |     XX |
+04da |     XX |
+04db |   XX   |
+04dc | XX  X X|
+04dd |XX  X XX|
+04de |  XXX   |
+04df |XXX  X X|
+04e0 |X XX X X|
+04e1 | XX     |
+04e2 |X   X X |
+04e3 |XXX     |
+04e4 |      X |
+04e5 |X  X    |
+04e6 |      X |
+04e7 |X XX X X|
+04e8 |X  XX XX|
+04e9 |    X X |
+04ea |    X X |
+04eb |    X X |
+04ec | XX X  X|
+04ed |    X   |
+04ee |X X   X |
+04ef |XXXXXXX |
+04f0 | XX     |
+04f1 |X X  XX |
+04f2 |X    XX |
+04f3 |XX  X X |
+04f4 |   X    |
+04f5 |    XXXX|
+04f6 |X X   X |
+04f7 |     X  |
+04f8 |XX X    |
+04f9 |    X XX|
+04fa |XXX  X  |
+04fb |X    XX |
+04fc |XX X    |
+04fd |XXXX X X|
+04fe |X X X  X|
+04ff |        |
+0500 |X    X X|
+0501 |XX XXX  |
+0502 |X    X X|
+0503 |XXX XX X|
+0504 | XX     |
+0505 |XXX  X  |
+0506 |X  XX X |
+0507 |XXXX    |
+0508 |XXXX   X|
+0509 |XXX     |
+050a |      X |
+050b |X  X    |
+050c |     X  |
+050d |X XX X X|
+050e |X  XX XX|
+050f |  XX    |
+0510 |XXX X  X|
+0511 |X X  X X|
+0512 |XX  XX  |
+0513 |XX  X  X|
+0514 |      X |
+0515 |X XX    |
+0516 |     X  |
+0517 |XXX     |
+0518 |        |
+0519 |XXXX    |
+051a |XX XXXXX|
+051b |X XX X X|
+051c |X X     |
+051d |XX   X X|
+051e |X   XX X|
+051f |XX X    |
+0520 |XX XX  X|
+0521 |  X     |
+0522 |  XXXX X|
+0523 |XXXX X X|
+0524 |XXXX    |
+0525 |XX X X  |
+0526 |X X  X  |
+0527 |X      X|
+0528 |XX X    |
+0529 |     X X|
+052a |X XXXX X|
+052b |XX X XX |
+052c |XXXX X  |
+052d |X    X X|
+052e |XXXX   X|
+052f |X    XX |
+0530 |X    XX |
+0531 |  X     |
+0532 |XXX   X |
+0533 |XXXX X  |
+0534 |X    X X|
+0535 |XXX    X|
+0536 |X    XX |
+0537 |XXX   X |
+0538 |X X X  X|
+0539 |    X   |
+053a |X    X X|
+053b |XXX XX X|
+053c | XX     |
+053d |X X  X X|
+053e |X X X X |
+053f |  XXX   |
+0540 |XXXX X X|
+0541 |X X X XX|
+0542 |X XX    |
+0543 |     X  |
+0544 | X  X  X|
+0545 |XXXXXXXX|
+0546 | XX X  X|
+0547 |       X|
+0548 |X    X X|
+0549 |XX X    |
+054a |X X  X X|
+054b |X XX X X|
+054c |  XXX   |
+054d |XXXX X X|
+054e |X XX XX |
+054f |X XX    |
+0550 |     X  |
+0551 | X  X  X|
+0552 |XXXXXXXX|
+0553 | XX X  X|
+0554 |       X|
+0555 |X    X X|
+0556 |XX X   X|
+0557 |XX   X X|
+0558 |XX X    |
+0559 |X XX    |
+055a |      XX|
+055b | X  X X |
+055c |   X    |
+055d |      X |
+055e | X   XX |
+055f |XX X    |
+0560 |   XX   |
+0561 | XX  X X|
+0562 |XX X    |
+0563 |XX  X  X|
+0564 |   X   X|
+0565 |X XX    |
+0566 |  X XXX |
+0567 |X XX X X|
+0568 |X X X XX|
+0569 |X    X X|
+056a |XX XXX  |
+056b |X XX X X|
+056c |X XX XX |
+056d |  X     |
+056e |XX XX XX|
+056f |XXXX X  |
+0570 |XX  X  X|
+0571 | X X    |
+0572 |X  X    |
+0573 |     X  |
+0574 |XX  X  X|
+0575 |XXXXX  X|
+0576 |X  X    |
+0577 |   XXX X|
+0578 |X    X X|
+0579 |XXX XXXX|
+057a |X X X  X|
+057b |       X|
+057c | XX     |
+057d |X X  XX |
+057e |X    X X|
+057f |XX  X X |
+0580 |   X    |
+0581 |   X XX |
+0582 |X X  XX |
+0583 |XXX X X |
+0584 |  X  X  |
+0585 |X   X X |
+0586 | X X    |
+0587 |   X    |
+0588 |XXX X   |
+0589 |  X     |
+058a |XXX  XXX|
+058b |XXXX X X|
+058c |XXXX    |
+058d |      XX|
+058e |X    XX |
+058f |X    X X|
+0590 | XX     |
+0591 |XXX  X  |
+0592 |X    X X|
+0593 |XX X    |
+0594 |XXX X X |
+0595 | X  XX  |
+0596 |XXXXXXX |
+0597 |XXXX X  |
+0598 |  X     |
+0599 |X  XXXX |
+059a |XXXX X X|
+059b |XXXX    |
+059c |XXXX X  |
+059d | XX     |
+059e |X XX X X|
+059f |X X  X X|
+05a0 |XX   X X|
+05a1 |X   XX X|
+05a2 |XX X    |
+05a3 |XXXX   X|
+05a4 |X X  X X|
+05a5 |XX  XX  |
+05a6 |XXXX    |
+05a7 |   X  X |
+05a8 |X X  X X|
+05a9 |X       |
+05aa |XX X    |
+05ab |    XXX |
+05ac |X X  X X|
+05ad |X     XX|
+05ae |XXXX    |
+05af |XXX  X X|
+05b0 |X XX X X|
+05b1 |XX   X X|
+05b2 |XX   X X|
+05b3 |X  XXX  |
+05b4 |XXXX    |
+05b5 |     X  |
+05b6 |XX   X X|
+05b7 |X  X XXX|
+05b8 |XX X    |
+05b9 |XX XX XX|
+05ba |XXX X   |
+05bb |X    XX |
+05bc |XXXX   X|
+05bd |XX  X X |
+05be |X XX X X|
+05bf |X XX    |
+05c0 |X    X X|
+05c1 |XX XXX  |
+05c2 |X XX X X|
+05c3 |X XXX XX|
+05c4 |  X     |
+05c5 | XX XX X|
+05c6 |XXXX X X|
+05c7 |XXXX    |
+05c8 |XX  X   |
+05c9 |X    XX |
+05ca |X    X X|
+05cb |X X X  X|
+05cc | X X    |
+05cd |   XX   |
+05ce | XXXXX X|
+05cf |XXX   X |
+05d0 |XXXX X X|
+05d1 |  X  X  |
+05d2 |XXX X XX|
+05d3 | XXX    |
+05d4 |      X |
+05d5 | XX X  X|
+05d6 |    X X |
+05d7 |X    X X|
+05d8 |XXX    X|
+05d9 |X X X  X|
+05da |XXXXXXX |
+05db |X    X X|
+05dc |XXX   X |
+05dd |X X X  X|
+05de |    X X |
+05df |X    X X|
+05e0 |XXX XX X|
+05e1 | XX     |
+05e2 |        |
+05e3 |   X X  |
+05e4 |  X X   |
+05e5 |  X X   |
+05e6 |  X X   |
+05e7 |X X  X X|
+05e8 |X  XX XX|
+05e9 |  X X  X|
+05ea |    XXXX|
+05eb |XX  X  X|
+05ec |    XXXX|
+05ed |XXXX    |
+05ee |  XXXX  |
+05ef |X X X   |
+05f0 |XX      |
+05f1 |     X  |
+05f2 |X  X    |
+05f3 |     X X|
+05f4 |X  XX   |
+05f5 |  X X  X|
+05f6 |      XX|
+05f7 | X  X  X|
+05f8 |       X|
+05f9 |X    X X|
+05fa |XX X    |
+05fb |    X X |
+05fc |    X X |
+05fd |    X X |
+05fe |    X X |
+05ff |   XX   |
+0600 | XX  X X|
+0601 |XX X    |
+0602 | XX X  X|
+0603 |X   XX  |
+0604 |X    X X|
+0605 |XXX    X|
+0606 |X X X  X|
+0607 |        |
+0608 | XX X  X|
+0609 |XXXXXXX |
+060a |X    X X|
+060b |XXX   X |
+060c |X  XX   |
+060d |  X X  X|
+060e |      XX|
+060f |X X X   |
+0610 |X XXX  X|
+0611 |X   X   |
+0612 |XXXXXXXX|
+0613 |  X     |
+0614 |XX XX XX|
+0615 |XXXX X  |
+0616 |X    X X|
+0617 |XXX XXXX|
+0618 |X X  X  |
+0619 |X  XXX  |
+061a |X XXX  X|
+061b |X   XX  |
+061c |XXXXXXXX|
+061d |X    X X|
+061e |XX XXX  |
+061f |X X X  X|
+0620 |        |
+0621 |X    X X|
+0622 |XXXX   X|
+0623 |X X X  X|
+0624 |   X   X|
+0625 |X    X X|
+0626 |XXX XX X|
+0627 |X X X  X|
+0628 |  XX X X|
+0629 |X    X X|
+062a |     X  |
+062b | XX     |
+062c |X    X X|
+062d |  X XX  |
+062e |X X     |
+062f |        |
+0630 |X X  X X|
+0631 |XX  XX X|
+0632 |XX   X X|
+0633 |XX X  XX|
+0634 |XXXX    |
+0635 |    X   |
+0636 |X    X X|
+0637 |      X |
+0638 |X    X X|
+0639 |      X |
+063a |XX   XX |
+063b |XX  XX X|
+063c |   X    |
+063d |XXXX  X |
+063e |X X  X X|
+063f |XX X    |
+0640 |  X X  X|
+0641 |    XXXX|
+0642 |XX X    |
+0643 |      XX|
+0644 |XXX X   |
+0645 |XXX X   |
+0646 |XXX X   |
+0647 |X    X X|
+0648 |      X |
+0649 |X X  X X|
+064a |XXXX X X|
+064b |X    X X|
+064c |    X   |
+064d |X    X  |
+064e |   XXX  |
+064f |X XXXX X|
+0650 |XX X    |
+0651 |XXXXXXX |
+0652 |X    X X|
+0653 |    XX X|
+0654 |X XXXX X|
+0655 |XX X   X|
+0656 |XXXXXXX |
+0657 |X    X X|
+0658 |    XXX |
+0659 |X XXXX X|
+065a |XX X  X |
+065b |XXXXXXX |
+065c |X    X X|
+065d |    XXXX|
+065e |X X  X X|
+065f |XX  XX X|
+0660 |  XXX   |
+0661 |XXX  X X|
+0662 |XXX XXXX|
+0663 |XX   X X|
+0664 |XXX XX X|
+0665 |X XX    |
+0666 |  X  XX |
+0667 |X X X   |
+0668 |X XX   X|
+0669 |XXX    X|
+066a |X X X   |
+066b |XX   XX |
+066c |XX  XX X|
+066d |X X  X X|
+066e |XX  XX X|
+066f |XX   X X|
+0670 |XX X X  |
+0671 |XXXX    |
+0672 |   XXXX |
+0673 |XX   XX |
+0674 |XX X    |
+0675 |X    X X|
+0676 |      X |
+0677 |X    X  |
+0678 |   XX XX|
+0679 |X X  X X|
+067a |XX  XX X|
+067b |  XXX   |
+067c |XXX  X X|
+067d |XXXX    |
+067e |XX   X X|
+067f |XXX XXX |
+0680 |X XX    |
+0681 |     XXX|
+0682 |X X X   |
+0683 |X XX   X|
+0684 |XXX   XX|
+0685 |X X X   |
+0686 | X  XX  |
+0687 |  XXXXX |
+0688 |XXXX XX |
+0689 |X X     |
+068a |        |
+068b |XXXX    |
+068c |X XX   X|
+068d |X X     |
+068e |        |
+068f |XXXX    |
+0690 |XX XX X |
+0691 |X    X X|
+0692 |      X |
+0693 |X X X  X|
+0694 |        |
+0695 |X    X X|
+0696 |   XX XX|
+0697 |X    X X|
+0698 |   XXX  |
+0699 |X    X X|
+069a |    XXX |
+069b |X    X X|
+069c |    XXXX|
+069d |X    X X|
+069e |   XXX X|
+069f |X    X X|
+06a0 |   XXXXX|
+06a1 |XX   XX |
+06a2 |XX  XX X|
+06a3 |  XX    |
+06a4 |     XX |
+06a5 |X    X X|
+06a6 |      X |
+06a7 |X    X X|
+06a8 |      X |
+06a9 |   X    |
+06aa |XXXX XX |
+06ab |X    X X|
+06ac |      X |
+06ad |X X  X X|
+06ae |XXXX X  |
+06af |X    X X|
+06b0 |    X  X|
+06b1 |X X     |
+06b2 |XXXXXXXX|
+06b3 |X    X  |
+06b4 |    XX X|
+06b5 |XX  X   |
+06b6 |X    X  |
+06b7 |    X   |
+06b8 |X X   X |
+06b9 |     XXX|
+06ba |X    X X|
+06bb |      X |
+06bc |XX  X X |
+06bd |   X    |
+06be |XXXXXX X|
+06bf |X    X X|
+06c0 |   X    |
+06c1 |X X X  X|
+06c2 | X      |
+06c3 |X    X X|
+06c4 |  X     |
+06c5 |X    X X|
+06c6 |      X |
+06c7 |X    X X|
+06c8 |  X X X |
+06c9 |X X X  X|
+06ca |  XX  X |
+06cb |X    X X|
+06cc |     X  |
+06cd |X    X X|
+06ce |     X X|
+06cf |X    XX |
+06d0 |XX XX XX|
+06d1 |X    XX |
+06d2 |XX XX  X|
+06d3 |X    XX |
+06d4 |XX X XXX|
+06d5 |X    XX |
+06d6 |XX X X X|
+06d7 |X X  X X|
+06d8 |X     X |
+06d9 |  X X  X|
+06da |XXXX    |
+06db | X  X X |
+06dc |X    X X|
+06dd |XX X X  |
+06de |X X  X X|
+06df |X     X |
+06e0 |  X X  X|
+06e1 |    XXXX|
+06e2 |    X X |
+06e3 |    X X |
+06e4 |    X X |
+06e5 |X    X X|
+06e6 |XX X XX |
+06e7 |X X  X X|
+06e8 |X  X XX |
+06e9 |    X X |
+06ea |    X X |
+06eb |    X X |
+06ec |X    X X|
+06ed |XX XX   |
+06ee |  X  X  |
+06ef |X  XX  X|
+06f0 | X X    |
+06f1 |     X  |
+06f2 |X X  X  |
+06f3 |XX  XX  |
+06f4 |   X    |
+06f5 |      X |
+06f6 |X X  X  |
+06f7 |X   XX X|
+06f8 |XX  X   |
+06f9 |X  XX   |
+06fa |    X X |
+06fb |    X X |
+06fc |    X X |
+06fd |X    X X|
+06fe |XX XX X |
+06ff |X X  XX |
+0700 |X  XX X |
+0701 |  X     |
+0702 |XXX   X |
+0703 |XXXX X  |
+0704 |X    XX |
+0705 |XX X   X|
+0706 |  X  X  |
+0707 |X  XX X |
+0708 |   X    |
+0709 |      X |
+070a |X X X  X|
+070b | XX X X |
+070c |X    X X|
+070d |XX X    |
+070e |X X  X X|
+070f |XXXX  XX|
+0710 |X    X X|
+0711 |     XX |
+0712 |X    X X|
+0713 |     XXX|
+0714 |X X     |
+0715 |     XXX|
+0716 |X    X X|
+0717 |      X |
+0718 |X XX   X|
+0719 |XX XX X |
+071a |X    X X|
+071b |   XX XX|
+071c |X X   X |
+071d |     X X|
+071e |XX  X X |
+071f |   X    |
+0720 |XXXXXX X|
+0721 |X XX   X|
+0722 |XX X    |
+0723 |X    X X|
+0724 |   XX XX|
+0725 |X   X   |
+0726 |   X    |
+0727 |XXX XXX |
+0728 |XX  X   |
+0729 |X    X  |
+072a |      X |
+072b |X    X  |
+072c |   XX XX|
+072d |X    X  |
+072e |   XXX  |
+072f |X X   X |
+0730 |      XX|
+0731 |X    X X|
+0732 |      X |
+0733 |XX  X X |
+0734 |XXX X X |
+0735 |   X    |
+0736 |XXXXXX  |
+0737 |X X  X X|
+0738 |XX X    |
+0739 |X    X X|
+073a |   X    |
+073b |X    X X|
+073c |   X   X|
+073d |X X X  X|
+073e |  XX X  |
+073f |X    X X|
+0740 |     X  |
+0741 |X    X X|
+0742 |     X X|
+0743 |X X     |
+0744 |     XXX|
+0745 |X    X X|
+0746 |      X |
+0747 |X XX   X|
+0748 |XX X X  |
+0749 |X    X X|
+074a |   XX XX|
+074b |X XX   X|
+074c |XX X XX |
+074d |X    X X|
+074e |   XXX  |
+074f |X X   X |
+0750 |      XX|
+0751 |XX  X X |
+0752 |   X    |
+0753 |XXXXXX X|
+0754 |X X  X X|
+0755 |XX  XX X|
+0756 |XXX X   |
+0757 |X    XX |
+0758 |   XX XX|
+0759 |X XX   X|
+075a |XX XX   |
+075b |X    X X|
+075c |   XXX  |
+075d |X   X   |
+075e |   X    |
+075f |XXX  X X|
+0760 |XX  X   |
+0761 |X    X  |
+0762 |   XXX  |
+0763 |X X  X X|
+0764 |X  XX  X|
+0765 |XX X    |
+0766 |  XXXX  |
+0767 |X X  X X|
+0768 |X     XX|
+0769 |XX X    |
+076a |    X   |
+076b |X X  XX |
+076c |X  XX   |
+076d |XXX     |
+076e | XXXXXXX|
+076f |XXXX    |
+0770 | XX X X |
+0771 |X    X X|
+0772 |X  X  X |
+0773 |X X  X X|
+0774 |X  XX   |
+0775 |X X X   |
+0776 |XX  X  X|
+0777 | XXXXXXX|
+0778 |XXXX    |
+0779 |   X    |
+077a |  X X  X|
+077b |    XXXX|
+077c |XX X    |
+077d |    XXX |
+077e |X  XX   |
+077f |XXXX    |
+0780 |    X  X|
+0781 |  XX    |
+0782 |     XXX|
+0783 |X X  XX |
+0784 |XXX X XX|
+0785 |X XXXX X|
+0786 |        |
+0787 |XXXX    |
+0788 |  X X  X|
+0789 |       X|
+078a |X    X X|
+078b |X  X  X |
+078c |X X  X X|
+078d |X  X  X |
+078e |XX X    |
+078f |     X  |
+0790 |XXX  XX |
+0791 |X  XX   |
+0792 |XX X    |
+0793 |      X |
+0794 |XX   XX |
+0795 |X  XX   |
+0796 |X X   X |
+0797 |    X   |
+0798 |X  XX   |
+0799 | X  X X |
+079a | X  X X |
+079b | X  X X |
+079c |    X  X|
+079d |   X    |
+079e |X X X   |
+079f | X  X  X|
+07a0 |    XXXX|
+07a1 |   X    |
+07a2 |  XXX X |
+07a3 | X  X X |
+07a4 |X  X    |
+07a5 |   XXXX |
+07a6 |X X  X X|
+07a7 |X   XXXX|
+07a8 |XX X    |
+07a9 |    XX X|
+07aa |X X  X X|
+07ab |XXX X XX|
+07ac |  X X  X|
+07ad | XXX    |
+07ae | X  X X |
+07af | X  X X |
+07b0 |   XX   |
+07b1 | XX X  X|
+07b2 |   X    |
+07b3 |X    X X|
+07b4 |X   XXXX|
+07b5 |   X    |
+07b6 |  X  X  |
+07b7 |X X  X X|
+07b8 |X   XXXX|
+07b9 | X  X  X|
+07ba |XXXXXXXX|
+07bb |X X X   |
+07bc |XX   XX |
+07bd |X   XXXX|
+07be |X X   X |
+07bf |    X   |
+07c0 |X X X  X|
+07c1 |    XX  |
+07c2 |   X    |
+07c3 |   XX  X|
+07c4 |XX  X  X|
+07c5 |  X   X |
+07c6 |XX X    |
+07c7 |   X  XX|
+07c8 |X X  X X|
+07c9 |X   X  X|
+07ca | X  X X |
+07cb | X  X X |
+07cc | X  X X |
+07cd | X  X X |
+07ce |  X X  X|
+07cf |      XX|
+07d0 |X X X X |
+07d1 |X XXXX X|
+07d2 |X  XXXX |
+07d3 |XXXXXXXX|
+07d4 |X X X   |
+07d5 |X X X  X|
+07d6 |    X  X|
+07d7 |X X   X |
+07d8 |    XX  |
+07d9 |   X    |
+07da |      X |
+07db |X X X  X|
+07dc |        |
+07dd |X    XX |
+07de |   X X X|
+07df |X    X  |
+07e0 |   X XXX|
+07e1 |X    X X|
+07e2 |   XX  X|
+07e3 |X X  X X|
+07e4 |X  XX  X|
+07e5 |XX X    |
+07e6 | X XX X |
+07e7 |X X  X  |
+07e8 |X  X  XX|
+07e9 |X X  X X|
+07ea |X  X    |
+07eb |XX X    |
+07ec |     XXX|
+07ed |X    X X|
+07ee |   XX X |
+07ef |X    X X|
+07f0 |X  X  XX|
+07f1 | X  XX  |
+07f2 | XXX X X|
+07f3 |XXXXX   |
+07f4 |XX   XX |
+07f5 |X  X    |
+07f6 |XX      |
+07f7 |      X |
+07f8 |XX X    |
+07f9 |    X XX|
+07fa |X X   X |
+07fb |     XX |
+07fc |X X  X X|
+07fd |X  X    |
+07fe | X  X  X|
+07ff |      XX|
+0800 |X X X   |
+0801 |X X X  X|
+0802 |    X   |
+0803 |XX X    |
+0804 |  XXXXX |
+0805 |XX      |
+0806 |      XX|
+0807 |XX X    |
+0808 |     XX |
+0809 |X X   X |
+080a |      X |
+080b |X X  X X|
+080c |X  X    |
+080d |   X    |
+080e |XXXX   X|
+080f |XX      |
+0810 |     X  |
+0811 |XX X    |
+0812 |    X   |
+0813 |X X X  X|
+0814 |     XX |
+0815 |X X   X |
+0816 |    X   |
+0817 |X X     |
+0818 |    XXXX|
+0819 |XX X    |
+081a |  X X   |
+081b |XX      |
+081c |     X X|
+081d |XX X    |
+081e |    X X |
+081f |X X  X X|
+0820 |X  X    |
+0821 | X  X  X|
+0822 |      XX|
+0823 |X X     |
+0824 |    X   |
+0825 |X X   X |
+0826 |     XX |
+0827 |XX X    |
+0828 |   XX X |
+0829 |XX      |
+082a |     XX |
+082b |XX X    |
+082c |     X  |
+082d |X X  X X|
+082e |X  X    |
+082f |   X    |
+0830 |XXXX  X |
+0831 |XX      |
+0832 |     XXX|
+0833 |XX X    |
+0834 |     X  |
+0835 |X X   X |
+0836 |     X  |
+0837 |XX X    |
+0838 |XX X  X |
+0839 |XX      |
+083a |    X   |
+083b |XX X    |
+083c |    XX X|
+083d |X X   X |
+083e |    X   |
+083f |XX X    |
+0840 |XX  X X |
+0841 |X X     |
+0842 |        |
+0843 |X    X  |
+0844 |   XX X |
+0845 |X    X X|
+0846 |   XX   |
+0847 |X    XX |
+0848 |   X XX |
+0849 | XX     |
+084a |X X  X X|
+084b |X  X    |
+084c | X  X X |
+084d | X  X X |
+084e | X  X X |
+084f | X  X X |
+0850 |XX      |
+0851 |    X  X|
+0852 |XXXX    |
+0853 |     XX |
+0854 |XX      |
+0855 |    X X |
+0856 |XX X    |
+0857 |    XX  |
+0858 | X  X  X|
+0859 |      XX|
+085a |X X X X |
+085b |X XXXX X|
+085c |X X   X |
+085d |XXXXXXXX|
+085e |X X   X |
+085f |     XX |
+0860 |X X     |
+0861 |    X X |
+0862 |XX X    |
+0863 |XX XXXXX|
+0864 |XX      |
+0865 |    X XX|
+0866 |XX X    |
+0867 |    XX X|
+0868 |X X  X X|
+0869 |X  X    |
+086a |X X X   |
+086b |  X X  X|
+086c |     X  |
+086d |XXXX    |
+086e |XX X  X |
+086f |X X   X |
+0870 |     XX |
+0871 |X X X  X|
+0872 |       X|
+0873 |XX X    |
+0874 |XX  XXX |
+0875 |X X XX X|
+0876 |X       |
+0877 |      X |
+0878 | X  X  X|
+0879 |XXXXXXXX|
+087a |XXXX    |
+087b |XX   X X|
+087c |X X  X X|
+087d |X   X  X|
+087e |  X X  X|
+087f |     XXX|
+0880 |XX  X  X|
+0881 |      XX|
+0882 |X XX    |
+0883 |X XXXX X|
+0884 |X X     |
+0885 |    XXXX|
+0886 |X X   X |
+0887 |    X XX|
+0888 |X X X  X|
+0889 |   XX   |
+088a |XX X    |
+088b |X XX XXX|
+088c |XXX  X  |
+088d |X  X  XX|
+088e |XXXX    |
+088f |    XXXX|
+0890 |XXX     |
+0891 |      XX|
+0892 |XX X    |
+0893 |     X  |
+0894 |X X  X X|
+0895 |X  X  XX|
+0896 |XX X    |
+0897 |     XXX|
+0898 |X    XX |
+0899 |X  X  XX|
+089a |X XXXX X|
+089b |X X     |
+089c |XXXXX   |
+089d |X    X X|
+089e |X  X    |
+089f | XX     |
+08a0 |XXXXXXXX|
+08a1 |XXXXXXXX|
+08a2 |   X X X|
+08a3 |   X X X|
+08a4 |       X|
+08a5 |     X  |
+08a6 |     X  |
+08a7 |    X X |
+08a8 |   X X X|
+08a9 |  XXXXXX|
+08aa |  XXXXXX|
+08ab |   XXXXX|
+08ac |X X  X X|
+08ad |X  XX  X|
+08ae |  X X  X|
+08af |XXXXXX X|
+08b0 |X    X X|
+08b1 |X  XX  X|
+08b2 | XX X X |
+08b3 |X  X    |
+08b4 |  XX XXX|
+08b5 |XX   XX |
+08b6 |X       |
+08b7 |XX X    |
+08b8 |  XX  XX|
+08b9 |X X X  X|
+08ba |        |
+08bb |X    X X|
+08bc |X  XX  X|
+08bd |X    X X|
+08be |X  X  XX|
+08bf |X X  X X|
+08c0 |X  X XX |
+08c1 |XX X    |
+08c2 |      XX|
+08c3 |  X     |
+08c4 | X     X|
+08c5 |XXXX   X|
+08c6 |  X     |
+08c7 |XXX  XXX|
+08c8 |XXXX    |
+08c9 |X    X X|
+08ca |  X XX  |
+08cb |X X  X X|
+08cc |XX  X X |
+08cd |XX  X  X|
+08ce |       X|
+08cf |XX X    |
+08d0 |   XX X |
+08d1 |X X  X  |
+08d2 |XX  XX  |
+08d3 |XX      |
+08d4 |     XX |
+08d5 |X  X    |
+08d6 |   X X  |
+08d7 |X X  XX |
+08d8 |X  XX X |
+08d9 |  XX    |
+08da |   X    |
+08db |X X  X X|
+08dc |X X  XX |
+08dd |X  X X X|
+08de |X X     |
+08df |X X  X X|
+08e0 |X XX   X|
+08e1 |X  X X X|
+08e2 |X X X XX|
+08e3 |X X  X X|
+08e4 |X XXXX  |
+08e5 |X  X X X|
+08e6 |X XX XX |
+08e7 |X X X  X|
+08e8 |XXXXXXXX|
+08e9 |X    X X|
+08ea |X  XX X |
+08eb | XX     |
+08ec |X X  X X|
+08ed |X   X  X|
+08ee |  X X  X|
+08ef |     XXX|
+08f0 |X    X X|
+08f1 |XX  XX X|
+08f2 |X X X   |
+08f3 |X X X  X|
+08f4 |X   X   |
+08f5 |  XXX  X|
+08f6 |        |
+08f7 |XXXXXXX |
+08f8 |X    X X|
+08f9 |XX XX X |
+08fa |X X X  X|
+08fb |        |
+08fc |X    X X|
+08fd |X     XX|
+08fe |X X  XX |
+08ff |XXX X X |
+0900 |X XX X X|
+0901 |X X  X X|
+0902 |XX   X X|
+0903 |X   XX X|
+0904 |XX X    |
+0905 |  XXXXXX|
+0906 |X XX X X|
+0907 |XX   X X|
+0908 |XX   X X|
+0909 |X  XXX  |
+090a |XXXX    |
+090b |     X  |
+090c |XX   X X|
+090d |X  X XXX|
+090e |XX X    |
+090f |  XX X X|
+0910 |XXX  XX |
+0911 |X     XX|
+0912 |X X  X X|
+0913 |X       |
+0914 |XX X    |
+0915 |  XX XX |
+0916 |X   X X |
+0917 |XX X    |
+0918 |     XX |
+0919 |X X  X X|
+091a |XX  XX  |
+091b |XX  X  X|
+091c |     XXX|
+091d |X XX    |
+091e |     XX |
+091f |X X  X X|
+0920 |X  XX X |
+0921 |XX  X  X|
+0922 |       X|
+0923 |XXXX    |
+0924 |  X  XXX|
+0925 |  X     |
+0926 | XX XXXX|
+0927 |XXXXX X |
+0928 |XXXX    |
+0929 | XXX XX |
+092a |X X  X X|
+092b |X X X X |
+092c |  XXX   |
+092d |XXXXXX X|
+092e |XXX XX  |
+092f |XXXXXX X|
+0930 |X XX    |
+0931 |      X |
+0932 |X X  X X|
+0933 |X X X X |
+0934 |X    X X|
+0935 |XX X    |
+0936 |X X  X X|
+0937 |X XX X X|
+0938 |  XXX   |
+0939 |XXXXXX X|
+093a |XXXX   X|
+093b |XXXXXX X|
+093c |X XX    |
+093d |      X |
+093e |X X  X X|
+093f |X XX X X|
+0940 |X    X X|
+0941 |XX X   X|
+0942 | X  XX  |
+0943 |X     XX|
+0944 |XXXXX  X|
+0945 |  X     |
+0946 | XX X   |
+0947 |XXXXX X |
+0948 |XXXX    |
+0949 | X X XX |
+094a |XX X    |
+094b |     X  |
+094c |X X  X X|
+094d |XX XX X |
+094e |XXXX    |
+094f | X X    |
+0950 |X XX X X|
+0951 |XX      |
+0952 |  X X  X|
+0953 |  XXXXXX|
+0954 |X X X   |
+0955 |  X X  X|
+0956 |    XXXX|
+0957 |X    X X|
+0958 |XX X    |
+0959 |X  XX   |
+095a | X  X X |
+095b | X  X X |
+095c | X  X X |
+095d | X  X X |
+095e |X X X   |
+095f |X XXX  X|
+0960 |X X  XX |
+0961 |XXXXXXXX|
+0962 |   XX   |
+0963 | XX  X X|
+0964 |XX X    |
+0965 |X X X   |
+0966 |X XXX  X|
+0967 |X X X X |
+0968 |XXXXXXXX|
+0969 |X    X X|
+096a |XX X    |
+096b |X XXX  X|
+096c |X XXXX X|
+096d |XXXXXXXX|
+096e |X    X X|
+096f |XX X   X|
+0970 |XX X X X|
+0971 |X XXX XX|
+0972 |XX X    |
+0973 |    XXXX|
+0974 |X XX X X|
+0975 |X XX    |
+0976 |XX   X X|
+0977 |XX X    |
+0978 |XX X    |
+0979 |    X  X|
+097a |X X  X X|
+097b |X  X X X|
+097c |   XXX X|
+097d |        |
+097e |XXXXXXX |
+097f |X    X X|
+0980 |X  X X X|
+0981 |XX X    |
+0982 |   XXX X|
+0983 |X XX X X|
+0984 |X XX    |
+0985 |XX   X X|
+0986 |XX X    |
+0987 |X  X    |
+0988 |     XX |
+0989 |XXXX    |
+098a |     XX |
+098b |XX X XX |
+098c |X XX    |
+098d |XX X    |
+098e |      X |
+098f |XXXX XX |
+0990 |X XX    |
+0991 |X XX X X|
+0992 |X XXX XX|
+0993 |XX   X X|
+0994 |XX X   X|
+0995 |X  X    |
+0996 |     XXX|
+0997 |XXXX    |
+0998 |     XXX|
+0999 |XX X XX |
+099a |X XXX XX|
+099b | X  XX  |
+099c |X X     |
+099d |XXXXX  X|
+099e |XXXX XX |
+099f |X XXX XX|
+09a0 |XX  X X |
+09a1 |  XX    |
+09a2 |      XX|
+09a3 | X  XX  |
+09a4 |        |
+09a5 |XXXXX  X|
+09a6 |X X   X |
+09a7 |        |
+09a8 |X X  X X|
+09a9 |X  X X X|
+09aa | XX X X |
+09ab |X XX    |
+09ac |    X   |
+09ad |XXX X   |
+09ae |XXX  X  |
+09af |XXX X X |
+09b0 |XXXX    |
+09b1 |XXXXX   |
+09b2 |X  X    |
+09b3 |XXXX XX |
+09b4 | XX     |
+09b5 |X X  X X|
+09b6 |X  X X X|
+09b7 | X XXX X|
+09b8 |        |
+09b9 |XXXXXXX |
+09ba |X    X X|
+09bb |X  X X X|
+09bc |X XX X X|
+09bd |XX      |
+09be |X X X   |
+09bf |  X X  X|
+09c0 |  XX    |
+09c1 |XXXX    |
+09c2 |  XX    |
+09c3 |XX  X  X|
+09c4 |   X    |
+09c5 |XX X    |
+09c6 |   X X  |
+09c7 |X  XX   |
+09c8 |  X X  X|
+09c9 |XX      |
+09ca |X    X X|
+09cb |XX X    |
+09cc |   XX   |
+09cd |  X X X |
+09ce |  X X X |
+09cf |  X X X |
+09d0 |X X X   |
+09d1 |X XXX  X|
+09d2 |XX X    |
+09d3 |XXXXXXXX|
+09d4 |   XX   |
+09d5 | XXX X X|
+09d6 |XX   X X|
+09d7 |X  X X X|
+09d8 |XX   X X|
+09d9 |   X    |
+09da |   X   X|
+09db |XX  X  X|
+09dc |  XX    |
+09dd |XXXX    |
+09de |     X  |
+09df |XX X XX |
+09e0 |X X  X X|
+09e1 |   X    |
+09e2 |      X |
+09e3 |XXXX XX |
+09e4 |X X  X X|
+09e5 |X  XX   |
+09e6 |  X X  X|
+09e7 |XX      |
+09e8 | X  X  X|
+09e9 | X      |
+09ea |X    X X|
+09eb |XX X    |
+09ec |X XX X X|
+09ed |XX   X X|
+09ee |     X X|
+09ef |XX X    |
+09f0 |X  X X X|
+09f1 |XX      |
+09f2 | XX     |
+09f3 |X  XX   |
+09f4 |  X X X |
+09f5 |  X X X |
+09f6 |  X X X |
+09f7 |  X X  X|
+09f8 |      XX|
+09f9 | X  X  X|
+09fa |       X|
+09fb |X    X X|
+09fc |XX X X  |
+09fd |X X  X X|
+09fe |XXX X XX|
+09ff |  X X  X|
+0a00 |      XX|
+0a01 |X    X X|
+0a02 |XX X  XX|
+0a03 |X    X X|
+0a04 |XX X  X |
+0a05 |   X    |
+0a06 |    XX  |
+0a07 |XXX  XX |
+0a08 |XX X  X |
+0a09 |X X  X X|
+0a0a |XX X  X |
+0a0b |  X X  X|
+0a0c |      XX|
+0a0d |X    X X|
+0a0e |XX X  X |
+0a0f |XX   X X|
+0a10 |XX X  XX|
+0a11 |XXXX    |
+0a12 |    X X |
+0a13 |XX   X X|
+0a14 |XX X X  |
+0a15 |XXXX    |
+0a16 |XXXX    |
+0a17 |  X     |
+0a18 |   XXXXX|
+0a19 |XXXXX X |
+0a1a |XXXX    |
+0a1b |XXX X XX|
+0a1c | XX     |
+0a1d |X X  X X|
+0a1e |XX X X  |
+0a1f |X    X X|
+0a20 |XX X XX |
+0a21 |X XX X X|
+0a22 |X X  X X|
+0a23 |X    X X|
+0a24 |XX X XXX|
+0a25 |X XX X X|
+0a26 |XX   X X|
+0a27 |X    X X|
+0a28 |XX X    |
+0a29 |  X     |
+0a2a |X X XXX |
+0a2b |XXXXXX X|
+0a2c |  XX    |
+0a2d |   X  XX|
+0a2e |XXXX    |
+0a2f |    X  X|
+0a30 |X X  X X|
+0a31 |XX  XX  |
+0a32 |XX  X  X|
+0a33 |    X   |
+0a34 |XXXX    |
+0a35 |      XX|
+0a36 |X   X X |
+0a37 |XX X    |
+0a38 |  X XX  |
+0a39 |X X  X X|
+0a3a |XX XX   |
+0a3b |X    X X|
+0a3c |XX X    |
+0a3d |X X X  X|
+0a3e |       X|
+0a3f |XX X    |
+0a40 |   X X X|
+0a41 |XX  X  X|
+0a42 |XXXXXXXX|
+0a43 |XXXX    |
+0a44 |  X     |
+0a45 |X XX X  |
+0a46 |X X  X X|
+0a47 |X XX X X|
+0a48 |XX   X X|
+0a49 |  X     |
+0a4a | X  XX  |
+0a4b |XXXXXX X|
+0a4c |X XX    |
+0a4d |   X XXX|
+0a4e |XX X    |
+0a4f |     X  |
+0a50 |X X X  X|
+0a51 |      X |
+0a52 |XX X    |
+0a53 |      X |
+0a54 |X X X  X|
+0a55 |      XX|
+0a56 |     XX |
+0a57 |XX X XX |
+0a58 |     XX |
+0a59 |XX X XX |
+0a5a |     X X|
+0a5b |XX X XX |
+0a5c |    X X |
+0a5d |    X X |
+0a5e |    X X |
+0a5f |    X X |
+0a60 |     X X|
+0a61 |XX X    |
+0a62 |X  X X X|
+0a63 |XX      |
+0a64 | XX     |
+0a65 |X X X  X|
+0a66 |        |
+0a67 | XX     |
+0a68 |X X  X X|
+0a69 |X  X X  |
+0a6a |  XXXX X|
+0a6b |        |
+0a6c |XXXXXXX |
+0a6d |XXXX    |
+0a6e |   X X  |
+0a6f |X X  X X|
+0a70 |XX  XX  |
+0a71 |XX  X  X|
+0a72 |     XXX|
+0a73 |X  X    |
+0a74 |     X X|
+0a75 |X XXXX X|
+0a76 |X   X XX|
+0a77 |XXXXX X |
+0a78 |XX X    |
+0a79 |      XX|
+0a7a |X XXXX X|
+0a7b |X    XX |
+0a7c |XXXXX X |
+0a7d |X X  X  |
+0a7e |XX  XX X|
+0a7f |  XXX  X|
+0a80 |        |
+0a81 |XXXXXXX |
+0a82 | XX     |
+0a83 |X X  X X|
+0a84 |XX XX X |
+0a85 | XX     |
+0a86 |X X X X |
+0a87 |X  X   X|
+0a88 |X   X   |
+0a89 |X   X   |
+0a8a |X   X   |
+0a8b |X X X X |
+0a8c |X X X X |
+0a8d |X  X   X|
+0a8e |X  X   X|
+0a8f |X  X   X|
+0a90 |X X  X X|
+0a91 |X       |
+0a92 |XX X    |
+0a93 |XX X   X|
+0a94 |  X  X  |
+0a95 |  XX XXX|
+0a96 |   X    |
+0a97 |XX  XX X|
+0a98 |X X  X X|
+0a99 |X      X|
+0a9a |XX X    |
+0a9b |XX  X  X|
+0a9c |  X  X  |
+0a9d |X   X X |
+0a9e | X X    |
+0a9f |      XX|
+0aa0 |   X    |
+0aa1 |    X X |
+0aa2 | XX     |
+0aa3 |X X  X X|
+0aa4 |X    X X|
+0aa5 |XX   X X|
+0aa6 |XXX X X |
+0aa7 |XXXX    |
+0aa8 | XX   XX|
+0aa9 |X  X    |
+0aaa | XX    X|
+0aab | XX     |
+0aac |X X   X |
+0aad |     XX |
+0aae |  X     |
+0aaf |X   XX  |
+0ab0 |XXXXX   |
+0ab1 |X X  X X|
+0ab2 |X  XX X |
+0ab3 |  XX    |
+0ab4 | X  X  X|
+0ab5 |XX   X X|
+0ab6 |X    XX |
+0ab7 |XXXX    |
+0ab8 | X   X X|
+0ab9 |XX  X  X|
+0aba |      X |
+0abb |X  X    |
+0abc | X     X|
+0abd |X X  X X|
+0abe |X    XX |
+0abf |XX  X  X|
+0ac0 |      X |
+0ac1 |X  X    |
+0ac2 |  XXX XX|
+0ac3 |   XX   |
+0ac4 | XX  X X|
+0ac5 |X  XX X |
+0ac6 |X X X   |
+0ac7 |X X   X |
+0ac8 |     XXX|
+0ac9 |  X     |
+0aca |X   XX  |
+0acb |XXXXX   |
+0acc |X X  X X|
+0acd |X  XXXX |
+0ace |     X X|
+0acf |X  XXXXX|
+0ad0 |   X    |
+0ad1 |   X  XX|
+0ad2 |X X   X |
+0ad3 |    X XX|
+0ad4 |  X     |
+0ad5 |X   XX  |
+0ad6 |XXXXX   |
+0ad7 |X X X  X|
+0ad8 |    X   |
+0ad9 |X    X X|
+0ada |X  XXX X|
+0adb |X X X  X|
+0adc |XXXXXXXX|
+0add |X    X X|
+0ade |X  XXXX |
+0adf |X    X X|
+0ae0 |X  XXXXX|
+0ae1 |X X X  X|
+0ae2 |      X |
+0ae3 |XX X    |
+0ae4 |   XX XX|
+0ae5 |X X   X |
+0ae6 |      X |
+0ae7 |XX      |
+0ae8 |     X X|
+0ae9 |XX X    |
+0aea |       X|
+0aeb |XX  X X |
+0aec |X X X  X|
+0aed |XXXXXXXX|
+0aee |X  X X X|
+0aef |X  XXX X|
+0af0 |X X   X |
+0af1 |        |
+0af2 |XX      |
+0af3 |     XXX|
+0af4 |XX X    |
+0af5 |       X|
+0af6 |XXX X   |
+0af7 |X  X X  |
+0af8 |X  XXX X|
+0af9 |XXX X   |
+0afa |XXX X   |
+0afb |X   X X |
+0afc |XX X    |
+0afd |      X |
+0afe |X X  X X|
+0aff |X    XX |
+0b00 | X  X   |
+0b01 |  X  X  |
+0b02 |X  XX X |
+0b03 |  XX    |
+0b04 |      XX|
+0b05 |  X     |
+0b06 |XXX   X |
+0b07 |XXXXX XX|
+0b08 | XX X   |
+0b09 |X    X X|
+0b0a |X  XX X |
+0b0b | XX     |
+0b0c |X X  X X|
+0b0d |XX  XX  |
+0b0e |XX  X  X|
+0b0f |     XXX|
+0b10 |X  X    |
+0b11 |     X  |
+0b12 |X X  X X|
+0b13 |X    X X|
+0b14 |XXXX    |
+0b15 |     XX |
+0b16 |X X  X X|
+0b17 |X  XX X |
+0b18 |XX  X  X|
+0b19 |       X|
+0b1a |XXXX    |
+0b1b |XXX XXXX|
+0b1c |X X   X |
+0b1d |       X|
+0b1e |X    XX |
+0b1f |X  XX  X|
+0b20 |X X   X |
+0b21 |XXXXXXXX|
+0b22 |X    XX |
+0b23 |X       |
+0b24 |XX   XX |
+0b25 |X  X XX |
+0b26 |X X  X X|
+0b27 |X    X X|
+0b28 |X    X X|
+0b29 |XX  X X |
+0b2a | XX     |
+0b2b |X X  X X|
+0b2c |XX  XX  |
+0b2d |XX  X  X|
+0b2e |     X X|
+0b2f |X  X    |
+0b30 | XX    X|
+0b31 |X X  X X|
+0b32 |X  XX XX|
+0b33 |  X X  X|
+0b34 |     XXX|
+0b35 |    X X |
+0b36 |    X X |
+0b37 |X    X X|
+0b38 |XX X    |
+0b39 |    X X |
+0b3a |    X X |
+0b3b |    X X |
+0b3c |    X X |
+0b3d |     X X|
+0b3e |XX X    |
+0b3f |  X X  X|
+0b40 |XX X    |
+0b41 |    X  X|
+0b42 |  X     |
+0b43 |     X X|
+0b44 |X  XXX  |
+0b45 |X    X X|
+0b46 |XX X    |
+0b47 |X X  XX |
+0b48 |XXX X X |
+0b49 |X X X  X|
+0b4a |        |
+0b4b |X    X X|
+0b4c |X  X X  |
+0b4d |X XX X X|
+0b4e |X X  X X|
+0b4f |XX   X X|
+0b50 |X   XX X|
+0b51 |XX X    |
+0b52 |   X   X|
+0b53 |X XX X X|
+0b54 |XX   X X|
+0b55 |XX   X X|
+0b56 |X  XXX  |
+0b57 |XX X    |
+0b58 |    X XX|
+0b59 |X X  X X|
+0b5a |XX X    |
+0b5b |X  X X X|
+0b5c |XX      |
+0b5d |X X  X X|
+0b5e |X  X X  |
+0b5f |   XXX X|
+0b60 |        |
+0b61 |XXXXXXX |
+0b62 |X    X X|
+0b63 |X  X X  |
+0b64 |XX  X X |
+0b65 |   X    |
+0b66 |XXX  XX |
+0b67 | XX     |
+0b68 |X X  X X|
+0b69 |X  XX XX|
+0b6a |  X X  X|
+0b6b |    XXXX|
+0b6c |XX  X  X|
+0b6d |    XXXX|
+0b6e |XXXX    |
+0b6f |  X   X |
+0b70 |  X  X  |
+0b71 |X  XX XX|
+0b72 |   X    |
+0b73 |   XXX  |
+0b74 | XXX    |
+0b75 |   XXX  |
+0b76 |  X     |
+0b77 |  X X XX|
+0b78 |XXXXX XX|
+0b79 |X X   X |
+0b7a |    X  X|
+0b7b |X X  X X|
+0b7c |X  XX XX|
+0b7d |  X X  X|
+0b7e |     X  |
+0b7f |XXXX    |
+0b80 |     X  |
+0b81 |XXX  XX |
+0b82 |X   XX X|
+0b83 |XX X    |
+0b84 |      XX|
+0b85 |XX   XX |
+0b86 |X   XX X|
+0b87 |XXX X   |
+0b88 |  X     |
+0b89 |X   XX  |
+0b8a |XXXXX   |
+0b8b |  X     |
+0b8c |    X X |
+0b8d |XXXXXX X|
+0b8e |    X  X|
+0b8f | X      |
+0b90 |X    X X|
+0b91 |X  XX XX|
+0b92 |X X XX X|
+0b93 |X       |
+0b94 |      X |
+0b95 |  X X  X|
+0b96 |XXXX    |
+0b97 | X  X  X|
+0b98 |XXXX    |
+0b99 |X    X X|
+0b9a |X   XXX |
+0b9b |X X  X X|
+0b9c |X     XX|
+0b9d |XX X    |
+0b9e |  XX X X|
+0b9f |X X  X X|
+0ba0 |  XXXX  |
+0ba1 |  X X X |
+0ba2 | XX  XX |
+0ba3 |XXX  XX |
+0ba4 |X X  X X|
+0ba5 |XXX  XX |
+0ba6 |XX  X  X|
+0ba7 | XXXXXXX|
+0ba8 |XX X    |
+0ba9 |  X X X |
+0baa |  X  X  |
+0bab |X   X X |
+0bac | XXX    |
+0bad |   X X  |
+0bae |X X X  X|
+0baf |   X X  |
+0bb0 |X    X X|
+0bb1 |XX XXXXX|
+0bb2 |XXXXX   |
+0bb3 |X X  X X|
+0bb4 |X     X |
+0bb5 |   XX   |
+0bb6 | XX X  X|
+0bb7 |       X|
+0bb8 |X    X X|
+0bb9 |X     X |
+0bba |XX XX   |
+0bbb |X X  X X|
+0bbc |X   X X |
+0bbd |    X  X|
+0bbe | X      |
+0bbf |X    X X|
+0bc0 |X   X X |
+0bc1 | XX     |
+0bc2 |  X  X  |
+0bc3 |X  XX X |
+0bc4 |  XX    |
+0bc5 |    XXX |
+0bc6 |X X   X |
+0bc7 |     X X|
+0bc8 |  X     |
+0bc9 |X   XX  |
+0bca |XXXXX   |
+0bcb |  X     |
+0bcc |XXX   X |
+0bcd |XXXXX XX|
+0bce |X X X  X|
+0bcf |XXXXXXXX|
+0bd0 |X    X X|
+0bd1 |X  XX X |
+0bd2 |XX X    |
+0bd3 |  XX XX |
+0bd4 |X X  X X|
+0bd5 |X      X|
+0bd6 |XXXX    |
+0bd7 |  XX  X |
+0bd8 |  X  X  |
+0bd9 |  XX  X |
+0bda |  XX    |
+0bdb |   XXXXX|
+0bdc |X X X  X|
+0bdd |        |
+0bde |X    X X|
+0bdf |X      X|
+0be0 |XXXX    |
+0be1 |  X X   |
+0be2 |X X X  X|
+0be3 |     X X|
+0be4 |X    X X|
+0be5 |X      X|
+0be6 |X X  X X|
+0be7 |X  XX X |
+0be8 |X    X X|
+0be9 |XXX X  X|
+0bea |X X  X X|
+0beb |XXX  XXX|
+0bec |X X X   |
+0bed |     X X|
+0bee |XXX X   |
+0bef |XXXX    |
+0bf0 |    X X |
+0bf1 |XX  X   |
+0bf2 |XX  X   |
+0bf3 |X X  XX |
+0bf4 |XXX X   |
+0bf5 |XXX X   |
+0bf6 |  X     |
+0bf7 |    X XX|
+0bf8 |XXXXXX  |
+0bf9 |X  X    |
+0bfa |    XXXX|
+0bfb |XX   XX |
+0bfc |X      X|
+0bfd |XXXX    |
+0bfe |    X XX|
+0bff |X X  XX |
+0c00 |X      X|
+0c01 |XX  X X |
+0c02 |X X  X  |
+0c03 |X      X|
+0c04 |X   X   |
+0c05 |  X     |
+0c06 |    X XX|
+0c07 |XXXXXX  |
+0c08 |X XX    |
+0c09 |XXXX   X|
+0c0a | XX     |
+0c0b |X XXXX X|
+0c0c |      XX|
+0c0d |XXXXXX X|
+0c0e |X X  XX |
+0c0f |X XX X X|
+0c10 |XXX     |
+0c11 |XXXX X  |
+0c12 |X  X    |
+0c13 |     X  |
+0c14 |XX  X  X|
+0c15 |    X X |
+0c16 |XXXX    |
+0c17 |  X   X |
+0c18 |   XX   |
+0c19 | XX  X X|
+0c1a |X XX X X|
+0c1b |XX  X  X|
+0c1c |XXXX X  |
+0c1d |X XX    |
+0c1e |   XX XX|
+0c1f |X X  XX |
+0c20 |XXX X  X|
+0c21 |X  X X X|
+0c22 |X XX XX |
+0c23 |  X     |
+0c24 |XX XX XX|
+0c25 |XXXX X  |
+0c26 |X    X X|
+0c27 |XXX XXXX|
+0c28 |X XXX  X|
+0c29 |      X |
+0c2a |XXXXXX X|
+0c2b |   XX   |
+0c2c | XX  X X|
+0c2d |X X X X |
+0c2e |XX  X  X|
+0c2f |X  X XXX|
+0c30 |X XX    |
+0c31 |    X   |
+0c32 |X X  XX |
+0c33 |XXX X  X|
+0c34 |X  X X X|
+0c35 |X X X XX|
+0c36 |X    X X|
+0c37 |XX XXX  |
+0c38 |   XX   |
+0c39 | XX     |
+0c3a |  XXX   |
+0c3b | XX     |
+0c3c |X X X  X|
+0c3d |     X X|
+0c3e |X    X X|
+0c3f |XX X    |
+0c40 |X X   X |
+0c41 |        |
+0c42 |X X  X  |
+0c43 |XX X    |
+0c44 |X XXX  X|
+0c45 | XXX X  |
+0c46 |XXXXXX  |
+0c47 |X X X   |
+0c48 |X X  X X|
+0c49 |X   XXX |
+0c4a |  XXX  X|
+0c4b | XXXX X |
+0c4c |XXXXXX  |
+0c4d |XXXX    |
+0c4e |   X  X |
+0c4f |X X  X X|
+0c50 |X X X X |
+0c51 |XX      |
+0c52 |      X |
+0c53 |X  X    |
+0c54 |      X |
+0c55 |X X  X X|
+0c56 |X XX X X|
+0c57 |XX XXX X|
+0c58 | XX X   |
+0c59 |XXXXXX  |
+0c5a |XXXX    |
+0c5b | X  X  X|
+0c5c |XX XXX X|
+0c5d | XX X  X|
+0c5e |XXXXXX  |
+0c5f |XXXX    |
+0c60 |   XXX X|
+0c61 |XXX X   |
+0c62 |XXX X   |
+0c63 |XX   XX |
+0c64 |XX X    |
+0c65 |   X    |
+0c66 |XX XX XX|
+0c67 | XX     |
+0c68 | X X X  |
+0c69 | X XXX  |
+0c6a |X X  X  |
+0c6b |X X XX  |
+0c6c | X XX   |
+0c6d | X  XXXX|
+0c6e |X X X   |
+0c6f |X  XXXXX|
+0c70 | X  XXXX|
+0c71 | X   XXX|
+0c72 | X  X   |
+0c73 | X X    |
+0c74 |       X|
+0c75 |        |
+0c76 |      XX|
+0c77 |      XX|
+0c78 |      X |
+0c79 |      X |
+0c7a | X      |
+0c7b |X       |
+0c7c |   X    |
+0c7d |  X     |
+0c7e |  X  X  |
+0c7f |X   X   |
+0c80 |   X    |
+0c81 |XXX  X X|
+0c82 |X  XX   |
+0c83 |    X  X|
+0c84 |X       |
+0c85 |XX   X X|
+0c86 |X   X   |
+0c87 |XXXX    |
+0c88 |     X  |
+0c89 |X X  X X|
+0c8a |X  X XXX|
+0c8b |X    X X|
+0c8c |X  XXX  |
+0c8d |  X     |
+0c8e |XX XX   |
+0c8f |XXXXXX  |
+0c90 |X    X  |
+0c91 |X   X   |
+0c92 |X XXX  X|
+0c93 |XX X    |
+0c94 |XXXXXXXX|
+0c95 |   XX   |
+0c96 | XX  X X|
+0c97 |X  XXX  |
+0c98 |X    X X|
+0c99 |X  XXX  |
+0c9a |X X X  X|
+0c9b |XXXXXXXX|
+0c9c |X    X X|
+0c9d |X  X XXX|
+0c9e |  X     |
+0c9f |    X X |
+0ca0 |XXXXXX X|
+0ca1 |X X   X |
+0ca2 |    X   |
+0ca3 |XX X    |
+0ca4 |  X XX  |
+0ca5 |  X  X  |
+0ca6 |X   X   |
+0ca7 |  XX    |
+0ca8 |X XXXXX |
+0ca9 |X  XX   |
+0caa |  X     |
+0cab |X X  XX |
+0cac |XXXXXX X|
+0cad |XXXX    |
+0cae |     X  |
+0caf |X X  X X|
+0cb0 |X  XX X |
+0cb1 |XX X    |
+0cb2 |   X  XX|
+0cb3 |X X  X  |
+0cb4 |XX X XX |
+0cb5 |X XXX  X|
+0cb6 |XX X    |
+0cb7 |XXXXXXXX|
+0cb8 |   XX   |
+0cb9 | XX  X X|
+0cba |X  XXX  |
+0cbb |X    X X|
+0cbc |X  X XXX|
+0cbd |X  XX   |
+0cbe |    X  X|
+0cbf |X       |
+0cc0 |X    X X|
+0cc1 |X   X   |
+0cc2 |X X   X |
+0cc3 |     X  |
+0cc4 |XX X    |
+0cc5 |    X XX|
+0cc6 |X X  X X|
+0cc7 |XX X XX |
+0cc8 | X  X X |
+0cc9 |X X X X |
+0cca |X XXXX X|
+0ccb |     XX |
+0ccc |XXXXXXX |
+0ccd |X    X X|
+0cce |X  X   X|
+0ccf |X X   X |
+0cd0 |      X |
+0cd1 |X X  X X|
+0cd2 |XX  XX  |
+0cd3 |XXXX    |
+0cd4 |X  X  X |
+0cd5 | X  XX  |
+0cd6 |X   XX  |
+0cd7 |XXXXX   |
+0cd8 |X    X  |
+0cd9 |XX X X X|
+0cda |X X  X X|
+0cdb |XX  XX  |
+0cdc |XX  X  X|
+0cdd |     X X|
+0cde |X  X    |
+0cdf |   XXXXX|
+0ce0 |X XXX  X|
+0ce1 |     XX |
+0ce2 |XXXXXX X|
+0ce3 |    X  X|
+0ce4 |   X    |
+0ce5 |X    X X|
+0ce6 |XX X    |
+0ce7 |X  XX   |
+0ce8 |  X     |
+0ce9 |X X  XX |
+0cea |XXXXXX X|
+0ceb | X  X   |
+0cec |X X  X X|
+0ced |XX X    |
+0cee |     X X|
+0cef |XX XX   |
+0cf0 |X    X X|
+0cf1 |XX X    |
+0cf2 | XX X   |
+0cf3 |XXXX    |
+0cf4 |     XXX|
+0cf5 |X X   X |
+0cf6 |        |
+0cf7 |  X     |
+0cf8 | X  X  X|
+0cf9 |XXXXX XX|
+0cfa |  XX    |
+0cfb |      XX|
+0cfc |  X     |
+0cfd | X   XXX|
+0cfe |XXXXX XX|
+0cff |X X  X  |
+0d00 |XX X X X|
+0d01 | XX     |
+0d02 |        |
+0d03 |    X X |
+0d04 |        |
+0d05 |XXXX XX |
+0d06 |        |
+0d07 | X      |
+0d08 |X       |
+0d09 |XX      |
+0d0a |X X X  X|
+0d0b |      X |
+0d0c |  X     |
+0d0d | XX XX  |
+0d0e |XXXXXX X|
+0d0f |X    X X|
+0d10 |X   X XX|
+0d11 |X X X  X|
+0d12 |      XX|
+0d13 |  X     |
+0d14 | XX XX  |
+0d15 |XXXXXX X|
+0d16 |X    X X|
+0d17 |X   XX  |
+0d18 |X X X  X|
+0d19 |        |
+0d1a |  X     |
+0d1b | XX XX  |
+0d1c |XXXXXX X|
+0d1d |XXXX    |
+0d1e |     XX |
+0d1f |X X X  X|
+0d20 | X   XXX|
+0d21 |X X   X |
+0d22 |  XXXXXX|
+0d23 |XX X    |
+0d24 |     X  |
+0d25 |X X X  X|
+0d26 | X  XXXX|
+0d27 |X X   X |
+0d28 | X X XXX|
+0d29 |X    X X|
+0d2a |XX  XXXX|
+0d2b |X    XX |
+0d2c |XX XXXX |
+0d2d |X X  X  |
+0d2e |X   XX X|
+0d2f |X X  X X|
+0d30 |X  XXX  |
+0d31 |  X     |
+0d32 | X  XX  |
+0d33 |XXXXXX X|
+0d34 |X XX    |
+0d35 |    XX  |
+0d36 |XXXX    |
+0d37 |      X |
+0d38 |X X X  X|
+0d39 |     X  |
+0d3a |X X  XX |
+0d3b |X  XXX  |
+0d3c |   XXX X|
+0d3d | X   XX |
+0d3e |XXXXXX X|
+0d3f |X    X X|
+0d40 |X  XX XX|
+0d41 | XX     |
+0d42 |X X X  X|
+0d43 |    XXXX|
+0d44 |XX X    |
+0d45 |XXXXX  X|
+0d46 |      XX|
+0d47 |      XX|
+0d48 |       X|
+0d49 |        |
+0d4a |      X |
+0d4b |      X |
+0d4c |X    X X|
+0d4d |XX XX   |
+0d4e |X  XX   |
+0d4f |  X     |
+0d50 |XX  X X |
+0d51 |XXXXXX X|
+0d52 |X    X  |
+0d53 |XX X XXX|
+0d54 |X XXX  X|
+0d55 |XX XXX X|
+0d56 |XXXXXX X|
+0d57 |X X  X  |
+0d58 |XX XX   |
+0d59 |  XXX  X|
+0d5a |        |
+0d5b |XXXXXXX |
+0d5c |XXXX    |
+0d5d |    XX  |
+0d5e |X X  X  |
+0d5f |XX X XXX|
+0d60 |X XXX  X|
+0d61 |XXX  X X|
+0d62 |XXXXXX X|
+0d63 |X X  X  |
+0d64 |XX XX   |
+0d65 |   XX   |
+0d66 |  XXX  X|
+0d67 |        |
+0d68 |XXXXXXX |
+0d69 | XX     |
+0d6a |  XXX   |
+0d6b | XX     |
+0d6c |X    X X|
+0d6d |XX X XX |
+0d6e |X X  X X|
+0d6f |X   XX X|
+0d70 |X    X X|
+0d71 |XX X XXX|
+0d72 |X X  X X|
+0d73 |X  XXX  |
+0d74 |  X     |
+0d75 |X  XX X |
+0d76 |XXXXXX X|
+0d77 |  XX    |
+0d78 | X  XXX |
+0d79 | X  X X |
+0d7a |X X X   |
+0d7b |X XXX  X|
+0d7c | XXXXXXX|
+0d7d |XXXXXX X|
+0d7e | XX     |
+0d7f | X X XXX|
+0d80 |X X  XXX|
+0d81 | X  XXXX|
+0d82 |     X  |
+0d83 |XXXXXXXX|
+0d84 |        |
+0d85 |X       |
+0d86 |XXXXXXXX|
+0d87 |     X  |
+0d88 |       X|
+0d89 |X      X|
+0d8a |     X X|
+0d8b |X     X |
+0d8c |      X |
+0d8d |        |
+0d8e |X     XX|
+0d8f |     X X|
+0d90 |      XX|
+0d91 |       X|
+0d92 |     XX |
+0d93 |XXXXXXXX|
+0d94 |X    X  |
+0d95 |      X |
+0d96 |XXXXXXXX|
+0d97 |     XX |
+0d98 |X    X X|
+0d99 |      XX|
+0d9a |    X X |
+0d9b |    X X |
+0d9c |   XX   |
+0d9d | XX  X X|
+0d9e |XX X XX |
+0d9f |X X X   |
+0da0 |X XXX  X|
+0da1 |X     X |
+0da2 |XXXXXX X|
+0da3 |X    X X|
+0da4 |XX XX   |
+0da5 | XX     |
+0da6 |X    X X|
+0da7 |XX X XX |
+0da8 |X X  X X|
+0da9 |X   XX X|
+0daa |X    X X|
+0dab |XX X XXX|
+0dac |X X  X X|
+0dad |X  XXX  |
+0dae |  X     |
+0daf |X  XX X |
+0db0 |XXXXXX X|
+0db1 |  XX    |
+0db2 |   X XX |
+0db3 |X X  X  |
+0db4 |XX  XX  |
+0db5 |XX      |
+0db6 |      X |
+0db7 |X  X    |
+0db8 |    XXX |
+0db9 |X X  X X|
+0dba |XX X XXX|
+0dbb |  X     |
+0dbc |XX  X X |
+0dbd |XXXXXX X|
+0dbe |X XXX  X|
+0dbf |XX X X X|
+0dc0 |XXXXXX X|
+0dc1 |X X  X  |
+0dc2 |XX XX   |
+0dc3 |  XXX  X|
+0dc4 |        |
+0dc5 |XXXXXXX |
+0dc6 | XX     |
+0dc7 |X X X  X|
+0dc8 |        |
+0dc9 | XX     |
+0dca |X X  X  |
+0dcb |XX  XX  |
+0dcc |XX      |
+0dcd |    X   |
+0dce |XX X    |
+0dcf |      XX|
+0dd0 |   XX   |
+0dd1 | XX X  X|
+0dd2 |     X  |
+0dd3 |X X X   |
+0dd4 | XX     |
+
+0dd5 |  X X  X|
+0dd6 | X   XXX|
+0dd7 |  XX X  |
+0dd8 |  X X  X|
+0dd9 |  X XXX |
+0dda |   XXX X|
+0ddb |  X X XX|
+0ddc |    X X |
+
+0ddd |  X    X|
+0dde |  XXX XX|
+0ddf |  XXXXXX|
+0de0 |  X  X X|
+0de1 |  X X X |
+0de2 |  XXXXXX|
+0de3 |  XXXXXX|
+0de4 |  X X X |
+
+0de5 |  X    X|
+0de6 |   XX X |
+0de7 |  X  X X|
+0de8 |        |
+0de9 |  X X X |
+0dea |   X X X|
+0deb |  X X X |
+
+0dec |        |
+0ded |XXXXX X |
+0dee |XXXXX X |
+0def |     XX |
+0df0 |     XX |
+
+0df1 |        |
+0df2 |XXXXXXX |
+0df3 |     XX |
+0df4 |XXXXXXX |
+0df5 |     XX |
+
+0df6 |    x  x|
+0df7 |xxxxxxxx|
+0df8 | xxxxxxx|
+0df9 |      x |
+0dfa |xxxxxxxx|
+0dfb |    xxxx|
+0dfc |      x |
+0dfd |      x |
+0dfe |      xx|
+0dff |     x  |
+
+0e00 |       X|
+0e01 |      X |
+0e02 |     X  |
+0e03 |    X   |
+0e04 |   X    |
+0e05 |  X     |
+
+0e06 | X      |
+0e07 |X       |
+0e08 |        |
+0e09 |        |
+0e0a |     XXX|
+0e0b |XXXXXX X|
+0e0c |X X  XXX|
+0e0d |        |
+0e0e |        |
+0e0f |        |
+0e10 |       X|
+0e11 |      X |
+0e12 |     X  |
+0e13 |  X X   |
+0e14 |X  X    |
+0e15 | XX X   |
+0e16 | XX     |
+0e17 |X  X    |
+0e18 |        |
+0e19 |        |
+0e1a |  X     |
+0e1b |XXXX    |
+0e1c |X X     |
+0e1d |XXX     |
+0e1e |        |
+0e1f |        |
+0e20 |  XXXX  |
+0e21 |   XX   |
+0e22 |   XX   |
+0e23 |    X   |
+0e24 |   XX   |
+0e25 |   X    |
+0e26 |  XXXX  |
+0e27 |   XX   |
+0e28 |        |
+0e29 |        |
+0e2a |     X  |
+0e2b |     XXX|
+0e2c |     XX |
+0e2d |    XXXX|
+0e2e |        |
+0e2f |        |
+0e30 |  XXXX  |
+0e31 |   XX   |
+0e32 |  XXX   |
+0e33 |XXXXX   |
+0e34 |X XXX   |
+0e35 |XXXX    |
+0e36 |  XXXX  |
+0e37 |   XX   |
+0e38 |        |
+0e39 |        |
+0e3a |  X  X  |
+0e3b |XXXX XXX|
+0e3c |X X  X X|
+0e3d |XXX XXXX|
+0e3e |        |
+0e3f |        |
+0e40 |  XXXX  |
+0e41 |   XX   |
+0e42 |   XXX  |
+0e43 |    XXXX|
+0e44 |   XXX X|
+0e45 |   XXXXX|
+0e46 |  XXXX  |
+0e47 |   XX   |
+0e48 |  XXXX  |
+0e49 |   XX   |
+0e4a |  XXXX  |
+0e4b |XXXXXXXX|
+0e4c |X XXXX X|
+0e4d |XXXXXXXX|
+0e4e |  XXXX  |
+0e4f |   XX   |
+0e50 |        |
+0e51 |        |
+0e52 |        |
+0e53 |    XX  |
+0e54 |  XXXX  |
+0e55 | XXXXX  |
+0e56 | XXXXX X|
+0e57 | XXXXXX |
+0e58 |XX X X  |
+0e59 |X XXX   |
+0e5a |        |
+0e5b |        |
+0e5c |XXX     |
+0e5d | XXXX   |
+0e5e |  XXXX  |
+0e5f |  XXXXX |
+0e60 |  XXXXX |
+0e61 |X XXXXX |
+0e62 | XX X XX|
+0e63 |   XXX X|
+0e64 |X      X|
+0e65 |X      X|
+0e66 |XX    XX|
+0e67 | XX  XX |
+0e68 | XXXXXX |
+0e69 |  XXXX  |
+0e6a |        |
+0e6b |        |
+0e6c |        |
+0e6d |        |
+0e6e |        |
+0e6f |        |
+0e70 |        |
+0e71 |        |
+0e72 |  XXXX  |
+0e73 | XXXXXX |
+0e74 | XX  XX |
+0e75 |XX    XX|
+0e76 |X      X|
+0e77 |X      X|
+0e78 |  X  X  |
+0e79 |  X  X  |
+0e7a |  X  X  |
+0e7b |X  XX  X|
+0e7c | XXXXXX |
+0e7d |   XX   |
+0e7e | XX  XX |
+0e7f |X      X|
+0e80 |        |
+0e81 |        |
+0e82 |        |
+0e83 |        |
+0e84 |XXX  XXX|
+0e85 |   XX   |
+0e86 | XXXXXX |
+0e87 |X  XX  X|
+0e88 |  X  X  |
+0e89 | X    X |
+0e8a | X    X |
+0e8b |        |
+0e8c |X XX XXX|
+0e8d |X XX XXX|
+0e8e |X XX XXX|
+0e8f |X XX XXX|
+0e90 |X XX XXX|
+0e91 |X XX XXX|
+0e92 |X XX XXX|
+0e93 |X XX XXX|
+0e94 |X XX XXX|
+0e95 |X XX XXX|
+0e96 |X XX XXX|
+0e97 |X XX XXX|
+0e98 |X XX XXX|
+0e99 |X XX XXX|
+0e9a |X XX XXX|
+0e9b |X XX XXX|
+0e9c |X XX XXX|
+0e9d |XXX XX X|
+0e9e |XXX XX X|
+0e9f |XXX XX X|
+0ea0 |XXX XX X|
+0ea1 |XXX XX X|
+0ea2 |XXX XX X|
+0ea3 |XXX XX X|
+0ea4 |XXX XX X|
+0ea5 |XXX XX X|
+0ea6 |XXX XX X|
+0ea7 |XXX XX X|
+0ea8 |XXX XX X|
+0ea9 |XXX XX X|
+0eaa |XXX XX X|
+0eab |XXX XX X|
+0eac |XXX XX X|
+0ead |XXX XX X|
+0eae |XXXXXXXX|
+0eaf |XXXXXXXX|
+0eb0 |XXXXXXXX|
+0eb1 |XXXXXXXX|
+0eb2 |XXXXXXXX|
+0eb3 |XXXXXXXX|
+0eb4 |        |
+0eb5 |        |
+0eb6 |XXXXXXXX|
+0eb7 |XXXXXXXX|
+0eb8 |XXXXXXXX|
+0eb9 |XXXXXXXX|
+0eba |        |
+0ebb |        |
+0ebc |XXXXXXXX|
+0ebd |XXXXXXXX|
+0ebe |        |
+0ebf |XXXXXXXX|
+0ec0 |XXXXXXXX|
+0ec1 |        |
+0ec2 |        |
+0ec3 |XXXXXXXX|
+0ec4 |XXXXXXXX|
+0ec5 |XXXXXXXX|
+0ec6 |XXXXXXXX|
+0ec7 |        |
+0ec8 |        |
+0ec9 |XXXXXXXX|
+0eca |XXXXXXXX|
+0ecb |XXXXXXXX|
+0ecc |XXXXXXXX|
+0ecd |XXXXXXXX|
+0ece |XXXXXXXX|
+0ecf |        |
+
+0ed0 |XXXXXXXX|
+
+0ed1 |XXXX    |
+
+0ed2 |XXXXXXXX|
+0ed3 |XXXXXXXX|
+0ed4 |        |
+0ed5 |XXXX    |
+0ed6 |XXXXXXXX|
+0ed7 |        |
+0ed8 |XXXX    |
+0ed9 |XXXXXXXX|
+0eda |        |
+0edb |        |
+0edc |XXXXXXXX|
+0edd |        |
+0ede |XXXX    |
+0edf |XXXXXXXX|
+0ee0 |XXXX    |
+0ee1 |XXXXXXXX|
+0ee2 |XXXXXXXX|
+0ee3 |        |
+0ee4 |XXXX    |
+0ee5 |   X    |
+0ee6 |        |
+0ee7 |        |
+0ee8 |XXXXXXXX|
+0ee9 |        |
+0eea |XXXX    |
+0eeb |XXXXXXXX|
+0eec |        |
+0eed |XXXX    |
+0eee |XXXXXXXX|
+0eef |XXXX    |
+0ef0 |XXXXXXXX|
+0ef1 |XXXXXXXX|
+0ef2 |        |
+0ef3 |XXXX    |
+0ef4 |XXXXXXXX|
+0ef5 |        |
+0ef6 |XXXX    |
+0ef7 |XXXXXXXX|
+0ef8 |        |
+0ef9 |        |
+0efa |XXXXXXXX|
+0efb |        |
+0efc |XXXX    |
+0efd |XXXXXXXX|
+0efe |XXXX    |
+0eff |XXXXXXXX|
+
+0f00 |   XXX  |
+0f01 |  XXXXX |
+0f02 | XXX  XX|
+0f03 | XX   XX|
+0f04 | XX   XX|
+0f05 | XX  XXX|
+0f06 |  XXXXX |
+0f07 |   XXX  |
+0f08 |  XXXXX |
+0f09 |   XXX  |
+0f0a |    XX  |
+0f0b |    XX  |
+0f0c |    XX  |
+0f0d |  XXXX  |
+0f0e |   XXX  |
+0f0f |    XX  |
+0f10 | XXXXXXX|
+0f11 | XX     |
+0f12 | XXX    |
+0f13 |  XXXXX |
+0f14 |      XX|
+0f15 |  XX  XX|
+0f16 | XX  XXX|
+0f17 |  XXXXX |
+0f18 |  XXXXX |
+0f19 | XX  XXX|
+0f1a |  XX  XX|
+0f1b |     XX |
+0f1c |    XX  |
+0f1d |     XXX|
+0f1e |  XX  XX|
+0f1f |   XXXX |
+0f20 |    XXXX|
+0f21 |     XX |
+0f22 |XXXXXXXX|
+0f23 |XX   XX |
+0f24 | XX  XX |
+0f25 | XX  XX |
+0f26 |XXX  XX |
+0f27 |     XXX|
+0f28 |  XXXXX |
+0f29 | XX  XXX|
+0f2a |  XX  XX|
+0f2b |      XX|
+0f2c |  XXXXX |
+0f2d |  XX    |
+0f2e |  XXX   |
+0f2f |   XXXXX|
+0f30 |  XXXXX |
+0f31 | XXX  XX|
+0f32 | XX  XXX|
+0f33 | XXXXXX |
+0f34 | XX     |
+0f35 | XX  XXX|
+0f36 |  XX  XX|
+0f37 |   XXXX |
+0f38 |  XXXX  |
+0f39 |   XX   |
+0f3a |    XX  |
+0f3b |    XX  |
+0f3c |     XX |
+0f3d |     XX |
+0f3e |XX    XX|
+0f3f | XXXXXXX|
+0f40 |  XXXXX |
+0f41 | XX  XXX|
+0f42 |XX    XX|
+0f43 |XX  XXXX|
+0f44 | XXXXXX |
+0f45 | XXX  XX|
+0f46 | XX  XX |
+0f47 |  XXXX  |
+0f48 |  XXXX  |
+0f49 | XX  XX |
+0f4a |      XX|
+0f4b |  XXXXXX|
+0f4c | XXX  XX|
+0f4d | XX   XX|
+0f4e | XX  XX |
+0f4f |  XXXX  |
+
+0f50 |  XXXX  |
+0f51 |  XXXX  |
+0f52 |  XXXX  |
+0f53 |  XXXX  |
+0f54 | XXXXXX |
+0f55 | XXXXXX |
+0f56 | XXXXXX |
+0f57 | XXXXXX |
+0f58 |XXXXXXXX|
+0f59 |XXXXXXXX|
+0f5a |XXXXXXXX|
+0f5b |XXXXXXXX|
+0f5c |XXXXXXXX|
+0f5d |XXXXXXXX|
+0f5e |XXXXXXXX|
+0f5f |XXXXXXXX|
+0f60 |XXXXXXXX|
+0f61 |XXXXXXXX|
+0f62 |XXXXXXXX|
+0f63 |XXXXXXXX|
+0f64 | XXXXXX |
+0f65 | XXXXXX |
+0f66 | XXXXXX |
+0f67 | XXXXXX |
+0f68 |  XXXX  |
+0f69 |  XXXX  |
+0f6a |  XXXX  |
+0f6b |  XXXX  |
+0f6c |   XX   |
+0f6d |   XX   |
+0f6e |   XX   |
+0f6f |   XX   |
+0f70 |  XXXX  |
+0f71 |  XXXX  |
+0f72 |  XXXX  |
+0f73 |  XXXX  |
+0f74 | XXXXXX |
+0f75 | XXXXXX |
+0f76 | XXXXXX |
+0f77 | XXXXXX |
+0f78 |XXXXXXXX|
+0f79 |XXXXXXXX|
+0f7a |XXXXXXXX|
+0f7b |XXXXXXXX|
+0f7c | XXXXXX |
+0f7d | XXXXXX |
+0f7e | XXXXXX |
+0f7f | XXXXXX |
+0f80 |  XXXX  |
+0f81 |  XXXX  |
+0f82 |  XXXX  |
+0f83 |  XXXX  |
+0f84 |   XX   |
+0f85 |   XX   |
+0f86 |   XX   |
+0f87 |   XX   |
+
+0f88 |X       |
+0f89 |X       |
+0f8a |XXX XXX |
+0f8b |      XX|
+
+0f8c | XX XXXX|
+0f8d |   XXXXX|
+0f8e |X   X XX|
+0f8f |     X  |
+0f90 | XX XXXX|
+0f91 |   XXXXX|
+
+0f92 |XXX     |
+0f93 |X X     |
+0f94 |X XX    |
+0f95 |X  X    |
+0f96 |XX X    |
+0f97 | X X    |
+0f98 | XXX    |
+0f99 | XX     |
+
+0f9a | X X    |
+0f9b | XX XX  |
+0f9c | X X    |
+0f9d | X X    |
+
+0f9e |   X  XX|
+0f9f |   X  X |
+0fa0 |   X  XX|
+0fa1 |   X XXX|
+
+0fa2 |    X  X|
+0fa3 |    X  X|
+0fa4 |    X XX|
+0fa5 |   X  X |
+
+0fa6 |        |
+0fa7 |     XX |
+0fa8 |    XX X|
+0fa9 |    XX X|
+
+0faa | XXX X  |
+0fab |  X  X  |
+0fac | XXX X  |
+0fad |  X  X  |
+0fae | XXX X  |
+0faf |  X  X  |
+0fb0 | XXX X  |
+0fb1 |  X  X  |
+0fb2 | XXX X  |
+0fb3 |  X  X  |
+0fb4 | X  XX  |
+0fb5 | X  XX  |
+0fb6 | X  XX  |
+0fb7 | XXX X  |
+0fb8 |  X  X  |
+0fb9 |X  X X  |
+0fba |     X  |
+0fbb | XXX X  |
+0fbc |  X  X  |
+
+0fbd |  X  X  |
+0fbe |  X  X  |
+0fbf |X    X  |
+0fc0 |X    X  |
+0fc1 |XX   X  |
+0fc2 |XX   X  |
+0fc3 | X X X  |
+0fc4 | X X X  |
+0fc5 |X X  X  |
+0fc6 |X X  X  |
+0fc7 |  X  X  |
+0fc8 |X    X  |
+0fc9 |XX   X  |
+0fca |        |
+0fcb |        |
+0fcc |X    X  |
+0fcd |X    X  |
+0fce |XXXX X  |
+0fcf |XXXX X  |
+
+0fd0 |       X|
+0fd1 |XXXXXXXX|
+0fd2 |      X |
+0fd3 |XXXXXXX |
+
+0fd4 |X XXXX X|
+0fd5 |   XX   |
+0fd6 |        |
+0fd7 |   XX   |
+0fd8 |   XX   |
+0fd9 |X XXXX X|
+0fda |   XX   |
+0fdb |   XX   |
+0fdc |        |
+0fdd |   XX   |
+0fde |X XXXX X|
+0fdf |   XX   |
+0fe0 |        |
+0fe1 |   XX   |
+0fe2 |   XX   |
+0fe3 |X XXXX X|
+
+0fe4 |        |
+0fe5 |    XX X|
+0fe6 |XX X XXX|
+0fe7 | X   XXX|
+0fe8 |  XX XXX|
+0fe9 |X  X XXX|
+0fea |X X X X |
+0feb |XX  X   |
+0fec |X     X |
+0fed |  XX  X |
+0fee |X XX  X |
+0fef |XXXX XX |
+0ff0 |        |
+0ff1 |    XX X|
+0ff2 |    X X |
+0ff3 |    X X |
+0ff4 |    X X |
+0ff5 |    X X |
+0ff6 |X X X X |
+0ff7 |    XX X|
+0ff8 |      X |
+0ff9 |     X  |
+0ffa |     XX |
+0ffb |    X   |
+0ffc |        |
+0ffd |XXXX    |
+0ffe |        |
+0fff |XXXX    |
+
+
+
