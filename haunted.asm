@@ -1,5 +1,12 @@
 ;; Disassembly of Haunted House
 
+;  The [Atari] 2600 was a real mess.  It's a good thing that we don't try to
+;  program machines like that anymore because it was just absurd. But it was
+;  kind of fun in a sick way if you like that kind of challenge.
+;
+;        -- Howard Scott Warshaw, Atari 2600 game developer
+;           Creator of Yar's Revenge and E.T. the Extra-Terrestrial
+
 ;; Notes about the 6502 CPU
 ;; Registers:
 ;   A: accumulator (8-bit)
@@ -12,16 +19,24 @@
 ; $ means the following is hex formatted
 ; # means the following is a literal number value
 
+;; Routines Known to Exist (but not yet found)
+; - Polynomial Counter for scattering urn objects
+; - Sound subroutines for walking and thunder
+; - Difficulty modes: locked doors + keys, ghost
+;   restrictions, hiding playfield, etc
+
       processor 6502
 VSYNC   =  $00
-VBLANK  =  $01
+VBLANK  =  $01 ; Vertical Blank -- between screen draws
 WSYNC   =  $02 ; wait for horizontal sync
 
 NUSIZ0  =  $04 ; number & size of p0/m0
 NUSIZ1  =  $05 ; .. p1/m1
 
-COLUP0  =  $06 ; 06-09, color/luminosity registers
-COLUP1  =  $07
+;; Color control registers
+; 06-09, color/luminosity registers
+COLUP0  =  $06 ; color
+COLUP1  =  $07 ; color
 COLUPF  =  $08
 COLUBK  =  $09
 
@@ -1605,7 +1620,7 @@ LFB1C: LDX    #$01    ;2
 
 LFB2B: LDA    $CC     ;3
        CMP    #$05    ;2
-       BCC    LFB92   ;2
+       BCC    INPUT0  ;2
        LDA    $9B     ;3
        AND    #$07    ;2
        ASL    A       ;2
@@ -1641,10 +1656,10 @@ LFB64: DEX            ;2
 LFB68: LDA    $9B     ;3
        AND    #$0F    ;2
        CMP    #$0F    ;2
-       BEQ    LFB92   ;2
+       BEQ    INPUT0  ;2
        BIT    $9B     ;3
        BPL    LFB90   ;2
-       BVS    LFB92   ;2
+       BVS    INPUT0  ;2
        JSR    LFB2B   ;6
        LDX    #$09    ;2
        LDA    $9B     ;3
@@ -1658,13 +1673,17 @@ LFB88: JSR    LF88C   ;6
        JSR    LFD0A   ;6
        ORA    #$40    ;2
 LFB90: STA    $9B     ;3
-LFB92: LDA    SWCHA   ;4
+
+; Input control (contains only reference to INPT4 reg)
+;LFB92:
+INPUT0:
+       LDA    SWCHA   ;4
        AND    #$F0    ;2
        EOR    #$F0    ;2
        STA    $8E     ;3
        LDA    $83     ;3
        BNE    LFBD4   ;2
-       LDA    INPT4   ;3
+       LDA    INPT4   ;3 input to reg A
        ROL    A       ;2
        ROR    $E6     ;5
        LDA    $E6     ;3
