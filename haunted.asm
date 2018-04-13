@@ -1,14 +1,14 @@
-; Disassembly of Haunted House
+;; Disassembly of Haunted House
 
-; Notes about the 6502 CPU
-; Registers:
+;; Notes about the 6502 CPU
+;; Registers:
 ;   A: accumulator (8-bit)
 ;   X, Y: index registers
 ;   P: processor status flags (7-bits NV-BDIZC)
 ;   S: stack pointer
 ;   PC: program counter (16-bit)
 
-;; 6502 ASM Notes
+;; 6502 ASM Syntax Notes
 ; $ means the following is hex formatted
 ; # means the following is a literal number value
 
@@ -937,7 +937,7 @@ LF63E: LDA    $D0     ;3
 LF647: STA    WSYNC   ;3
        LDA    $F5     ;3
        STA    COLUPF  ;3
-       STY    GRP1    ;3
+       STY    GRP1    ;3 draws Y reg sprite via GRP1
        LDA    LFED0,X ;4
        STA    PF0     ;3
        LDA    LFED1,X ;4
@@ -958,7 +958,7 @@ LF66B: DEC    $CD     ;5
        BEQ    LF691   ;2
        DEC    $D0     ;5
        STA    WSYNC   ;3
-       STY    GRP0    ;3
+       STY    GRP0    ;3 draws sprite in Y via GRP0
        LDA    $CD     ;3
        SEC            ;2
        SBC    $F0     ;3
@@ -974,8 +974,8 @@ LF68D: LDY    #$00    ;2
        BEQ    LF66B   ;2
 LF691: STA    WSYNC   ;3
        LDA    #$00    ;2
-       STA    GRP0    ;3
-       STA    GRP1    ;3
+       STA    GRP0    ;3 draws A ref sprite via GRP0
+       STA    GRP1    ;3 draws A reg sprite via GRP1
        STA    PF1     ;3
        STA    PF2     ;3
        STA    ENAM0   ;3
@@ -1047,18 +1047,18 @@ LF70C: STA    $D0     ;3
        LDY    #$07    ;2
 LF716: STA    WSYNC   ;3
        LDA    ($DA),Y ;5
-       STA    GRP0    ;3
+       STA    GRP0    ;3 draws sprite in A via GRP0
        LDX    #$05    ;2
 LF71E: DEX            ;2
        BPL    LF71E   ;2
        LDA    ($D0),Y ;5
-       STA    GRP0    ;3
+       STA    GRP0    ;3 draws sprite in A via GRP0
        DEY            ;2
        BPL    LF716   ;2
        INY            ;2
        STY    WSYNC   ;3
-       STY    GRP0    ;3
-       STY    GRP1    ;3
+       STY    GRP0    ;3 draws sprite in Y via GRP0
+       STY    GRP1    ;3 draws Y reg sprite via GRP1
        LDX    #$03    ;2
        STA    WSYNC   ;3
 LF733: DEX            ;2
@@ -1073,21 +1073,21 @@ LF733: DEX            ;2
        LDY    #$07    ;2
 LF745: STA    WSYNC   ;3
        LDA    ($D4),Y ;5
-       STA    GRP0    ;3
+       STA    GRP0    ;3 draws sprite in A via GRP0
        LDA    ($D6),Y ;5
-       STA    GRP1    ;3
+       STA    GRP1    ;3 draws A reg sprite via GRP1
        LDX    #$03    ;2
 LF751: DEX            ;2
        BPL    LF751   ;2
        LDA    $CD     ;3
        INX            ;2
-       STX    GRP0    ;3
+       STX    GRP0    ;3 draws sprite in X via GRP0
        LDA    ($D8),Y ;5
-       STA    GRP1    ;3
+       STA    GRP1    ;3 draws A reg sprite via GRP1
        DEY            ;2
        BPL    LF745   ;2
        INY            ;2
-       STY    GRP1    ;3
+       STY    GRP1    ;3 draws Y reg sprite via GRP1
        LDA    $99     ;3
        BNE    LF7A3   ;2
        LDA    $83     ;3
