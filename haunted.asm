@@ -430,14 +430,16 @@ LF2A1: LSR    A       ;2
        LDY    $D4     ;3
        TYA            ;2
        AND    #$08    ;2
-       BEQ    LF2B0   ;2
+       BEQ    FLOORMASK   ;2
        CPX    #$08    ;2
        RTS            ;6
 
 ; this routine handles the floor plan playfield sprites
 ; X appears to be the scanline
-LF2B0: LDA    FLOOR0,X ;4
-       AND    LFE00,Y ;4
+;FLOORMASK:
+FLOORMASK:
+       LDA    FLOOR0,X ;4
+       AND    MASK0,Y ;4
        RTS            ;6
 
 LF2B7: LDA    #$30    ;2
@@ -1296,7 +1298,7 @@ LF8EC: LDA    $89     ;3
        STA    $CD     ;3
        TAY            ;2
        LDA    #$88    ;2
-       AND    LFE00,Y ;4
+       AND    MASK0,Y ;4
        STA    $DA     ;3
        LDA    #$00    ;2
        STA    $83     ;3
@@ -1365,7 +1367,7 @@ LF950: LDA    $C0,X   ;4
        CMP    $D0     ;3
        BNE    LF983   ;2
        LDA    $95     ;3
-       ORA    LFE00,X ;4
+       ORA    MASK0,X ;4
        STA    $95     ;3
        BNE    LF9A0   ;2
 LF983: LDA    $B0,X   ;4
@@ -1396,7 +1398,7 @@ LF9AA: ROR    A       ;2
        RTS            ;6
 
 LF9B5: LDA    $95     ;3
-       EOR    LFE00,X ;4
+       EOR    MASK0,X ;4
        STA    $95     ;3
        LDA    $C0,X   ;4
        TAY            ;2
@@ -1498,7 +1500,7 @@ LFA65: LDA    #$00    ;2
        RTS            ;6
 
 LFA68: LDA    $94     ;3
-       AND    LFE00,X ;4
+       AND    MASK0,X ;4
        BEQ    LFA83   ;2
 LFA6F: LDA    $CC     ;3
        CMP    #$07    ;2
@@ -1507,7 +1509,7 @@ LFA6F: LDA    $CC     ;3
        BNE    LFA7D   ;2
 LFA7A: LDA    LFA86,X ;4
 LFA7D: LDY    $CD     ;3
-       AND    LFE00,Y ;4
+       AND    MASK0,Y ;4
        RTS            ;6
 
 LFA83: LDA    $DA     ;3
@@ -1630,7 +1632,7 @@ LFB4D: LDA    $A5,X   ;4
        LDA    $D0     ;3
        STA    $C0,X   ;4
        LDA    $94     ;3
-       ORA    LFE00,X ;4
+       ORA    MASK0,X ;4
        STA    $94     ;3
 LFB64: DEX            ;2
        BPL    LFB4D   ;2
@@ -1891,13 +1893,13 @@ LFD4C: STA    $D8     ;3
        STY    $D7     ;3
        LDA    LFDDD,Y ;4
        LDY    $D8     ;3
-       AND    LFE00,Y ;4
+       AND    MASK0,Y ;4
        BEQ    LFD6A   ;2
        LDY    $D7     ;3
        LDA    LFDE5,Y ;4
        LDY    $D8     ;3
        CLC            ;2
-       AND    LFE00,Y ;4
+       AND    MASK0,Y ;4
        RTS            ;6
 
 LFD6A: SEC            ;2
@@ -1939,7 +1941,7 @@ LFDAE: JSR    LFD9A   ;6
        JSR    LFDCA   ;6
        LDA    LFDD5,Y ;4
        LDY    $D8     ;3
-       AND    LFE00,Y ;4
+       AND    MASK0,Y ;4
        RTS            ;6
 
 LFDC7: LDA    #$00    ;2
@@ -2007,13 +2009,23 @@ LFDF6: .byte $09,$FF,$7F,$02,$FF,$0F,$02,$02,$03,$04
 ; playfield floorplan rendering routine. possible
 ; used as a bitmask for selecting the proper
 ; scanline <-> floorplan sprite mapping?
+;
+; Another note: since the floorplan scrolls with the
+; user (the whole room isn't displayed at once) only
+; a part of it is showing. It looks like only five
+; blocks of the floorplan (see FLOOR0 data) are rendered
+; on-screen at a time and a last (non-floor one) reserved
+; for the score and collected items. So that would explain
+; why there are six 1 bits set here here.
+;
 ;0e00 |       X|
 ;0e01 |      X |
 ;0e02 |     X  |
 ;0e03 |    X   |
 ;0e04 |   X    |
 ;0e05 |  X     |
-LFE00: .byte $01,$02,$04,$08,$10,$20
+;LFE00:
+MASK0: .byte $01,$02,$04,$08,$10,$20
 
 ;0e06 | X      |
 ;0e07 |X       |
