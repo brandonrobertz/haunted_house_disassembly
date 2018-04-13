@@ -434,7 +434,9 @@ LF2A1: LSR    A       ;2
        CPX    #$08    ;2
        RTS            ;6
 
-LF2B0: LDA    LFFD4,X ;4
+; this routine handles the floor plan playfield sprites
+; X appears to be the scanline
+LF2B0: LDA    FLOOR0,X ;4
        AND    LFE00,Y ;4
        RTS            ;6
 
@@ -927,6 +929,9 @@ LF63E: LDA    $D0     ;3
        INX            ;2
        INX            ;2
        INX            ;2
+
+; this subroutine handles drawing the background
+; type sprites (the player's torch graphic, etc)
 LF647: STA    WSYNC   ;3
        LDA    $F5     ;3
        STA    COLUPF  ;3
@@ -935,7 +940,7 @@ LF647: STA    WSYNC   ;3
        STA    PF0     ;3
        LDA    LFED1,X ;4
        STA    PF1     ;3
-       LDA    LFED2,X ;4
+       LDA    SPRITES1,X ;4
        STA    PF2     ;3
        LDA    $CD     ;3
        SEC            ;2
@@ -1808,10 +1813,14 @@ LFCB3: LDY    $D6     ;3
        STA    $88     ;3
        LDX    #$04    ;2
        BNE    LFCD1   ;2
+
+; a draw sprite routine. this contains the only
+; reference to the main block of data containing
+; the various item and monster sprites
 LFCC6: LDA    $D6     ;3
        LSR    A       ;2
        TAX            ;2
-       LDA    LFE06,X ;4
+       LDA    SPRITES0,X ;4
        STA    $91     ;3
        LDX    #$02    ;2
 LFCD1: LDA    $CC     ;3
@@ -1994,6 +2003,10 @@ LFDF1: .byte $00,$FE,$06,$FE,$06
 ;0df5 |     XX |
 LFDF6: .byte $09,$FF,$7F,$02,$FF,$0F,$02,$02,$03,$04
 
+; This has something to do with the scan line
+; playfield floorplan rendering routine. possible
+; used as a bitmask for selecting the proper
+; scanline <-> floorplan sprite mapping?
 ;0e00 |       X|
 ;0e01 |      X |
 ;0e02 |     X  |
@@ -2001,7 +2014,6 @@ LFDF6: .byte $09,$FF,$7F,$02,$FF,$0F,$02,$02,$03,$04
 ;0e04 |   X    |
 ;0e05 |  X     |
 LFE00: .byte $01,$02,$04,$08,$10,$20
-
 
 ;0e06 | X      |
 ;0e07 |X       |
@@ -2205,7 +2217,9 @@ LFE00: .byte $01,$02,$04,$08,$10,$20
 ;0ecd |XXXXXXXX|
 ;0ece |XXXXXXXX|
 ;0ecf |        |
-LFE06: .byte $40,$80,$00,$00,$07,$FD,$A7,$00,$00,$00,$01,$02,$04,$28,$90,$68
+;LFE06:
+SPRITES0:
+       .byte $40,$80,$00,$00,$07,$FD,$A7,$00,$00,$00,$01,$02,$04,$28,$90,$68
        .byte $60,$90,$00,$00,$20,$F0,$A0,$E0,$00,$00,$3C,$18,$18,$08,$18,$10
        .byte $3C,$18,$00,$00,$04,$07,$06,$0F,$00,$00,$3C,$18,$38,$F8,$B8,$F0
        .byte $3C,$18,$00,$00,$24,$F7,$A5,$EF,$00,$00,$3C,$18,$1C,$0F,$1D,$1F
@@ -2409,7 +2423,9 @@ LFED1: .byte $F0
 ;0f85 |   XX   |
 ;0f86 |   XX   |
 ;0f87 |   XX   |
-LFED2: .byte $FF,$FF,$00,$F0,$FF,$00,$F0,$FF,$00,$00,$FF,$00,$F0,$FF,$F0,$FF
+;LFED2:
+SPRITES1:
+       .byte $FF,$FF,$00,$F0,$FF,$00,$F0,$FF,$00,$00,$FF,$00,$F0,$FF,$F0,$FF
        .byte $FF,$00,$F0,$10,$00,$00,$FF,$00,$F0,$FF,$00,$F0,$FF,$F0,$FF,$FF
        .byte $00,$F0,$FF,$00,$F0,$FF,$00,$00,$FF,$00,$F0,$FF,$F0,$FF,$1C,$3E
        .byte $73,$63,$63,$67,$3E,$1C,$3E,$1C,$0C,$0C,$0C,$3C,$1C,$0C,$7F,$60
@@ -2521,6 +2537,7 @@ LFFBD: .byte $24,$24,$84,$84,$C4,$C4,$54,$54,$A4,$A4,$24,$84,$C4,$00,$00,$84
 ;0fd3 |XXXXXXX |
 LFFD0: .byte $01,$FF,$02,$FE
 
+; This looks a lot like the floor plan ...
 ;0fd4 |X XXXX X|
 ;0fd5 |   XX   |
 ;0fd6 |        |
@@ -2537,7 +2554,8 @@ LFFD0: .byte $01,$FF,$02,$FE
 ;0fe1 |   XX   |
 ;0fe2 |   XX   |
 ;0fe3 |X XXXX X|
-LFFD4: .byte $BD,$18,$00,$18,$18,$BD,$18,$18,$00,$18,$BD,$18,$00,$18,$18,$BD
+;LFFD4:
+FLOOR0: .byte $BD,$18,$00,$18,$18,$BD,$18,$18,$00,$18,$BD,$18,$00,$18,$18,$BD
 
 ;0fe4 |        |
 ;0fe5 |    XX X|
