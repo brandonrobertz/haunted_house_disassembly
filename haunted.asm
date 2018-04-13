@@ -1,9 +1,4 @@
-; Disassembly of ../Haunted House.bin
-; Disassembled Thu Mar 29 03:44:41 2018
-; Using DiStella v3.01a
-;
-; Command Line: ./distella -p -s ../Haunted House.bin
-;
+; Disassembly of Haunted House
 
 ; Notes about the 6502 CPU
 ; Registers:
@@ -13,12 +8,9 @@
 ;   S: stack pointer
 ;   PC: program counter (16-bit)
 
-;; 6502 ASM NOtes
-; $ means the following is hex
-
-; The stack:
-; address space is hardwired to memory page $01, i.e. the address range
-; $0100–$01FF (256–511).
+;; 6502 ASM Notes
+; $ means the following is hex formatted
+; # means the following is a literal number value
 
       processor 6502
 VSYNC   =  $00
