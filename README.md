@@ -10,23 +10,38 @@ Reverse-engineering and disassembly of the Atari 2600 game Haunted House designe
 The ghost of old man Zachary Graves:
 
 
-    ███
-     ████
-      ████
-      █████
-      █████
-    █ █████
-     ██ █ ██
-       ███ █
-    █      █
-    █      █
-    ██    ██
-     ██  ██
+    █ ███
+    ██ █ █
      ██████
+     █████ █
+     █████
       ████
+        ██
 
 
-Some spiders (upward and downward facing):
+The urn you need to win the game and the pieces which make it:
+
+      ████        ████
+       ██          ██
+      ████      █  ██   █
+    ████████  ████  █   ███
+    █ ████ █  █ █  ██   ██
+    ████████  ███  █   ████
+      ████        ████
+       ██          ██
+
+
+The bats flying around:
+
+
+    █      █   ████
+    █      █  ██████
+    ██    ██  ██  ██
+     ██  ██  ██    ██
+     ██████  █      █
+      ████   █      █
+
+Some spiders (swaps between these two when moving):
 
 
       █  █
