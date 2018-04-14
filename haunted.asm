@@ -77,12 +77,12 @@ CXCLR   =  $2C ; clear collision latches
 CXP0FB  =  $32 ; collision detect latch (player 0)
 CXPPMM  =  $37 ; collision detect (missile)
 
-;; INPT4: input register for the joystick button(s)
+;; INPT4: input register for the joystick button (1-bit)
 ; Pin  PlayerP0  PlayerP1  Expl.
 ; 6    INPT4.7   INPT5.7   Button (0=Pressed, 1=Not pressed)
 INPT4   =  $3C
 
-;; SWCHA: joystick motion register
+;; SWCHA: joystick motion register (8-bit)
 ; Pin  PlayerP0  PlayerP1  Expl.
 ; 1    SWCHA.4   SWCHA.0   Up     (0=Moved, 1=Not moved)
 ; 2    SWCHA.5   SWCHA.1   Down   ("")
@@ -106,7 +106,8 @@ TIM64T  =  $0296
 
 ; RAM pointers
 ; top of the stack
-STKTOP  =  $FF
+STKTOP   = $FF
+MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
 
 ; Entry point (START)
        ORG $F000
@@ -353,7 +354,7 @@ LF1BF: LDA    #$00    ;2
        STA    $9B     ;3
        BIT    $91     ;3
        BVS    LF206   ;2
-       BIT    $8E     ;3
+       BIT    MVMT    ;3
        BVS    LF1E3   ;2
        BPL    LF206   ;2
        INC    $E7     ;5
@@ -380,7 +381,7 @@ LF201: LDX    #$03    ;2
        JSR    LF88C   ;6
 LF206: BIT    $91     ;3
        BMI    LF253   ;2
-       LDA    $8E     ;3
+       LDA    MVMT    ;3
        AND    #$30    ;2
        BEQ    LF253   ;2
        CMP    #$20    ;2
@@ -1705,11 +1706,13 @@ LFB90: STA    $9B     ;3
 ;LFB92:
 INPUT0:
        LDA    SWCHA   ;4 joystick movement state to reg A
-       AND    #$F0    ;2
-       EOR    #$F0    ;2
-       STA    $8E     ;3
+       AND    #$F0    ;2 zeros out joystick 2 bits (lower 4)
+       EOR    #$F0    ;2 since the register encodes "no movement" as ones
+                      ;  we invert that encoding here to 1 means move
+                      ;  in a direction
+       STA    MVMT    ;3 RAM $8E now hold movement bits
        LDA    $83     ;3
-       BNE    LFBD4   ;2
+       BNE    LFBD4   ;2 jump to LFBD4 if the joystick is moved
        LDA    INPT4   ;3 joystick button state to reg A
        ROL    A       ;2
        ROR    $E6     ;5
@@ -1804,7 +1807,7 @@ LFC3C: LDA    #$05    ;2
 LFC42: LDY    $D0     ;3
        LDA    LFC74,Y ;4
        TAY            ;2
-       LDA    $8E     ;3
+       LDA    MVMT    ;3
        AND    LFC7A,Y ;4
        BEQ    LFC61   ;2
        LDA    $AA     ;3
