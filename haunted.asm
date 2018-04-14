@@ -45,8 +45,8 @@ NUSIZ1  =  $05 ; .. p1/m1
 ; 06-09, color/luminosity registers
 COLUP0  =  $06 ; color
 COLUP1  =  $07 ; color
-COLUPF  =  $08
-COLUBK  =  $09
+COLUPF  =  $08 ; color-luminosity playfield
+COLUBK  =  $09 ; color-luminosity background
 
 CTRLPF  =  $0A ; playfield controls
 PF0     =  $0D ; playfield graphics
@@ -110,6 +110,7 @@ TIM64T  =  $0296 ; set 64-cycle clock interval (53.6 usec/interval)
 STKTOP   = $FF
 MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
 CLOCK    = $89 ; master frame count timer
+BGCOLOR  = $F5 ; background color
 
 ; Entry point (START)
        ORG $F000
@@ -617,13 +618,13 @@ LF397: STA    $F0     ;3
        STY    $F3     ;3
        DEY            ;2
        STY    $F4     ;3
-       STY    $F5     ;3
+       STY    BGCOLOR     ;3
        LDA    #$08    ;2
        CLC            ;2
        ADC    $8D     ;3
        LDX    $CC     ;3
        BNE    LF3B3   ;2
-       STA    $F5     ;3
+       STA    BGCOLOR     ;3
        BPL    LF3B5   ;2
 LF3B3: STA    $F4     ;3
 LF3B5: LDA    $80     ;3
@@ -641,7 +642,7 @@ LF3C8: AND    CLOCK     ;3
        ROR    A       ;2
        BCC    LF3D5   ;2
        LDY    #$01    ;2
-       STY    $F5     ;3
+       STY    BGCOLOR     ;3
 LF3D5: LDX    #$F7    ;2
        LDY    #$00    ;2
        STY    $D0     ;3
@@ -691,7 +692,7 @@ LF429: STA    COLUP0  ;3
        BEQ    LF437   ;2
        LDA    CLOCK     ;3
        AND    $D3     ;3
-       STA    $F5     ;3
+       STA    BGCOLOR     ;3
 LF437: LDX    #$04    ;2
        LDA    $99     ;3
        CMP    #$02    ;2
@@ -987,18 +988,18 @@ LF63E: LDA    $D0     ;3
        INX            ;2
        INX            ;2
 
-; this subroutine handles drawing the background
-; type sprites (the player's torch graphic, etc)
-LF647: STA    WSYNC   ;3
-       LDA    $F5     ;3
-       STA    COLUPF  ;3
-       STY    GRP1    ;3 draws Y reg sprite via GRP1
-       LDA    LFED0,X ;4
-       STA    PF0     ;3
-       LDA    LFED1,X ;4
-       STA    PF1     ;3
-       LDA    SPRITES1,X ;4
-       STA    PF2     ;3
+; this subroutine handles drawing the background playfield
+LF647: STA    WSYNC
+       LDA    BGCOLOR ; loads BG color from RAM
+       STA    COLUPF  ; sets background color
+       STY    GRP1    ; sets color for player 1 sprite
+       LDA    SOLID,X ;
+       STA    PF0     ; loads $FF to playfield
+       LDA    HALF,X
+       STA    PF1     ; loads $F0 to playfield
+       LDA    SPRITES1,X
+       STA    PF2     ; selects a sprite from SPRITES1, draws to playfield
+                      ; this could be a piece of text, etc
        LDA    $CD     ;3
        SEC            ;2
        SBC    $EF     ;3
@@ -1013,7 +1014,7 @@ LF66B: DEC    $CD     ;5
        BEQ    LF691   ;2
        DEC    $D0     ;5
        STA    WSYNC   ;3
-       STY    GRP0    ;3 draws sprite in Y via GRP0
+       STY    GRP0    ;3 draws sprite in Y via GRP0 (player 0 sprite)
        LDA    $CD     ;3
        SEC            ;2
        SBC    $F0     ;3
@@ -2324,11 +2325,14 @@ SPRITES0:
        .byte $FF,$FF,$FF,$FF,$00,$00,$FF,$FF,$00,$FF,$FF,$00,$00,$FF,$FF,$FF
        .byte $FF,$00,$00,$FF,$FF,$FF,$FF,$FF,$FF,$00
 
+; These may be playfield settings for drawing
 ;0ed0 |XXXXXXXX|
-LFED0: .byte $FF
+;LFED0
+SOLID: .byte $FF
 
 ;0ed1 |XXXX    |
-LFED1: .byte $F0
+;LFED1
+HALF: .byte $F0
 
 ;0ed2 |XXXXXXXX|
 ;0ed3 |XXXXXXXX|
