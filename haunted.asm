@@ -143,19 +143,19 @@ LF016: LDA    #$82    ;2 Get A ready ...
        STA    VSYNC   ;3 End of vertival sync pulse
        INC    CLOCK   ;5 increment frame count timer (only done here)
        LDA    #$2D    ;2 $2D intervals of 64-cycles = 2880 cycles total
-       STA    TIM64T  ;4 init the timer
-       JSR    LF079   ;6
+       STA    TIM64T  ;4 init the timer for VBLANK time
+       JSR    LF079   ;6 This goes into some kind of state mgmt loop
        LDA    $99     ;3
        AND    #$43    ;2
        BNE    LF03E   ;2
        JSR    LF1A5   ;6
        JSR    LF155   ;6
 LF03E: JSR    LF2B7   ;6
-LF041: LDA    INTIM   ;4
-       BNE    LF041   ;2
-       STA    VBLANK  ;3
+LF041: LDA    INTIM   ;  Waits for vertival blanking to complete ...
+       BNE    LF041
+       STA    VBLANK  ;  Begin screen draw
        LDA    #$E4    ;2
-       STA    TIM64T  ;4
+       STA    TIM64T  ;4 Initialize the timer for screen draw
        JSR    LF62C   ;6
 LF050: LDA    INTIM   ;4
        BNE    LF050   ;2
@@ -237,17 +237,22 @@ LF0D8: STX    $EA     ;3
        STA    $CB     ;3
        RTS            ;6
 
-LF0E7: JSR    LF4C9   ;6 performs some kind of bit rolling/shifting with $EC & EB
-       AND    #$07    ;2
-       CMP    #$06    ;2
-       BCS    LF0E7   ;2
-       STA    $D0     ;3
+; This subroutine randomizes some data in RAM based on bit
+; shifts and rolls between RAM $EC and $EB. It does this based
+; on an input value (A) and also on arrays in memory RAM $A5
+LF0E7: JSR    LF4C9   ;6 Performs some kind of bit mixing with $EC & EB ...
+       AND    #$07    ;2 ... then checks the result of above ...
+       CMP    #$06    ;2 ... to see if it's result is >= $06.
+                      ;  (CMP sets carry bit if A >= M)
+       BCS    LF0E7   ;2 Loop if not.
+       STA    $D0     ;3 The result of the above, once it's greater than
+                      ;  6 is set to RAM: $D0.
        LDX    #$04    ;2
-LF0F4: JSR    LF4C9   ;6
+LF0F4: JSR    LF4C9   ;6 Then we do it again.
        AND    #$03    ;2
-       STA    $A5,X   ;4
-       TAY            ;2
-       TXA            ;2
+       STA    $A5,X   ;4 Stores result as RAM $A5[X]
+       TAY            ;2 Y = A
+       TXA            ;2 A = X
 LF0FD: CLC            ;2
        ADC    $D0     ;3
        CMP    #$06    ;2
