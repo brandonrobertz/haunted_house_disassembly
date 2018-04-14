@@ -2,12 +2,17 @@
 ; Game developed by James Andreasen at Atari
 ; Disassembly & documentation by Brandon Roberts
 
+; The player, represented by a pair of eyes, must navigate the haunted
+; mansion of the late Zachary Graves to recover the three pieces of an
+; urn. The game has been identified as one of the earliest examples of the
+; survival horror genre.
+;     -- Description of the game from Wikipedia
+
 ;  The [Atari] 2600 was a real mess.  It's a good thing that we don't try to
 ;  program machines like that anymore because it was just absurd. But it was
 ;  kind of fun in a sick way if you like that kind of challenge.
-;
-;        -- Howard Scott Warshaw, Atari 2600 game developer
-;           Creator of Yar's Revenge and E.T. the Extra-Terrestrial
+;     -- Howard Scott Warshaw, Atari 2600 game developer
+;        Creator of Yar's Revenge and E.T. the Extra-Terrestrial
 
 ;; Notes about the 6502 CPU
 ;; Registers:
