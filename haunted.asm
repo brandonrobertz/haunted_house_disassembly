@@ -618,13 +618,13 @@ LF397: STA    $F0     ;3
        STY    $F3     ;3
        DEY            ;2
        STY    $F4     ;3
-       STY    BGCOLOR     ;3
+       STY    BGCOLOR ;3
        LDA    #$08    ;2
        CLC            ;2
        ADC    $8D     ;3
        LDX    $CC     ;3
        BNE    LF3B3   ;2
-       STA    BGCOLOR     ;3
+       STA    BGCOLOR ;3
        BPL    LF3B5   ;2
 LF3B3: STA    $F4     ;3
 LF3B5: LDA    $80     ;3
@@ -636,13 +636,13 @@ LF3BD: LDA    $83     ;3
        BIT    SWCHB   ;4
        BVS    LF3D5   ;2
        LDA    #$27    ;2
-LF3C8: AND    CLOCK     ;3
+LF3C8: AND    CLOCK   ;3
        BNE    LF3D5   ;2
        LDA    $EB     ;3
        ROR    A       ;2
        BCC    LF3D5   ;2
        LDY    #$01    ;2
-       STY    BGCOLOR     ;3
+       STY    BGCOLOR ;3
 LF3D5: LDX    #$F7    ;2
        LDY    #$00    ;2
        STY    $D0     ;3
@@ -685,14 +685,14 @@ LF407: LDA    $F1,X   ;4
        BNE    LF429   ;2
        LDA    $D3     ;3
        ORA    #$08    ;2
-       AND    CLOCK     ;3
+       AND    CLOCK   ;3
 LF429: STA    COLUP0  ;3
        LDA    $99     ;3
        AND    #$04    ;2
        BEQ    LF437   ;2
-       LDA    CLOCK     ;3
+       LDA    CLOCK   ;3
        AND    $D3     ;3
-       STA    BGCOLOR     ;3
+       STA    BGCOLOR ;3
 LF437: LDX    #$04    ;2
        LDA    $99     ;3
        CMP    #$02    ;2
@@ -775,7 +775,7 @@ LF4C3: LDX    #$00    ;2
        LDA    #$0F    ;2
 LF4C7: STA    $D0     ;3
 ; This might be some kind of deterministic PRNG
-LF4C9: LDA    $EC     ;3 Loads REM $EC into A (these get swapped every cycle)
+LF4C9: LDA    $EC     ;3 Loads RAM $EC into A (these get swapped every cycle)
        EOR    $EB     ;3 XOR $EC and $EB to A
        ASL    A       ;2 Multiply result by two ...
        ASL    A       ;2 ... and again.
