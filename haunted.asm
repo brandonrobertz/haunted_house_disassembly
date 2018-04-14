@@ -1,4 +1,6 @@
 ;; Disassembly of Haunted House
+; Game developed by James Andreasen at Atari
+; Disassembly & documentation by Brandon Roberts
 
 ;  The [Atari] 2600 was a real mess.  It's a good thing that we don't try to
 ;  program machines like that anymore because it was just absurd. But it was
@@ -1697,7 +1699,7 @@ LFB90: STA    $9B     ;3
 ; Torch input control (contains only reference to INPT4 reg)
 ;LFB92:
 INPUT0:
-       LDA    SWCHA   ;4
+       LDA    SWCHA   ;4 joystick movement state to reg A
        AND    #$F0    ;2
        EOR    #$F0    ;2
        STA    $8E     ;3
