@@ -33,8 +33,9 @@
 ;   restrictions, hiding playfield, etc
 
       processor 6502
-VSYNC   =  $00
+VSYNC   =  $00 ; Relevant bits:  ......1. vertical sync set-clear
 VBLANK  =  $01 ; Vertical Blank -- between screen draws
+               ; Relevant bits: 11....1. vertical blank set-clear
 WSYNC   =  $02 ; wait for horizontal sync
 
 NUSIZ0  =  $04 ; number & size of p0/m0
@@ -108,6 +109,7 @@ TIM64T  =  $0296 ; set 64-cycle clock interval (53.6 usec/interval)
 ; top of the stack
 STKTOP   = $FF
 MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
+CLOCK    = $89 ; master frame count timer
 
 ; Entry point (START)
        ORG $F000
@@ -130,16 +132,16 @@ LF00B: STA    VSYNC,X ;4
        JSR    LF082   ;6
        JSR    LF141   ;6
 
-LF016: LDA    #$82    ;2
+LF016: LDA    #$82    ;2 Get A ready ...
+       STA    WSYNC   ;3 ...  for the start of next line
+       STA    VBLANK  ;3 ... start vertical blank.
+       STA    VSYNC   ;3 Start vertical sync
        STA    WSYNC   ;3
-       STA    VBLANK  ;3
-       STA    VSYNC   ;3
        STA    WSYNC   ;3
+       LDA    #$00    ;2 Get A ready
        STA    WSYNC   ;3
-       LDA    #$00    ;2
-       STA    WSYNC   ;3
-       STA    VSYNC   ;3
-       INC    $89     ;5
+       STA    VSYNC   ;3 End of vertival sync pulse
+       INC    CLOCK   ;5 increment frame count timer (only done here)
        LDA    #$2D    ;2 $2D intervals of 64-cycles = 2880 cycles total
        STA    TIM64T  ;4 init the timer
        JSR    LF079   ;6
@@ -170,13 +172,16 @@ LF050: LDA    INTIM   ;4
        JSR    LFC3C   ;6 a subroutine for drawing the bottom screen
 LF070: LDA    INTIM   ;4 reads the timer to A
        BNE    LF070   ;2 loops until the timer runs to zero (completes)
-       STA    VBLANK  ;3 checks for VBLANK
+       STA    VBLANK  ;3 sets VBLANK with A
        BEQ    LF016   ;2
-LF079: LDA    SWCHB   ;4
+LF079: LDA    SWCHB   ;4 loads the atari switch states to A
        ROR    A       ;2
-       BCC    LF082   ;2
+       BCC    LF082   ;2 branch if the difficulty atari switch is set
        JMP    LF125   ;3
 
+; This swaps the memory locations of $EB and $EC
+; The following initializes for a loop in LF08E, which runs
+; from 0x80 to 0x96 (22 loops)
 LF082: LDX    $EB     ;3
        LDA    $EC     ;3
        STA    $EB     ;3
@@ -186,13 +191,14 @@ LF082: LDX    $EB     ;3
 
 LF08E: STA    VSYNC,X ;4
        INX            ;2
-       CPX    #$96    ;2
-       BNE    LF08E   ;2
-       LDX    #$09    ;2
-LF097: LDA    LFDF6,X ;4
-       STA    $96,X   ;4
+       CPX    #$96    ;2 Checks to see if X == $96 ...
+       BNE    LF08E   ;2 ... loops if not true. Runs 22 times.
+       LDX    #$09    ;2 Initializes so A will get last item in DATA2
+;LF097: Copies 10-byte array from DATA2 to $96
+COPY0: LDA    DATA2,X ;4
+       STA    $96,X   ;4 Then stores item from DATA2 in $96 + X offset
        DEX            ;2
-       BPL    LF097   ;2
+       BPL    COPY0   ;2
        JSR    LF0E7   ;6
        LDX    #$03    ;2
        STX    $A5     ;3
@@ -231,7 +237,7 @@ LF0D8: STX    $EA     ;3
        STA    $CB     ;3
        RTS            ;6
 
-LF0E7: JSR    LF4C9   ;6
+LF0E7: JSR    LF4C9   ;6 performs some kind of bit rolling/shifting with $EC & EB
        AND    #$07    ;2
        CMP    #$06    ;2
        BCS    LF0E7   ;2
@@ -304,7 +310,7 @@ LF155: BIT    $9B     ;3
        CMP    #$08    ;2
        BNE    LF179   ;2
        LDA    #$01    ;2
-       STA    $89     ;3
+       STA    CLOCK     ;3
        STA    $8A     ;3
        LDA    #$44    ;2
        STA    $99     ;3
@@ -473,7 +479,7 @@ LF2A1: LSR    A       ;2
        LDY    $D4     ;3
        TYA            ;2
        AND    #$08    ;2
-       BEQ    FLOORMASK   ;2
+       BEQ    FLOORMASK ;2
        CPX    #$08    ;2
        RTS            ;6
 
@@ -498,14 +504,14 @@ LF2B7: LDA    #$30    ;2
        BEQ    LF2D8   ;2
        AND    #$04    ;2
        BEQ    LF2DB   ;2
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        BNE    LF2D8   ;2
        JSR    LF141   ;6
 LF2D8: JMP    LF315   ;3
 LF2DB: LDA    $80     ;3
        BEQ    LF2ED   ;2
        JSR    LF57D   ;6
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        LSR    A       ;2
        AND    #$07    ;2
        TAX            ;2
@@ -569,7 +575,7 @@ LF34D: LDA    $CF     ;3
        LDA    #$02    ;2
        STA    ENABL   ;3
        STA    ENAM0   ;3
-LF35F: LDA    $89     ;3
+LF35F: LDA    CLOCK     ;3
        AND    #$06    ;2
        LSR    A       ;2
        TAX            ;2
@@ -624,7 +630,7 @@ LF3BD: LDA    $83     ;3
        BIT    SWCHB   ;4
        BVS    LF3D5   ;2
        LDA    #$27    ;2
-LF3C8: AND    $89     ;3
+LF3C8: AND    CLOCK     ;3
        BNE    LF3D5   ;2
        LDA    $EB     ;3
        ROR    A       ;2
@@ -644,7 +650,7 @@ LF3E8: STX    $D3     ;3
        LDA    $84     ;3
        AND    #$10    ;2
        BEQ    LF3FF   ;2
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        BNE    LF3F6   ;2
        INC    $84     ;5
 LF3F6: LDA    $84     ;3
@@ -673,12 +679,12 @@ LF407: LDA    $F1,X   ;4
        BNE    LF429   ;2
        LDA    $D3     ;3
        ORA    #$08    ;2
-       AND    $89     ;3
+       AND    CLOCK     ;3
 LF429: STA    COLUP0  ;3
        LDA    $99     ;3
        AND    #$04    ;2
        BEQ    LF437   ;2
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        AND    $D3     ;3
        STA    $F5     ;3
 LF437: LDX    #$04    ;2
@@ -762,12 +768,13 @@ LF4BD: LDX    #$1E    ;2
 LF4C3: LDX    #$00    ;2
        LDA    #$0F    ;2
 LF4C7: STA    $D0     ;3
-LF4C9: LDA    $EC     ;3
-       EOR    $EB     ;3
-       ASL    A       ;2
-       ASL    A       ;2
-       ROL    $EB     ;5
-       ROL    $EC     ;5
+; This might be some kind of deterministic PRNG
+LF4C9: LDA    $EC     ;3 Loads REM $EC into A (these get swapped every cycle)
+       EOR    $EB     ;3 XOR $EC and $EB to A
+       ASL    A       ;2 Multiply result by two ...
+       ASL    A       ;2 ... and again.
+       ROL    $EB     ;5 Rotate bits left in $EB ...
+       ROL    $EC     ;5 ... and $EC
        LDA    $EB     ;3
        RTS            ;6
 
@@ -1187,7 +1194,7 @@ LF7B7: LDA    $8F     ;3
        BPL    LF7DD   ;2
 LF7C4: CMP    #$22    ;2
        BNE    LF7DB   ;2
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        LSR    A       ;2
        LSR    A       ;2
        LSR    A       ;2
@@ -1283,7 +1290,7 @@ LF864: CPY    #$0B    ;2
 LF875: LDA    SWCHA   ;4
        EOR    #STKTOP ;2
        BEQ    LF841   ;2
-       LDA    $89     ;3
+       LDA    CLOCK     ;3
        AND    #$07    ;2
        CMP    #$03    ;2
        BCS    LF841   ;2
@@ -1336,7 +1343,7 @@ LF8C6: JSR    LF0E7   ;6
        STA    $9A     ;3
 LF8EB: RTS            ;6
 
-LF8EC: LDA    $89     ;3
+LF8EC: LDA    CLOCK     ;3
        AND    #$07    ;2
        STA    $CD     ;3
        TAY            ;2
@@ -2069,7 +2076,8 @@ LFDF1: .byte $00,$FE,$06,$FE,$06
 ;0df3 |     XX |
 ;0df4 |XXXXXXX |
 ;0df5 |     XX |
-LFDF6: .byte $09,$FF,$7F,$02,$FF,$0F,$02,$02,$03,$04
+;LFDF6:
+DATA2: .byte $09,$FF,$7F,$02,$FF,$0F,$02,$02,$03,$04
 
 ; This has something to do with the scan line
 ; playfield floorplan rendering routine. possible
