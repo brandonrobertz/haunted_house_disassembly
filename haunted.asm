@@ -70,10 +70,30 @@ CXCLR   =  $2C ; clear collision latches
 CXP0FB  =  $32 ; collision detect latch (player 0)
 CXPPMM  =  $37 ; collision detect (missile)
 
-INPT4   =  $3C ; input pot
+;; INPT4: input register for the joystick button(s)
+; Pin  PlayerP0  PlayerP1  Expl.
+; 6    INPT4.7   INPT5.7   Button (0=Pressed, 1=Not pressed)
+INPT4   =  $3C
 
+;; SWCHA: joystick motion register
+; Pin  PlayerP0  PlayerP1  Expl.
+; 1    SWCHA.4   SWCHA.0   Up     (0=Moved, 1=Not moved)
+; 2    SWCHA.5   SWCHA.1   Down   ("")
+; 3    SWCHA.6   SWCHA.2   Left   ("")
+; 4    SWCHA.7   SWCHA.3   Right  ("")
 SWCHA   =  $0280
+
+;; SWCHB: switch register on the atai itself (difficulty, etc)
+; Bit        Expl.
+; SWCHB.0    Reset Button          (0=Pressed)
+; SWCHB.1    Select Button         (0=Pressed)
+; SWCHB.2    Not used
+; SWCHB.3    Color Switch          (0=B/W, 1=Color) (Always 0 for SECAM)
+; SWCHB.4-5  Not used
+; SWCHB.6    P0 Difficulty Switch  (0=Beginner (B), 1=Advanced (A))
+; SWCHB.7    P1 Difficulty Switch  (0=Beginner (B), 1=Advanced (A))
 SWCHB   =  $0282
+
 INTIM   =  $0284
 TIM64T  =  $0296
 
@@ -1674,7 +1694,7 @@ LFB88: JSR    LF88C   ;6
        ORA    #$40    ;2
 LFB90: STA    $9B     ;3
 
-; Input control (contains only reference to INPT4 reg)
+; Torch input control (contains only reference to INPT4 reg)
 ;LFB92:
 INPUT0:
        LDA    SWCHA   ;4
@@ -1683,7 +1703,7 @@ INPUT0:
        STA    $8E     ;3
        LDA    $83     ;3
        BNE    LFBD4   ;2
-       LDA    INPT4   ;3 input to reg A
+       LDA    INPT4   ;3 joystick button state to reg A
        ROL    A       ;2
        ROR    $E6     ;5
        LDA    $E6     ;3
