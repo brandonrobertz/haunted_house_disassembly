@@ -18,7 +18,7 @@
 ;; Registers:
 ;   A: accumulator (8-bit)
 ;   X, Y: index registers
-;   P: processor status flags (7-bits NV-BDIZC)
+;   P: processor status flags (8-bits NV-BDIZC)
 ;   S: stack pointer
 ;   PC: program counter (16-bit)
 
@@ -101,8 +101,8 @@ SWCHA   =  $0280
 ; SWCHB.7    P1 Difficulty Switch  (0=Beginner (B), 1=Advanced (A))
 SWCHB   =  $0282
 
-INTIM   =  $0284
-TIM64T  =  $0296
+INTIM   =  $0284 ; read-only timer (8-bit)
+TIM64T  =  $0296 ; set 64-cycle clock interval (53.6 usec/interval)
 
 ; RAM pointers
 ; top of the stack
@@ -140,8 +140,8 @@ LF016: LDA    #$82    ;2
        STA    WSYNC   ;3
        STA    VSYNC   ;3
        INC    $89     ;5
-       LDA    #$2D    ;2
-       STA    TIM64T  ;4
+       LDA    #$2D    ;2 $2D intervals of 64-cycles = 2880 cycles total
+       STA    TIM64T  ;4 init the timer
        JSR    LF079   ;6
        LDA    $99     ;3
        AND    #$43    ;2
@@ -165,12 +165,12 @@ LF050: LDA    INTIM   ;4
        BIT    $99     ;3
        BVS    LF070   ;2
        JSR    LF8AC   ;6
-       JSR    LFB68   ;6
-       JSR    LFA90   ;6
-       JSR    LFC3C   ;6
-LF070: LDA    INTIM   ;4
-       BNE    LF070   ;2
-       STA    VBLANK  ;3
+       JSR    LFB68   ;6 an input processing subroutine
+       JSR    COLLIDE0;6 collision detection subroutine
+       JSR    LFC3C   ;6 a subroutine for drawing the bottom screen
+LF070: LDA    INTIM   ;4 reads the timer to A
+       BNE    LF070   ;2 loops until the timer runs to zero (completes)
+       STA    VBLANK  ;3 checks for VBLANK
        BEQ    LF016   ;2
 LF079: LDA    SWCHB   ;4
        ROR    A       ;2
@@ -1513,17 +1513,17 @@ LFA1F: STA    $D6     ;3
        CMP    #$08    ;2
        BEQ    LFA39   ;2
        TXA            ;2
-       BNE    LFA65   ;2
+       BNE    RET1    ;2
 LFA39: LDA    $D8     ;3
        STA    $D0     ;3
        LDA    #$01    ;2
        BNE    LFA56   ;2
 LFA41: CMP    #STKTOP ;2
-       BEQ    LFA65   ;2
+       BEQ    RET1    ;2
        LDY    $A5,X   ;4
        LDA    $C5,X   ;4
        JSR    LFD4C   ;6
-       BCS    LFA65   ;2
+       BCS    RET1    ;2
        BNE    LFA54   ;2
        LDA    #$02    ;2
        BNE    LFA56   ;2
@@ -1539,7 +1539,9 @@ LFA56: ASL    $D6     ;5
        STA    $C0,X   ;4
        RTS            ;6
 
-LFA65: LDA    #$00    ;2
+; Exit subroutine, sets return val to zero
+;LFA65:
+RET1:  LDA    #$00    ;2
        RTS            ;6
 
 LFA68: LDA    $94     ;3
@@ -1560,12 +1562,16 @@ LFA83: LDA    $DA     ;3
 
 LFA86: .byte $AA,$91,$88,$88,$88
 LFA8B: .byte $AA,$AA,$91,$91,$91
-LFA90: LDA    $80     ;3
-       BNE    LFA65   ;2
-       BIT    CXPPMM  ;3
-       BPL    LFA65   ;2
+
+; collision detection subroutine
+;LFA90:
+COLLIDE0:
+       LDA    $80     ;3
+       BNE    RET1    ;2
+       BIT    CXPPMM  ;3 collision detect with missile
+       BPL    RET1    ;2 jump if no collision (neg bit not set)
        LDA    $81     ;3
-       BNE    LFA65   ;2
+       BNE    RET1    ;2
        BIT    $8A     ;3
        BVC    LFAA3   ;2
        BPL    LFAAC   ;2
@@ -1681,6 +1687,7 @@ LFB64: DEX            ;2
        BPL    LFB4D   ;2
        RTS            ;6
 
+; This is some kind of an input processing subroutine
 LFB68: LDA    $9B     ;3
        AND    #$0F    ;2
        CMP    #$0F    ;2
@@ -1713,12 +1720,12 @@ INPUT0:
        STA    MVMT    ;3 RAM $8E now hold movement bits
        LDA    $83     ;3
        BNE    LFBD4   ;2 jump to LFBD4 if the joystick is moved
-       LDA    INPT4   ;3 joystick button state to reg A
-       ROL    A       ;2
-       ROR    $E6     ;5
-       LDA    $E6     ;3
-       CMP    #$7F    ;2
-       BNE    LFBD4   ;2
+       LDA    INPT4   ;3 joystick button state to reg A ($bc, 10111100)
+       ROL    A       ;2 rotate left w/ wrap around ($79, 01111001)
+       ROR    $E6     ;5 rotate right, RAM E6 (previous button press state?)
+       LDA    $E6     ;3 load RAM E6 into A
+       CMP    #$7F    ;2 compare result with 7F (0111 1111)
+       BNE    LFBD4   ;2 jump if not equal
        BIT    $8A     ;3
        BVS    LFBC2   ;2
        LDA    #$14    ;2
@@ -1741,14 +1748,15 @@ LFBC2: BIT    $9A     ;3
        JSR    LFBE2   ;6
        LDA    #STKTOP ;2
        STA    $9A     ;3
-       BNE    LFC0A   ;2
-LFBD4: LDA    $81     ;3
-       BEQ    LFC0A   ;2
+       BNE    RET0    ;2
+
+LFBD4: LDA    $81     ;3 move RAM 81 into A
+       BEQ    RET0    ;2 if A == 0, return
        BIT    CXP0FB  ;3
        BMI    LFBFB   ;2
        LDA    #$00    ;2
        STA    $81     ;3
-       BEQ    LFC0A   ;2
+       BEQ    RET0    ;2
 LFBE2: LDA    #$05    ;2
        STA    $81     ;3
        LDA    $9A     ;3
@@ -1762,16 +1770,17 @@ LFBE2: LDA    #$05    ;2
        LDX    $E8     ;3
        INX            ;2
        JSR    LFC0B   ;6
-       BCC    LFC0A   ;2
+       BCC    RET0    ;2
 LFBFB: DEC    $81     ;5
-       BEQ    LFC0A   ;2
+       BEQ    RET0    ;2
        LDX    $81     ;3
        DEX            ;2
        LDY    $81     ;3
        DEY            ;2
        JSR    LFC0B   ;6
        BCS    LFBFB   ;2
-LFC0A: RTS            ;6
+;LFC0A:
+RET0: RTS             ;6
 
 LFC0B: LDA    LFD03,X ;4
        LDX    $B5     ;3
@@ -1801,15 +1810,21 @@ LFC18: CLC            ;2
 LFC3A: SEC            ;2
        RTS            ;6
 
+;; This subroutine runs when the lower, display chunk
+;; of the screen is being drawn. It loops five times.
+; Initialize: $D0 = 5, X = 0, for LFC42
 LFC3C: LDA    #$05    ;2
-       STA    $D0     ;3
-       LDX    #$00    ;2
-LFC42: LDY    $D0     ;3
-       LDA    LFC74,Y ;4
-       TAY            ;2
+       STA    $D0     ;3 initialize RAM $D0 = 5
+       LDX    #$00    ;2 X = 0
+; Movement subroutine check. RAM MVMT ($8E) data masks are
+; stored in DATA0, which are then used to pull data from DATA1
+; RAM $D0 is a param here, specifying an offset in DATA0
+LFC42: LDY    $D0     ;3 Y = RAM $D0 (initialized to 5)
+       LDA    DATA0,Y ;4 A = DATA0[Y]
+       TAY            ;2 move data to Y
        LDA    MVMT    ;3
-       AND    LFC7A,Y ;4
-       BEQ    LFC61   ;2
+       AND    DATA1,Y ;4 AND A with DATA1[Y]
+       BEQ    LFC61   ;2 jump if above result is zero
        LDA    $AA     ;3
        CPY    #$02    ;2
        BCC    LFC57   ;2
@@ -1818,16 +1833,18 @@ LFC57: CMP    LFC68,X ;4
        BEQ    LFCA5   ;2
        CMP    LFC69,X ;4
        BEQ    LFC7E   ;2
-LFC61: INX            ;2
+LFC61: INX            ;2 increment X twice (w/ below)
        INX            ;2
-       DEC    $D0     ;5
+       DEC    $D0     ;5 decrement $D0
        BPL    LFC42   ;2
 LFC67: RTS            ;6
 
 LFC68: .byte $54
 LFC69: .byte $5C,$A4,$AC,$58,$4F,$A8,$9F,$4F,$47,$48,$50
-LFC74: .byte $01,$00,$03,$03,$02,$02
-LFC7A: .byte $40,$80,$10,$20
+;LFC74:
+DATA0: .byte $01,$00,$03,$03,$02,$02
+;DATA1:
+DATA1: .byte $40,$80,$10,$20
 LFC7E: BIT    $88     ;3
        BPL    LFC67   ;2
        TYA            ;2
