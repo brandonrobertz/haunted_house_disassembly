@@ -1,3 +1,5 @@
+        PROCESSOR 6502
+
 ;; Disassembly of Haunted House
 ; Game developed by James Andreasen at Atari
 ; Disassembly & documentation by Brandon Roberts
@@ -25,6 +27,8 @@
 ;; 6502 ASM Syntax Notes
 ; $ means the following is hex formatted
 ; # means the following is a literal number value
+; #$FF means hex value FF, typically used like:
+;    LDA #$FF ;  store hex FF to accumulator
 
 ;; Routines Known to Exist (but not yet found)
 ; - Polynomial Counter for scattering urn objects
@@ -32,11 +36,12 @@
 ; - Difficulty modes: locked doors + keys, ghost
 ;   restrictions, hiding playfield, etc
 
-      processor 6502
 VSYNC   =  $00 ; Relevant bits:  ......1. vertical sync set-clear
 VBLANK  =  $01 ; Vertical Blank -- between screen draws
                ; Relevant bits: 11....1. vertical blank set-clear
-WSYNC   =  $02 ; wait for horizontal sync
+WSYNC   =  $02 ; When this is written to, the processor will wait for
+               ; horizontal sync (beam to hit left edge of screen)
+               ; You typically see this at STA WSYNC
 
 NUSIZ0  =  $04 ; number & size of p0/m0
 NUSIZ1  =  $05 ; .. p1/m1
@@ -112,36 +117,49 @@ MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
 CLOCK    = $89 ; master frame count timer
 BGCOLOR  = $F5 ; background color
 
+GAMEMODE = $CC ; Game level 1-9
+UNKNOWN0 = $CD ; counts up modulo 8 once per frame
+UNKNOWN1 = $DD 
+UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
+
 ; Entry point (START)
        ORG $F000
 
 START:
                       ;cycles comments ...
 LF000: SEI            ;2 disable interrupts (6507 has no support)
-       CLD            ;2 clear decimal bit
-       LDX    #STKTOP ;2 X register = stack address
-       TXS            ;2 Pull stack value to X (Init stack?)
-       STX    $EB     ;3 stores X to $EB
+       CLD            ;2 disable decimal mode
+       LDX   #STKTOP  ;2 X register = stack address
+       TXS            ;2 Init stack (stack register = X = FFh)
+       STX   $EB      ;3 stores X to $EB
                       ;2 $EB could be a scan line counter?
        INX            ;2 X++
-       STX    $CC     ;3 stores X to location $CC
-       TXA            ;2 sets A to what was at $CC
+       STX   GAMEMODE ;3 Start at game mode 1 (0h)
+       TXA            ;2 sets A to what was at GAMEMODE
 
+; This is kind of a waiting while drawing nothing loop.
 LF00B: STA    VSYNC,X ;4
        INX            ;2
-       BPL    LF00B   ;2 loop while X is positive
+       BPL    LF00B   ;2 loop while X is positive (until X overflows)
+
        JSR    LF082   ;6
        JSR    LF141   ;6
 
-LF016: LDA    #$82    ;2 Get A ready ...
-       STA    WSYNC   ;3 ...  for the start of next line
-       STA    VBLANK  ;3 ... start vertical blank.
-       STA    VSYNC   ;3 Start vertical sync
+; This is the beginning of the main game loop
+MAIN:  LDA    #$82    ;2 Get some bits to write ...
+       STA    WSYNC   ;3 ... to WSYNC. This kicks off new frame draw.
+                      ; NOTE: writing to WSYNC will halt execution
+                      ; until the beam is at the left edge of screen.
+       ; Produce the three lines of vertical sync
+       STA    VBLANK  ;3
+       STA    VSYNC   ;3
        STA    WSYNC   ;3
        STA    WSYNC   ;3
-       LDA    #$00    ;2 Get A ready
-       STA    WSYNC   ;3
-       STA    VSYNC   ;3 End of vertival sync pulse
+       LDA    #$00    ;2 A=0, do this here to save us cycles later?
+       STA    WSYNC   ;3 Wait for new line.
+       ; This begins the 37 lines of vertical blank
+       STA    VSYNC   ;3 L=2 End of vertical sync pulse
+       ; We're in vblank now ...
        INC    CLOCK   ;5 increment frame count timer (only done here)
        LDA    #$2D    ;2 $2D intervals of 64-cycles = 2880 cycles total
        STA    TIM64T  ;4 init the timer for VBLANK time
@@ -152,12 +170,17 @@ LF016: LDA    #$82    ;2 Get A ready ...
        JSR    LF1A5   ;6
        JSR    LF155   ;6
 LF03E: JSR    LF2B7   ;6
-LF041: LDA    INTIM   ;  Waits for vertival blanking to complete ...
+LF041: LDA    INTIM   ;  Waits for vertical blanking to complete ...
        BNE    LF041
        STA    VBLANK  ;  Begin screen draw
        LDA    #$E4    ;2
        STA    TIM64T  ;4 Initialize the timer for screen draw
        JSR    LF62C   ;6
+
+; Wait for timer to hit zero. This routine gets
+; ran at the bottom of the screen while drawing
+; blank space beneath the floor and game number
+; display.
 LF050: LDA    INTIM   ;4
        BNE    LF050   ;2
        STA    WSYNC   ;3
@@ -174,9 +197,9 @@ LF050: LDA    INTIM   ;4
 LF070: LDA    INTIM   ;4 reads the timer to A
        BNE    LF070   ;2 loops until the timer runs to zero (completes)
        STA    VBLANK  ;3 sets VBLANK with A
-       BEQ    LF016   ;2
+       BEQ    MAIN    ;2
 LF079: LDA    SWCHB   ;4 loads the atari switch states to A
-       ROR    A       ;2
+       ROR            ;2 rotate bit right, accumulator
        BCC    LF082   ;2 branch if the difficulty atari switch is set
        JMP    LF125   ;3
 
@@ -212,7 +235,7 @@ LF0A7: LDA    $A5,X   ;4
        STA    $B6,X   ;4
        DEX            ;2
        BPL    LF0A7   ;2
-       LDY    $CC     ;3
+       LDY    GAMEMODE;3
        CPY    #$02    ;2
        BNE    LF0C7   ;2
        INX            ;2
@@ -225,7 +248,7 @@ LF0C7: LDA    #$35    ;2
        STA    CTRLPF  ;3
        JSR    LFD0A   ;6
        LDX    #$04    ;2
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        CMP    #$04    ;2
        BCS    LF0D8   ;2
        LDX    #$02    ;2
@@ -276,7 +299,7 @@ LF112: STA    $C5,X   ;4
        BPL    LF0F4   ;2
        RTS            ;6
 
-LF125: ROR    A       ;2
+LF125: ROR            ;2
        BCC    LF12D   ;2
        LDX    #$01    ;2
        STX    $E5     ;3
@@ -286,12 +309,12 @@ LF12D: DEC    $E5     ;5
        BNE    LF12C   ;2
        LDA    #$2D    ;2
        STA    $E5     ;3
-       INC    $CC     ;5
-       LDA    $CC     ;3
+       INC    GAMEMODE;5
+       LDA    GAMEMODE;3
        CMP    #$09    ;2
        BNE    LF13F   ;2
        LDA    #$00    ;2
-LF13F: STA    $CC     ;3
+LF13F: STA    GAMEMODE;3
 LF141: JSR    LF194   ;6
        LDA    #$40    ;2
        STA    $99     ;3
@@ -455,10 +478,10 @@ LF279: LDA    $AA     ;3
 LF27D: LDY    $AA     ;3
        DEY            ;2
        TYA            ;2
-LF281: LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+LF281: LSR            ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        TAY            ;2
        DEY            ;2
        STY    $D4     ;3
@@ -477,10 +500,10 @@ LF295: LDA    $B5     ;3
 LF29C: LDA    $B5     ;3
        CLC            ;2
        ADC    #$03    ;2
-LF2A1: LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+LF2A1: LSR            ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        TAX            ;2
        LDY    $D4     ;3
        TYA            ;2
@@ -518,7 +541,7 @@ LF2DB: LDA    $80     ;3
        BEQ    LF2ED   ;2
        JSR    LF57D   ;6
        LDA    CLOCK     ;3
-       LSR    A       ;2
+       LSR            ;2
        AND    #$07    ;2
        TAX            ;2
        LDA    LFF92,X ;4
@@ -548,16 +571,16 @@ LF318: LDY    #$E7    ;2
        STY    $DA     ;3
        LDY    #$A5    ;2
        LDX    #$01    ;2
-       ROL    A       ;2
+       ROL            ;2
        BCS    LF329   ;2
        LDY    #$C6    ;2
-LF329: ROL    A       ;2
+LF329: ROL            ;2
        BCS    LF32E   ;2
        LDY    #$63    ;2
-LF32E: ROL    A       ;2
+LF32E: ROL            ;2
        BCS    LF332   ;2
        DEX            ;2
-LF332: ROL    A       ;2
+LF332: ROL            ;2
        BCS    LF336   ;2
        INX            ;2
 LF336: TYA            ;2
@@ -574,7 +597,7 @@ LF336: TYA            ;2
        BNE    LF397   ;2
 LF34D: LDA    $CF     ;3
        STA    $E0     ;3
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        BEQ    LF35F   ;2
        BIT    $88     ;3
        BMI    LF35F   ;2
@@ -583,7 +606,7 @@ LF34D: LDA    $CF     ;3
        STA    ENAM0   ;3
 LF35F: LDA    CLOCK     ;3
        AND    #$06    ;2
-       LSR    A       ;2
+       LSR            ;2
        TAX            ;2
        LDA    LFF9A,X ;4
        STA    $E3     ;3
@@ -622,7 +645,7 @@ LF397: STA    $F0     ;3
        LDA    #$08    ;2
        CLC            ;2
        ADC    $8D     ;3
-       LDX    $CC     ;3
+       LDX    GAMEMODE;3
        BNE    LF3B3   ;2
        STA    BGCOLOR ;3
        BPL    LF3B5   ;2
@@ -639,7 +662,7 @@ LF3BD: LDA    $83     ;3
 LF3C8: AND    CLOCK   ;3
        BNE    LF3D5   ;2
        LDA    $EB     ;3
-       ROR    A       ;2
+       ROR            ;2
        BCC    LF3D5   ;2
        LDY    #$01    ;2
        STY    BGCOLOR ;3
@@ -701,7 +724,7 @@ LF437: LDX    #$04    ;2
 LF441: LDA    #$02    ;2
        CPX    #$02    ;2
        BCS    LF448   ;2
-       LSR    A       ;2
+       LSR            ;2  shift right one bit (accumulator)
 LF448: CLC            ;2
        ADC    $DC,X   ;4
        LDY    #$02    ;2
@@ -711,10 +734,10 @@ LF44E: INY            ;2
        BCS    LF44E   ;2
        EOR    #STKTOP ;2
        SBC    #$06    ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2 arithmetic shift left one bit, accumulator
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        STA    WSYNC   ;3
 LF45D: DEY            ;2
        BPL    LF45D   ;2
@@ -733,7 +756,7 @@ LF45D: DEY            ;2
        BVC    LF4A1   ;2
        BIT    $88     ;3
        BMI    LF4A1   ;2
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        BEQ    LF4A1   ;2
        LDA    $8C     ;3
        BEQ    LF48C   ;2
@@ -758,13 +781,13 @@ LF4A1: LDA    $B5     ;3
        BCS    LF4C3   ;2
        ADC    #$2A    ;2
        STA    $D0     ;3
-LF4AF: LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+LF4AF: LSR            ;2 Logical Shift One Bit Right (accumulator)
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        EOR    #$0F    ;2
        STA    $D1     ;3
-       ASL    A       ;2
+       ASL            ;2
        ADC    $D1     ;3
        TAX            ;2
        BPL    LF4C9   ;2
@@ -777,8 +800,8 @@ LF4C7: STA    $D0     ;3
 ; This might be some kind of deterministic PRNG
 LF4C9: LDA    $EC     ;3 Loads RAM $EC into A (these get swapped every cycle)
        EOR    $EB     ;3 XOR $EC and $EB to A
-       ASL    A       ;2 Multiply result by two ...
-       ASL    A       ;2 ... and again.
+       ASL            ;2 Multiply result by two ...
+       ASL            ;2 ... and again.
        ROL    $EB     ;5 Rotate bits left in $EB ...
        ROL    $EC     ;5 ... and $EC
        LDA    $EB     ;3
@@ -795,9 +818,9 @@ LF4E2: TXA            ;2
        CPX    #$02    ;2
        BCC    LF4E9   ;2
        LDA    $9B,X   ;4
-LF4E9: ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+LF4E9: ASL            ;2
+       ASL            ;2
+       ASL            ;2
        ADC    #$08    ;2
        LDX    #$FE    ;2
        RTS            ;6
@@ -820,7 +843,7 @@ LF505: CPX    $9A     ;3
        BCC    LF511   ;2
        LDA    $9B,X   ;4
        BMI    LF4FA   ;2
-LF511: LDA    $CC     ;3
+LF511: LDA    GAMEMODE;3
        CMP    #$02    ;2
        BCS    LF51B   ;2
        CPX    #$00    ;2
@@ -858,7 +881,7 @@ LF548: STA    $D0     ;3
 LF555: STA    $D1     ;3
        CMP    $D0     ;3
        BCS    LF55E   ;2
-       LSR    A       ;2
+       LSR            ;2
        BPL    LF560   ;2
 LF55E: LSR    $D0     ;5
 LF560: CLC            ;2
@@ -899,7 +922,7 @@ LF598: JSR    LF59E   ;6
 LF59E: LDA    $A5,X   ;4
        CMP    $8D     ;3
        BNE    LF595   ;2
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        BEQ    LF5BA   ;2
        LDA    $80     ;3
        BNE    LF5BA   ;2
@@ -944,10 +967,10 @@ LF5E7: LDA    $9B     ;3
        AND    #$03    ;2
        EOR    #$01    ;2
 LF5F9: STA    $D0     ;3
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        CLC            ;2
        ADC    $D0     ;3
        ADC    #$8C    ;2
@@ -994,9 +1017,9 @@ LF647: STA    WSYNC
        STA    COLUPF  ; sets background color
        STY    GRP1    ; sets color for player 1 sprite
        LDA    SOLID,X ;
-       STA    PF0     ; loads $FF to playfield
+       STA    PF0     ; loads $FF to playfield 0 RAM location
        LDA    HALF,X
-       STA    PF1     ; loads $F0 to playfield
+       STA    PF1     ; loads $F0 to playfield 1 RAM location
        LDA    SPRITES1,X
        STA    PF2     ; selects a sprite from SPRITES1, draws to playfield
                       ; this could be a piece of text, etc
@@ -1066,29 +1089,29 @@ LF6BC: DEX            ;2
        STX    $D5     ;3
        LDA    $82     ;3
        AND    #$F0    ;2
-       LSR    A       ;2
+       LSR            ;2
        STA    $D4     ;3
        LDA    $82     ;3
        AND    #$0F    ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        STA    $D6     ;3
        LDA    $96     ;3
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        STA    $D8     ;3
        BIT    $99     ;3
        BVC    LF6F6   ;2
-       LDY    $CC     ;3
+       LDY    GAMEMODE;3
        BPL    LF6F8   ;2
 LF6F6: LDY    $8D     ;3
 LF6F8: INY            ;2
        TYA            ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        STA    $DA     ;3
        LDX    $9A     ;3
        JSR    LF4E2   ;6
@@ -1172,21 +1195,21 @@ LF78C: LDA    $92     ;3
 LF794: DEC    $98     ;5
 LF796: LDX    #$08    ;2
        TYA            ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        ORA    #$10    ;2
        TAY            ;2
        EOR    #$0F    ;2
        BPL    LF7DD   ;2
-LF7A3: LSR    A       ;2
+LF7A3: LSR            ;2
        BCC    LF7C4   ;2
        LDA    $8F     ;3
        BNE    LF7B7   ;2
        LDA    $EB     ;3
        AND    #$70    ;2
-       LSR    A       ;2
-       LSR    A       ;2
+       LSR            ;2
+       LSR            ;2
        CLC            ;2
        ADC    #$10    ;2
        STA    $8F     ;3
@@ -1201,10 +1224,10 @@ LF7B7: LDA    $8F     ;3
 LF7C4: CMP    #$22    ;2
        BNE    LF7DB   ;2
        LDA    CLOCK     ;3
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        AND    #$03    ;2
        TAX            ;2
        LDA    LFF9E,X ;4
@@ -1212,7 +1235,14 @@ LF7C4: CMP    #$22    ;2
        LDA    #$09    ;2
        LDX    #$0C    ;2
        BPL    LF7DD   ;2
+
+; Audio volume 0
 LF7DB: LDA    #$00    ;2
+; Begin sound effects routine
+; Params:
+;   A - volume
+;   Y - frequency
+;   X - noise content & additional freq
 LF7DD: STX    AUDC0   ;3
        STY    AUDF0   ;3
        STA    AUDV0   ;3
@@ -1270,10 +1300,10 @@ LF843: STY    AUDV1   ;3
        RTS            ;6
 
 LF84A: LDA    $90     ;3
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        CPY    #$09    ;2
        BEQ    LF85A   ;2
        CPY    #$0A    ;2
@@ -1319,7 +1349,7 @@ LF8A0: .byte $FF,$FF,$15,$15,$01,$04,$04,$0A,$15,$3F,$3F,$1F
 LF8AC: LDA    $99     ;3
        AND    #$FD    ;2
        STA    $99     ;3
-       ROR    A       ;2
+       ROR            ;2
        BCC    LF8EC   ;2
        DEC    $80     ;5
        BNE    LF8EC   ;2
@@ -1334,7 +1364,7 @@ LF8C6: JSR    LF0E7   ;6
        LDA    $CA     ;3
        CMP    #$01    ;2
        BNE    LF8EB   ;2
-       LDY    $CC     ;3
+       LDY    GAMEMODE;3
        CPY    #$06    ;2
        BCC    LF8EB   ;2
        LDX    $9A     ;3
@@ -1372,7 +1402,7 @@ LF910: INC    $83     ;5
        BNE    LF94C   ;2
        TXA            ;2
        BNE    LF91F   ;2
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        CMP    #$07    ;2
        BCS    LF925   ;2
 LF91F: LDA    $9A     ;3
@@ -1404,10 +1434,10 @@ LF950: LDA    $C0,X   ;4
        AND    #$0F    ;2
        STA    $D0     ;3
        TYA            ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
-       LSR    A       ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
+       LSR            ;2
        TAY            ;2
        LDA    LFFA6,Y ;4
        CLC            ;2
@@ -1445,7 +1475,7 @@ LF9A0: DEX            ;2
        JMP    LF900   ;3
 LF9A6: LDX    #$00    ;2
        LDA    $95     ;3
-LF9AA: ROR    A       ;2
+LF9AA: ROR            ;2
        BCS    LF9B5   ;2
        INX            ;2
        CPX    $EA     ;3
@@ -1466,9 +1496,9 @@ LF9B5: LDA    $95     ;3
        AND    #$C0    ;2
        STA    $D0     ;3
        CLC            ;2
-       ROL    A       ;2
-       ROL    A       ;2
-       ROL    A       ;2
+       ROL            ;2 rotate 1 bit left
+       ROL            ;2
+       ROL            ;2
        TAY            ;2
        LDA    LFFD0,Y ;4
        CLC            ;2
@@ -1490,9 +1520,9 @@ LF9EC: LDA    $C5,X   ;4
        RTS            ;6
 
 LF9F3: TYA            ;2
-       ROL    A       ;2
-       ROL    A       ;2
-       ROL    A       ;2
+       ROL            ;2
+       ROL            ;2
+       ROL            ;2
        AND    #$03    ;2
        EOR    #$01    ;2
        STA    $D4     ;3
@@ -1522,7 +1552,7 @@ LFA1F: STA    $D6     ;3
        JSR    LFDAE   ;6
        BMI    LFA41   ;2
        BEQ    LFA39   ;2
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        CMP    #$08    ;2
        BEQ    LFA39   ;2
        TXA            ;2
@@ -1544,10 +1574,10 @@ LFA54: LDA    #$03    ;2
 LFA56: ASL    $D6     ;5
        ASL    $D6     ;5
        ORA    $D6     ;3
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        ORA    $D0     ;3
        STA    $C0,X   ;4
        RTS            ;6
@@ -1560,7 +1590,7 @@ RET1:  LDA    #$00    ;2
 LFA68: LDA    $94     ;3
        AND    MASK0,X ;4
        BEQ    LFA83   ;2
-LFA6F: LDA    $CC     ;3
+LFA6F: LDA    GAMEMODE;3
        CMP    #$07    ;2
        BCC    LFA7A   ;2
        LDA    LFA8B,X ;4
@@ -1648,7 +1678,7 @@ LFB08: PLA            ;4
        STA    $9A     ;3
 LFB0B: RTS            ;6
 
-LFB0C: LDA    $CC     ;3
+LFB0C: LDA    GAMEMODE;3
        CMP    #$07    ;2
        BCC    LFB16   ;2
        LDA    $85     ;3
@@ -1665,18 +1695,18 @@ LFB1C: LDX    #$01    ;2
        STA    $CA     ;3
        RTS            ;6
 
-LFB2B: LDA    $CC     ;3
+LFB2B: LDA    GAMEMODE;3
        CMP    #$05    ;2
        BCC    INPUT0  ;2
        LDA    $9B     ;3
        AND    #$07    ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
        STA    $D0     ;3
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
-       ASL    A       ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
+       ASL            ;2
        ORA    $D0     ;3
        AND    #$D0    ;2
        ORA    #$20    ;2
@@ -1734,7 +1764,7 @@ INPUT0:
        LDA    $83     ;3
        BNE    LFBD4   ;2 jump to LFBD4 if the joystick is moved
        LDA    INPT4   ;3 joystick button state to reg A ($bc, 10111100)
-       ROL    A       ;2 rotate left w/ wrap around ($79, 01111001)
+       ROL            ;2 rotate left w/ wrap around ($79, 01111001)
        ROR    $E6     ;5 rotate right, RAM E6 (previous button press state?)
        LDA    $E6     ;3 load RAM E6 into A
        CMP    #$7F    ;2 compare result with 7F (0111 1111)
@@ -1899,16 +1929,16 @@ LFCB3: LDY    $D6     ;3
 ; reference to the main block of data containing
 ; the various item and monster sprites
 LFCC6: LDA    $D6     ;3
-       LSR    A       ;2
+       LSR            ;2
        TAX            ;2
        LDA    SPRITES0,X ;4
        STA    $91     ;3
        LDX    #$02    ;2
-LFCD1: LDA    $CC     ;3
+LFCD1: LDA    GAMEMODE;3
        BEQ    LFC67   ;2
        JMP    LF88C   ;3
 LFCD8: STY    $D5     ;3
-       LDA    $CC     ;3
+       LDA    GAMEMODE;3
        CMP    #$05    ;2
        BCC    LFCFF   ;2
        LDA    LFD06,Y ;4
@@ -1990,7 +2020,7 @@ LFD6C: STA    $D6     ;3
        LDA    $9C     ;3
        JSR    LFD9A   ;6
        BMI    LFDC7   ;2
-       LSR    A       ;2
+       LSR            ;2
        TAY            ;2
        LDA    LFD7F,Y ;4
        RTS            ;6
@@ -1998,8 +2028,8 @@ LFD6C: STA    $D6     ;3
 LFD7F: .byte $57,$A7,$4F
 LFD82: .byte $04,$FF,$00,$80,$FF,$04,$01,$81,$05,$82,$02,$00,$83,$05,$03,$01
        .byte $06,$FF,$84,$02,$FF,$06,$85,$03
-LFD9A: ASL    A       ;2
-       ASL    A       ;2
+LFD9A: ASL            ;2
+       ASL            ;2
        CLC            ;2
        ADC    $D6     ;3
        TAY            ;2
@@ -2013,7 +2043,7 @@ LFDA6: STA    $D6     ;3
        LDA    $9C     ;3
 LFDAE: JSR    LFD9A   ;6
        BMI    LFDC9   ;2
-       LDY    $CC     ;3
+       LDY    GAMEMODE;3
        CPY    #$02    ;2
        BCC    LFDC7   ;2
        LDA    $D7     ;3
@@ -2026,7 +2056,7 @@ LFDAE: JSR    LFD9A   ;6
 LFDC7: LDA    #$00    ;2
 LFDC9: RTS            ;6
 
-LFDCA: LDY    $CC     ;3
+LFDCA: LDY    GAMEMODE;3
        CPY    #$08    ;2
        BNE    LFDD3   ;2
        CLC            ;2
@@ -2173,6 +2203,7 @@ MASK0: .byte $01,$02,$04,$08,$10,$20
 ;0e45 |   XXXXX|
 ;0e46 |  XXXX  |
 ;0e47 |   XX   |
+
 ;0e48 |  XXXX  |
 ;0e49 |   XX   |
 ;0e4a |  XXXX  |
@@ -2201,6 +2232,7 @@ MASK0: .byte $01,$02,$04,$08,$10,$20
 ;0e61 |X XXXXX |
 ;0e62 | XX X XX|
 ;0e63 |   XXX X|
+
 ;0e64 |X      X|
 ;0e65 |X      X|
 ;0e66 |XX    XX|
@@ -2221,6 +2253,7 @@ MASK0: .byte $01,$02,$04,$08,$10,$20
 ;0e75 |XX    XX|
 ;0e76 |X      X|
 ;0e77 |X      X|
+
 ;0e78 |  X  X  |
 ;0e79 |  X  X  |
 ;0e7a |  X  X  |
@@ -2462,6 +2495,8 @@ HALF: .byte $F0
 ;0f4e | XX  XX |
 ;0f4f |  XXXX  |
 
+; Big torch
+; Displays 2/3 of torch draws
 ;0f50 |  XXXX  |
 ;0f51 |  XXXX  |
 ;0f52 |  XXXX  |
@@ -2490,6 +2525,9 @@ HALF: .byte $F0
 ;0f69 |  XXXX  |
 ;0f6a |  XXXX  |
 ;0f6b |  XXXX  |
+
+; Little torch
+; Displays 1/3 of torch draws
 ;0f6c |   XX   |
 ;0f6d |   XX   |
 ;0f6e |   XX   |
