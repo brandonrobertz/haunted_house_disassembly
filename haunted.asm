@@ -119,7 +119,7 @@ BGCOLOR  = $F5 ; background color
 
 GAMEMODE = $CC ; Game level 1-9
 UNKNOWN0 = $CD ; counts up modulo 8 once per frame
-UNKNOWN1 = $DD 
+UNKNOWN1 = $DD
 UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
 
 ; Entry point (START)
