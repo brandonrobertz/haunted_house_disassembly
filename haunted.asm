@@ -114,6 +114,7 @@ TIM64T  =  $0296 ; set 64-cycle clock interval (53.6 usec/interval)
 ; top of the stack
 STKTOP   = $FF
 MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
+               ; bit format, 1=pressed: RLDU (player 1) ---- (player 2)
 CLOCK    = $89 ; master frame count timer
 BGCOLOR  = $F5 ; background color
 
@@ -125,6 +126,9 @@ GAMEMODE = $CC ; Game level 1-9
 MODULO8  = $CD ; counts up modulo 8 once per frame
 UNKNOWN1 = $DD
 UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
+UNKNOWN3 = $83 ; This has something to do with enemies
+               ; distance to the player and ability to use
+               ; a torch
 
 ; Entry point (START)
        ORG $F000
@@ -327,7 +331,7 @@ LF141: JSR    LF194   ;6
        LDA    #$00    ;2
        STA    $85     ;3
        STA    $80     ;3
-       STA    $83     ;3
+       STA    UNKNOWN3;3
        RTS            ;6
 
 LF155: BIT    $9B     ;3
@@ -357,7 +361,7 @@ LF17E: DEC    $87     ;5
        DEC    $DF     ;5
 LF188: BIT    $8A     ;3
        BVC    LF19E   ;2
-       LDA    $83     ;3
+       LDA    UNKNOWN3;3
        BNE    LF194   ;2
        LDA    $DF     ;3
        BNE    LF19E   ;2
@@ -660,7 +664,7 @@ LF3B5: LDA    $80     ;3
        BEQ    LF3BD   ;2
        LDA    #$03    ;2
        BNE    LF3C8   ;2
-LF3BD: LDA    $83     ;3
+LF3BD: LDA    UNKNOWN3;3
        BEQ    LF3D5   ;2
        BIT    SWCHB   ;4
        BVS    LF3D5   ;2
@@ -932,7 +936,7 @@ LF59E: LDA    $A5,X   ;4
        BEQ    LF5BA   ;2
        LDA    $80     ;3
        BNE    LF5BA   ;2
-       LDA    $83     ;3
+       LDA    UNKNOWN3;3
        BEQ    LF595   ;2
        LDA    $C5,X   ;4
        CMP    $9C     ;3
@@ -1191,7 +1195,7 @@ LF751: DEX            ;2
        STY    GRP1    ;3 draws Y reg sprite via GRP1
        LDA    $99     ;3
        BNE    LF7A3   ;2
-       LDA    $83     ;3
+       LDA    UNKNOWN3;3
        BNE    LF773   ;2
        LDX    $98     ;3
        CPX    #$7F    ;2
@@ -1409,7 +1413,7 @@ LF8EC: LDA    CLOCK   ;3
        AND    MASK0,Y ;4
        STA    $DA     ;3
        LDA    #$00    ;2
-       STA    $83     ;3
+       STA    UNKNOWN3;3
        LDX    $EA     ;3
 LF900: LDA    $A5,X   ;4
        CMP    FLOORNO ;3
@@ -1419,7 +1423,7 @@ LF900: LDA    $A5,X   ;4
        BEQ    LF910   ;2
        CMP    $97     ;3
        BNE    LF945   ;2
-LF910: INC    $83     ;5
+LF910: INC    UNKNOWN3;5
        LDA    $80     ;3
        BNE    LF94C   ;2
        TXA            ;2
@@ -1778,14 +1782,17 @@ LFB90: STA    $9B     ;3
 ;LFB92:
 INPUT0:
        LDA    SWCHA   ;4 joystick movement state to reg A
-       AND    #$F0    ;2 zeros out joystick 2 bits (lower 4)
+                      ;  7Fh = right, BFh = left, EFh = up, DFh = down
+                      ;  Bottom 4 bits 1, assuming no second control mvmts
+       AND    #$F0    ;2 zeros out joystick 4 bits (lower 4)
        EOR    #$F0    ;2 since the register encodes "no movement" as ones
                       ;  we invert that encoding here to 1 means move
                       ;  in a direction
-       STA    MVMT    ;3 RAM $8E now hold movement bits
-       LDA    $83     ;3
-       BNE    LFBD4   ;2 jump to LFBD4 if the joystick is moved
-       LDA    INPT4   ;3 joystick button state to reg A ($bc, 10111100)
+       STA    MVMT    ;3 RAM $8E now holds movement bits, where 1=pressed
+                      ;  this is the opposite of the usual SWCHA format
+       LDA    UNKNOWN3;3
+       BNE    LFBD4   ;2 ?? jump if we're close to an enemy?
+       LDA    INPT4   ;3 A=joystick button state ($bc, 10111100 if pressed)
        ROL            ;2 rotate left w/ wrap around ($79, 01111001)
        ROR    $E6     ;5 rotate right, RAM E6 (previous button press state?)
        LDA    $E6     ;3 load RAM E6 into A
