@@ -117,8 +117,12 @@ MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
 CLOCK    = $89 ; master frame count timer
 BGCOLOR  = $F5 ; background color
 
+POS_X    = $AA ; player X position (horizontal)
+POS_Y    = $B5 ; player Y position (vertical)
+
+FLOORNO  = $8D ; Which floor we're on 00-04
 GAMEMODE = $CC ; Game level 1-9
-UNKNOWN0 = $CD ; counts up modulo 8 once per frame
+MODULO8  = $CD ; counts up modulo 8 once per frame
 UNKNOWN1 = $DD
 UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
 
@@ -175,7 +179,7 @@ LF041: LDA    INTIM   ;  Waits for vertical blanking to complete ...
        STA    VBLANK  ;  Begin screen draw
        LDA    #$E4    ;2
        STA    TIM64T  ;4 Initialize the timer for screen draw
-       JSR    LF62C   ;6
+       JSR    STARTPF ;6
 
 ; Wait for timer to hit zero. This routine gets
 ; ran at the bottom of the screen while drawing
@@ -254,9 +258,9 @@ LF0C7: LDA    #$35    ;2
        LDX    #$02    ;2
 LF0D8: STX    $EA     ;3
        LDA    #$80    ;2
-       STA    $AA     ;3
+       STA    POS_X   ;3
        LDA    #$86    ;2
-       STA    $B5     ;3
+       STA    POS_Y   ;3
        LDA    #$26    ;2
        STA    $CB     ;3
        RTS            ;6
@@ -284,7 +288,7 @@ LF0FD: CLC            ;2
        SBC    #$06    ;2
 LF106: CMP    $9C     ;3
        BNE    LF112   ;2
-       CPY    $8D     ;3
+       CPY    FLOORNO ;3
        BNE    LF112   ;2
        LDA    #$05    ;2
        BNE    LF0FD   ;2
@@ -328,7 +332,7 @@ LF141: JSR    LF194   ;6
 
 LF155: BIT    $9B     ;3
        BPL    LF17E   ;2
-       LDA    $8D     ;3
+       LDA    FLOORNO ;3
        BNE    LF17E   ;2
        LDA    #$02    ;2
        CMP    $9C     ;3
@@ -370,7 +374,7 @@ LF19E: LDA    $8A     ;3
 LF1A5: JSR    LF1BF   ;6
        LDA    #$00    ;2
        STA    $91     ;3
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
        CMP    #$26    ;2
        BCC    LF1BC   ;2
        CMP    #$D7    ;2
@@ -393,13 +397,13 @@ LF1BF: LDA    #$00    ;2
        BVS    LF1E3   ;2
        BPL    LF206   ;2
        INC    $E7     ;5
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        CMP    #$94    ;2
        BEQ    LF254   ;2
        JSR    LF272   ;6
        JMP    LF1EE   ;3
 LF1E3: DEC    $E7     ;5
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        CMP    #$04    ;2
        BEQ    LF254   ;2
        JSR    LF27D   ;6
@@ -407,10 +411,10 @@ LF1EE: JSR    LF295   ;6
        BNE    LF201   ;2
        JSR    LF28A   ;6
        BNE    LF201   ;2
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        CLC            ;2
        ADC    $E7     ;3
-       STA    $AA     ;3
+       STA    POS_X   ;3
        BNE    LF206   ;2
 LF201: LDX    #$03    ;2
        JSR    LF88C   ;6
@@ -422,7 +426,7 @@ LF206: BIT    $91     ;3
        CMP    #$20    ;2
        BEQ    LF22E   ;2
        INC    $E8     ;5
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
        CMP    #$FB    ;2
        BEQ    LF260   ;2
        JSR    LF26B   ;6
@@ -433,7 +437,7 @@ LF206: BIT    $91     ;3
        BNE    LF24E   ;2
        BEQ    LF246   ;2
 LF22E: DEC    $E8     ;5
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
        CMP    #$01    ;2
        BEQ    LF260   ;2
        JSR    LF26B   ;6
@@ -442,10 +446,10 @@ LF22E: DEC    $E8     ;5
        JSR    LF279   ;6
        JSR    LF28E   ;6
        BNE    LF24E   ;2
-LF246: LDA    $B5     ;3
+LF246: LDA    POS_Y   ;3
        CLC            ;2
        ADC    $E8     ;3
-       STA    $B5     ;3
+       STA    POS_Y   ;3
        RTS            ;6
 
 LF24E: LDX    #$03    ;2
@@ -465,17 +469,17 @@ LF260: LDA    $9B     ;3
        BEQ    LF24E   ;2
        RTS            ;6
 
-LF26B: LDA    $AA     ;3
+LF26B: LDA    POS_X   ;3
        CLC            ;2
        ADC    #$07    ;2
        BNE    LF281   ;2
-LF272: LDA    $AA     ;3
+LF272: LDA    POS_X   ;3
        CLC            ;2
        ADC    #$08    ;2
        BNE    LF281   ;2
-LF279: LDA    $AA     ;3
+LF279: LDA    POS_X   ;3
        BNE    LF281   ;2
-LF27D: LDY    $AA     ;3
+LF27D: LDY    POS_X   ;3
        DEY            ;2
        TYA            ;2
 LF281: LSR            ;2
@@ -487,17 +491,17 @@ LF281: LSR            ;2
        STY    $D4     ;3
        RTS            ;6
 
-LF28A: LDA    $B5     ;3
+LF28A: LDA    POS_Y   ;3
        BNE    LF2A1   ;2
-LF28E: LDY    $B5     ;3
+LF28E: LDY    POS_Y   ;3
        DEY            ;2
        TYA            ;2
        JMP    LF2A1   ;3
-LF295: LDA    $B5     ;3
+LF295: LDA    POS_Y   ;3
        CLC            ;2
        ADC    #$02    ;2
        BNE    LF2A1   ;2
-LF29C: LDA    $B5     ;3
+LF29C: LDA    POS_Y   ;3
        CLC            ;2
        ADC    #$03    ;2
 LF2A1: LSR            ;2
@@ -551,7 +555,7 @@ LF2ED: LDX    $81     ;3
        LDX    $E9     ;3
        LDA    #$08    ;2
        STA    $ED     ;3
-       LDA    $8D     ;3
+       LDA    FLOORNO ;3
        STA    $A0,X   ;4
        JSR    LF526   ;6
        BPL    LF315   ;2
@@ -593,7 +597,7 @@ LF336: TYA            ;2
        STA    $EE     ;3
        LDY    #$01    ;2
        LDA    $CB     ;3
-       LDX    $AA     ;3
+       LDX    POS_X   ;3
        BNE    LF397   ;2
 LF34D: LDA    $CF     ;3
        STA    $E0     ;3
@@ -604,7 +608,7 @@ LF34D: LDA    $CF     ;3
        LDA    #$02    ;2
        STA    ENABL   ;3
        STA    ENAM0   ;3
-LF35F: LDA    CLOCK     ;3
+LF35F: LDA    CLOCK   ;3
        AND    #$06    ;2
        LSR            ;2
        TAX            ;2
@@ -612,7 +616,7 @@ LF35F: LDA    CLOCK     ;3
        STA    $E3     ;3
        LDA    #STKTOP ;2
        STA    $E4     ;3
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        SEC            ;2
        SBC    #$0D    ;2
        BCS    LF37B   ;2
@@ -634,6 +638,8 @@ LF387: TAX            ;2
        LDA    $CB     ;3
        SEC            ;2
        SBC    #$0C    ;2
+; Might set background PF color based on game mode
+; and floor
 LF397: STA    $F0     ;3
        STX    $DD     ;3
        STY    $F2     ;3
@@ -644,7 +650,7 @@ LF397: STA    $F0     ;3
        STY    BGCOLOR ;3
        LDA    #$08    ;2
        CLC            ;2
-       ADC    $8D     ;3
+       ADC    FLOORNO ;3
        LDX    GAMEMODE;3
        BNE    LF3B3   ;2
        STA    BGCOLOR ;3
@@ -748,7 +754,7 @@ LF45D: DEY            ;2
        STA    WSYNC   ;3
        STA    HMOVE   ;3
        LDA    #$4F    ;2
-       STA    $CD     ;3
+       STA    MODULO8 ;3
        STA    $D3     ;3
        LDA    #$00    ;2
        STA    $D4     ;3
@@ -774,7 +780,7 @@ LF48C: LDA    $8B     ;3
        STA    $D0     ;3
        TXA            ;2
        BNE    LF4AF   ;2
-LF4A1: LDA    $B5     ;3
+LF4A1: LDA    POS_Y   ;3
        CMP    #$26    ;2
        BCC    LF4BD   ;2
        CMP    #$D6    ;2
@@ -811,7 +817,7 @@ LF4D6: .byte $07,$01,$06,$06,$06
 LF4DB: CLC            ;2
        ADC    $CB     ;3
        SEC            ;2
-       SBC    $B5     ;3
+       SBC    POS_Y   ;3
        RTS            ;6
 
 LF4E2: TXA            ;2
@@ -849,7 +855,7 @@ LF511: LDA    GAMEMODE;3
        CPX    #$00    ;2
        BEQ    LF4FA   ;2
 LF51B: LDA    $A0,X   ;4
-       CMP    $8D     ;3
+       CMP    FLOORNO ;3
        BNE    LF4FA   ;2
        JSR    LF53D   ;6
        BEQ    LF4FA   ;2
@@ -865,14 +871,14 @@ LF52F: STX    $86     ;3
        STA    $ED     ;3
        RTS            ;6
 
-LF53D: LDA    $AA     ;3
+LF53D: LDA    POS_X   ;3
        SEC            ;2
        SBC    $AB,X   ;4
        BCS    LF548   ;2
        EOR    #STKTOP ;2
        ADC    #$01    ;2
 LF548: STA    $D0     ;3
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
        SEC            ;2
        SBC    $B6,X   ;4
        BCS    LF555   ;2
@@ -920,7 +926,7 @@ LF598: JSR    LF59E   ;6
        RTS            ;6
 
 LF59E: LDA    $A5,X   ;4
-       CMP    $8D     ;3
+       CMP    FLOORNO ;3
        BNE    LF595   ;2
        LDA    GAMEMODE;3
        BEQ    LF5BA   ;2
@@ -995,14 +1001,20 @@ LF5F9: STA    $D0     ;3
        STA    NUSIZ0  ;3
 LF62B: RTS            ;6
 
-LF62C: STA    CXCLR   ;3
+; Entry point to drawing new playfield. Begins with
+; collusion clearing and some setup, then draws
+; field and sprites
+;LF62C:
+STARTPF:
+       STA   CXCLR    ;3 Clear collision latches, we're drawing a new
+                      ;  playfield
        LDY    #$00    ;2
-LF630: LDA    $CD     ;3
+LF630: LDA    MODULO8 ;3
        CMP    $D3     ;3
        BEQ    LF63E   ;2
        STA    WSYNC   ;3
        STA    WSYNC   ;3
-       DEC    $CD     ;5
+       DEC    MODULO8 ;5
        BPL    LF630   ;2
 LF63E: LDA    $D0     ;3
        AND    #$0F    ;2
@@ -1012,6 +1024,16 @@ LF63E: LDA    $D0     ;3
        INX            ;2
 
 ; this subroutine handles drawing the background playfield
+; Playfield breakdown
+;   PF0: ABCD ----
+;   PF1: EFGH IJKL
+;   PF2: MNOP QRST
+;
+; Line result (spaces just highlight PF registers)
+; Mirrored:
+;   DCBA EFGHIJKL TSRQPONM MNOPQRST LKJIHGFE ABCD
+; Repeated:
+;   DCBA EFGHIJKL TSRQPONM DCBA EFGHIJKL TSRQPONM
 LF647: STA    WSYNC
        LDA    BGCOLOR ; loads BG color from RAM
        STA    COLUPF  ; sets background color
@@ -1023,7 +1045,7 @@ LF647: STA    WSYNC
        LDA    SPRITES1,X
        STA    PF2     ; selects a sprite from SPRITES1, draws to playfield
                       ; this could be a piece of text, etc
-       LDA    $CD     ;3
+       LDA    MODULO8 ;3
        SEC            ;2
        SBC    $EF     ;3
        CMP    $ED     ;3
@@ -1031,14 +1053,14 @@ LF647: STA    WSYNC
        TAY            ;2
        LDA    ($E1),Y ;5
        TAY            ;2
-LF66B: DEC    $CD     ;5
-       LDA    $CD     ;3
+LF66B: DEC    MODULO8 ;5
+       LDA    MODULO8 ;3
        CMP    $D4     ;3
        BEQ    LF691   ;2
        DEC    $D0     ;5
        STA    WSYNC   ;3
        STY    GRP0    ;3 draws sprite in Y via GRP0 (player 0 sprite)
-       LDA    $CD     ;3
+       LDA    MODULO8 ;3
        SEC            ;2
        SBC    $F0     ;3
        CMP    $EE     ;3
@@ -1059,7 +1081,7 @@ LF691: STA    WSYNC   ;3
        STA    PF2     ;3
        STA    ENAM0   ;3
        STA    ENABL   ;3
-LF6A1: DEC    $CD     ;5
+LF6A1: DEC    MODULO8 ;5
        BMI    LF6AB   ;2
        STA    WSYNC   ;3
        STA    WSYNC   ;3
@@ -1106,7 +1128,7 @@ LF6BC: DEX            ;2
        BVC    LF6F6   ;2
        LDY    GAMEMODE;3
        BPL    LF6F8   ;2
-LF6F6: LDY    $8D     ;3
+LF6F6: LDY    FLOORNO ;3
 LF6F8: INY            ;2
        TYA            ;2
        ASL            ;2
@@ -1158,7 +1180,7 @@ LF745: STA    WSYNC   ;3
        LDX    #$03    ;2
 LF751: DEX            ;2
        BPL    LF751   ;2
-       LDA    $CD     ;3
+       LDA    MODULO8 ;3
        INX            ;2
        STX    GRP0    ;3 draws sprite in X via GRP0
        LDA    ($D8),Y ;5
@@ -1379,9 +1401,9 @@ LF8C6: JSR    LF0E7   ;6
        STA    $9A     ;3
 LF8EB: RTS            ;6
 
-LF8EC: LDA    CLOCK     ;3
+LF8EC: LDA    CLOCK   ;3
        AND    #$07    ;2
-       STA    $CD     ;3
+       STA    MODULO8 ;3
        TAY            ;2
        LDA    #$88    ;2
        AND    MASK0,Y ;4
@@ -1390,7 +1412,7 @@ LF8EC: LDA    CLOCK     ;3
        STA    $83     ;3
        LDX    $EA     ;3
 LF900: LDA    $A5,X   ;4
-       CMP    $8D     ;3
+       CMP    FLOORNO ;3
        BNE    LF945   ;2
        LDA    $C5,X   ;4
        CMP    $9C     ;3
@@ -1410,17 +1432,17 @@ LF91F: LDA    $9A     ;3
        BEQ    LF94C   ;2
 LF925: JSR    LFA6F   ;6
        BEQ    LF9A0   ;2
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        SEC            ;2
        SBC    LFDEC,X ;4
        BCS    LF934   ;2
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
 LF934: STA    $D0     ;3
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
        SEC            ;2
        SBC    LFDF1,X ;4
        BCS    LF940   ;2
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
 LF940: STA    $D1     ;3
        JMP    LF983   ;3
 LF945: JSR    LFA68   ;6
@@ -1596,7 +1618,7 @@ LFA6F: LDA    GAMEMODE;3
        LDA    LFA8B,X ;4
        BNE    LFA7D   ;2
 LFA7A: LDA    LFA86,X ;4
-LFA7D: LDY    $CD     ;3
+LFA7D: LDY    MODULO8 ;3
        AND    MASK0,Y ;4
        RTS            ;6
 
@@ -1716,7 +1738,7 @@ LFB47: LDX    $EA     ;3
 LFB49: LDA    #$00    ;2
        STA    $94     ;3
 LFB4D: LDA    $A5,X   ;4
-       CMP    $8D     ;3
+       CMP    FLOORNO ;3
        BNE    LFB64   ;2
        LDA    $C5,X   ;4
        CMP    $9C     ;3
@@ -1743,9 +1765,9 @@ LFB68: LDA    $9B     ;3
        LDA    $9B     ;3
        AND    #$04    ;2
        BEQ    LFB85   ;2
-       INC    $8D     ;5
+       INC    FLOORNO ;5
        BNE    LFB88   ;2
-LFB85: DEC    $8D     ;5
+LFB85: DEC    FLOORNO ;5
        INX            ;2
 LFB88: JSR    LF88C   ;6
        JSR    LFD0A   ;6
@@ -1826,13 +1848,13 @@ LFBFB: DEC    $81     ;5
 RET0: RTS             ;6
 
 LFC0B: LDA    LFD03,X ;4
-       LDX    $B5     ;3
+       LDX    POS_Y   ;3
        CPX    #$F4    ;2
        BCC    LFC18   ;2
        CMP    #$0A    ;2
        BEQ    LFC3A   ;2
 LFC18: CLC            ;2
-       ADC    $B5     ;3
+       ADC    POS_Y   ;3
        CMP    #$F4    ;2
        BCS    LFC3A   ;2
        LDX    $E9     ;3
@@ -1841,7 +1863,7 @@ LFC18: CLC            ;2
        STA    $EF     ;3
        LDA    LFD02,Y ;4
        CLC            ;2
-       ADC    $AA     ;3
+       ADC    POS_X   ;3
        CMP    #$97    ;2
        BCS    LFC3A   ;2
        LDX    $E9     ;3
@@ -1868,10 +1890,10 @@ LFC42: LDY    $D0     ;3 Y = RAM $D0 (initialized to 5)
        LDA    MVMT    ;3
        AND    DATA1,Y ;4 AND A with DATA1[Y]
        BEQ    LFC61   ;2 jump if above result is zero
-       LDA    $AA     ;3
+       LDA    POS_X   ;3
        CPY    #$02    ;2
        BCC    LFC57   ;2
-       LDA    $B5     ;3
+       LDA    POS_Y   ;3
 LFC57: CMP    LFC68,X ;4
        BEQ    LFCA5   ;2
        CMP    LFC69,X ;4
@@ -1978,7 +2000,7 @@ LFD25: LDA    #$4F    ;2
        LDX    #$57    ;2
 LFD29: STA    $CF     ;3
        STX    $DE     ;3
-       LDY    $8D     ;3
+       LDY    FLOORNO ;3
        LDA    $9C     ;3
        JSR    LFD4C   ;6
        BCS    LFD42   ;2
@@ -2015,7 +2037,7 @@ LFD6A: SEC            ;2
        RTS            ;6
 
 LFD6C: STA    $D6     ;3
-       LDA    $8D     ;3
+       LDA    FLOORNO ;3
        STA    $D7     ;3
        LDA    $9C     ;3
        JSR    LFD9A   ;6
@@ -2038,7 +2060,7 @@ LFD9A: ASL            ;2
        RTS            ;6
 
 LFDA6: STA    $D6     ;3
-       LDA    $8D     ;3
+       LDA    FLOORNO ;3
        STA    $D7     ;3
        LDA    $9C     ;3
 LFDAE: JSR    LFD9A   ;6
