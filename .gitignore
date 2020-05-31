@@ -1,0 +1,7 @@
+*.out
+*.bin
+.*.swp
+*.zip
+
+# misc utils and reference sources I'm using for development
+resources
