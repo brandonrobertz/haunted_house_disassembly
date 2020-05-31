@@ -10,7 +10,7 @@ would appreciate any tips or advice anyone may have as a PR or Issue.
 ## Building/Playing the ROM
 
 I'm using [DASM](https://github.com/dasm-assembler/dasm). You can build the ROM
-by running 'make' and you'll get a ROM, `haunted.bin`. This can be played using
+by running `make` and you'll get a ROM, `haunted.bin`. This can be played using
 the [Stella](https://stella-emu.github.io/) 2600 emulator.
 
 If you don't have make, the correct DASM command to build the ROM is:
