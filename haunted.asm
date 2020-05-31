@@ -1,4 +1,5 @@
         PROCESSOR 6502
+        ORG $F000
 
 ;; Disassembly of Haunted House
 ; Game developed by James Andreasen at Atari
@@ -131,9 +132,8 @@ UNKNOWN3 = $83 ; This has something to do with enemies
                ; a torch
 
 ; Entry point (START)
-       ORG $F000
-
-START: SEI            ;2 disable interrupts (6507 has no support)
+START:
+       SEI            ;2 disable interrupts (6507 has no support)
        CLD            ;2 disable decimal mode
        LDX   #STKTOP  ;2 X register = stack address
        TXS            ;2 Init stack (stack register = X = FFh)
