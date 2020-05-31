@@ -133,9 +133,7 @@ UNKNOWN3 = $83 ; This has something to do with enemies
 ; Entry point (START)
        ORG $F000
 
-START:
-                      ;cycles comments ...
-LF000: SEI            ;2 disable interrupts (6507 has no support)
+START: SEI            ;2 disable interrupts (6507 has no support)
        CLD            ;2 disable decimal mode
        LDX   #STKTOP  ;2 X register = stack address
        TXS            ;2 Init stack (stack register = X = FFh)
@@ -1167,7 +1165,7 @@ LF71E: DEX            ;2
        LDX    #$03    ;2
        STA    WSYNC   ;3
 LF733: DEX            ;2
-       NOP            ;2
+       NOP            ;2 cycle counting is important here!
        BPL    LF733   ;2
        LDA    $D0     ;3
        STA    RESP0   ;3
@@ -1176,11 +1174,11 @@ LF733: DEX            ;2
        STA    NUSIZ0  ;3
        STA    NUSIZ1  ;3
        LDY    #$07    ;2
-LF745: STA    WSYNC   ;3
-       LDA    ($D4),Y ;5
-       STA    GRP0    ;3 draws sprite in A via GRP0
-       LDA    ($D6),Y ;5
-       STA    GRP1    ;3 draws A reg sprite via GRP1
+LF745: STA    WSYNC   ;3 wait for sync
+       LDA    ($D4),Y ;5 A <- mem(PTR($D4) + Y)
+       STA    GRP0    ;3 draws A as player sprite 0
+       LDA    ($D6),Y ;5 A <- mem(PTR($D6) + Y)
+       STA    GRP1    ;3 draws A as player sprite 1
        LDX    #$03    ;2
 LF751: DEX            ;2
        BPL    LF751   ;2
@@ -1211,7 +1209,7 @@ LF773: LDA    $98     ;3
        BEQ    LF78A   ;2
        BMI    LF78A   ;2
        LDX    $EB     ;3
-       LDA    LF000,X ;4
+       LDA    START,X ;4 Very strange, investigate more
        AND    #$01    ;2
 LF78A: STA    $92     ;3
 LF78C: LDA    $92     ;3
@@ -1249,7 +1247,7 @@ LF7B7: LDA    $8F     ;3
        BPL    LF7DD   ;2
 LF7C4: CMP    #$22    ;2
        BNE    LF7DB   ;2
-       LDA    CLOCK     ;3
+       LDA    CLOCK   ;3
        LSR            ;2
        LSR            ;2
        LSR            ;2
@@ -1352,7 +1350,7 @@ LF864: CPY    #$0B    ;2
 LF875: LDA    SWCHA   ;4
        EOR    #STKTOP ;2
        BEQ    LF841   ;2
-       LDA    CLOCK     ;3
+       LDA    CLOCK   ;3
        AND    #$07    ;2
        CMP    #$03    ;2
        BCS    LF841   ;2
