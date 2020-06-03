@@ -25,6 +25,16 @@
 ;   S: stack pointer
 ;   PC: program counter (16-bit)
 
+;; Addressing modes:
+;    Immediate          LDA #$EA        A <- $EA
+;    Absolute,X         LDA $0314,X     A <- mem($0314+X)
+;    Absolute,Y         LDA $0314,X     A <- mem($0314+Y)
+;    Zero page          LDA $02         A <- mem($02)
+;    Zero page,X        LDA $02,X       A <- mem($02+X)
+;    Zero page,Y        LDA $02,Y       A <- mem($02+Y)
+;    (Zero page,X)      LDA ($02,X)     A <- mem(PTR($02+X))
+;    (Zero page),Y      LDA ($02),Y     A <- mem(PTR($02)+Y)
+
 ;; 6502 ASM Syntax Notes
 ; $ means the following is hex formatted
 ; # means the following is a literal number value
@@ -44,8 +54,8 @@ WSYNC   =  $02 ; When this is written to, the processor will wait for
                ; horizontal sync (beam to hit left edge of screen)
                ; You typically see this at STA WSYNC
 
-NUSIZ0  =  $04 ; number & size of p0/m0
-NUSIZ1  =  $05 ; .. p1/m1
+NUSIZ0  =  $04 ; number & size of player 0/missile 0 sprites
+NUSIZ1  =  $05 ; .. player 1/missile 1
 
 ;; Color control registers
 ; 06-09, color/luminosity registers
@@ -117,14 +127,15 @@ STKTOP   = $FF
 MVMT     = $8E ; last 4 bits store up, down, left, right joystick bits
                ; bit format, 1=pressed: RLDU (player 1) ---- (player 2)
 CLOCK    = $89 ; master frame count timer
-BGCOLOR  = $F5 ; background color
+PFCOLOR  = $F5 ; wall color
+               ; 82h = dark blue (default, diff mode 1)
 
 POS_X    = $AA ; player X position (horizontal)
 POS_Y    = $B5 ; player Y position (vertical)
 
 FLOORNO  = $8D ; Which floor we're on 00-04
 GAMEMODE = $CC ; Game level 1-9
-MODULO8  = $CD ; counts up modulo 8 once per frame
+LINENO   = $CD ; Counts the main game screen scan line (79 toal)
 UNKNOWN1 = $DD
 UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
 UNKNOWN3 = $83 ; This has something to do with enemies
@@ -132,6 +143,7 @@ UNKNOWN3 = $83 ; This has something to do with enemies
                ; a torch
 
 ; Entry point (START)
+;LF000
 START:
        SEI            ;2 disable interrupts (6507 has no support)
        CLD            ;2 disable decimal mode
@@ -143,15 +155,16 @@ START:
        STX   GAMEMODE ;3 Start at game mode 1 (0h)
        TXA            ;2 sets A to what was at GAMEMODE
 
-; This is kind of a waiting while drawing nothing loop.
+; This is kind of a initial sync loop.
 LF00B: STA    VSYNC,X ;4
        INX            ;2
        BPL    LF00B   ;2 loop while X is positive (until X overflows)
-
+       ; initialization routines...
        JSR    LF082   ;6
        JSR    LF141   ;6
 
 ; This is the beginning of the main game loop
+;LF016
 MAIN:  LDA    #$82    ;2 Get some bits to write ...
        STA    WSYNC   ;3 ... to WSYNC. This kicks off new frame draw.
                       ; NOTE: writing to WSYNC will halt execution
@@ -161,13 +174,13 @@ MAIN:  LDA    #$82    ;2 Get some bits to write ...
        STA    VSYNC   ;3
        STA    WSYNC   ;3
        STA    WSYNC   ;3
-       LDA    #$00    ;2 A=0, do this here to save us cycles later?
+       LDA    #0      ;2 A=0, do this here to save us cycles later?
        STA    WSYNC   ;3 Wait for new line.
        ; This begins the 37 lines of vertical blank
        STA    VSYNC   ;3 L=2 End of vertical sync pulse
        ; We're in vblank now ...
        INC    CLOCK   ;5 increment frame count timer (only done here)
-       LDA    #$2D    ;2 $2D intervals of 64-cycles = 2880 cycles total
+       LDA    #45     ;2 45 (2Dh) intervals of 64-cycles = 2880 cycles total
        STA    TIM64T  ;4 init the timer for VBLANK time
        JSR    LF079   ;6 This goes into some kind of state mgmt loop
        LDA    $99     ;3
@@ -179,7 +192,7 @@ LF03E: JSR    LF2B7   ;6
 LF041: LDA    INTIM   ;  Waits for vertical blanking to complete ...
        BNE    LF041
        STA    VBLANK  ;  Begin screen draw
-       LDA    #$E4    ;2
+       LDA    #228    ;2 E4h originally
        STA    TIM64T  ;4 Initialize the timer for screen draw
        JSR    STARTPF ;6
 
@@ -216,8 +229,8 @@ LF082: LDX    $EB     ;3
        LDA    $EC     ;3
        STA    $EB     ;3
        STX    $EC     ;3
-       LDX    #$80    ;2
-       LDA    #$00    ;2
+       LDX    #128    ;2 80h, o.g.
+       LDA    #0      ;2
 
 LF08E: STA    VSYNC,X ;4
        INX            ;2
@@ -248,7 +261,7 @@ LF0A7: LDA    $A5,X   ;4
        STX    $A0     ;3
        LDX    #$74    ;2
        STX    $AB     ;3
-       LDX    #$84    ;2
+       LDX    #132    ;2 84h hex (original)
        STX    $B6     ;3
 LF0C7: LDA    #$35    ;2
        STA    CTRLPF  ;3
@@ -319,14 +332,16 @@ LF12D: DEC    $E5     ;5
        LDA    GAMEMODE;3
        CMP    #$09    ;2
        BNE    LF13F   ;2
-       LDA    #$00    ;2
+       LDA    #0      ;2
 LF13F: STA    GAMEMODE;3
+
+; Initializes some game state variables
 LF141: JSR    LF194   ;6
-       LDA    #$40    ;2
+       LDA    #64     ;2 40h originally
        STA    $99     ;3
-       LDA    #$10    ;2
+       LDA    #16     ;2 10h, initializes mem 84h
        STA    $84     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $85     ;3
        STA    $80     ;3
        STA    UNKNOWN3;3
@@ -363,7 +378,7 @@ LF188: BIT    $8A     ;3
        BNE    LF194   ;2
        LDA    $DF     ;3
        BNE    LF19E   ;2
-LF194: LDA    #$00    ;2
+LF194: LDA    #0      ;2
        STA    $85     ;3
        LDA    $8A     ;3
        AND    #$07    ;2
@@ -374,7 +389,7 @@ LF19E: LDA    $8A     ;3
        RTS            ;6
 
 LF1A5: JSR    LF1BF   ;6
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $91     ;3
        LDA    POS_Y   ;3
        CMP    #$26    ;2
@@ -387,7 +402,7 @@ LF1BA: SBC    #$AF    ;2
 LF1BC: STA    $CB     ;3
        RTS            ;6
 
-LF1BF: LDA    #$00    ;2
+LF1BF: LDA    #0      ;2
        STA    $E7     ;3
        STA    $E8     ;3
        LDA    $9B     ;3
@@ -528,11 +543,11 @@ FLOORMASK:
 
 LF2B7: LDA    #$30    ;2
        STA    NUSIZ0  ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    COLUBK  ;3
        STA    $F1     ;3
        STA    ENAM0   ;3
-       STA    ENABL   ;3
+       STA    ENABL   ;3 Ball sprite
        STA    NUSIZ1  ;3
        LDA    $99     ;3
        CMP    #$02    ;2
@@ -589,11 +604,16 @@ LF32E: ROL            ;2
 LF332: ROL            ;2
        BCS    LF336   ;2
        INX            ;2
+; Set up eyes
+; This could set up the eyeball graphic sprite
+; into memory via the pointer $E3, which leads
+; to D8 (into ram) when the scanline is going
+; to draw the start of the centered eyes.
 LF336: TYA            ;2
        STA    $D8,X   ;4
        LDA    #$D8    ;2
        STA    $E3     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $E4     ;3
        LDA    #$03    ;2
        STA    $EE     ;3
@@ -608,7 +628,7 @@ LF34D: LDA    $CF     ;3
        BIT    $88     ;3
        BMI    LF35F   ;2
        LDA    #$02    ;2
-       STA    ENABL   ;3
+       STA    ENABL   ;3 ball sprite
        STA    ENAM0   ;3
 LF35F: LDA    CLOCK   ;3
        AND    #$06    ;2
@@ -624,13 +644,15 @@ LF35F: LDA    CLOCK   ;3
        BCS    LF37B   ;2
        ADC    #$A0    ;2
        LDX    #$97    ;2
-       BNE    LF381   ;2
-LF37B: CMP    #$84    ;2
+       BNE    LF381   ;2 Jump if X != 0. NOTE: BNE jumps if z flag is 0 
+                      ;  LDX/A/Y, the z flag is 1 when the result is zero, and
+                      ;  zero when the result is nonzero
+LF37B: CMP    #132    ;2 84h original
        BCC    LF387   ;2
-       LDX    #$00    ;2
+       LDX    #0      ;2
 LF381: STX    $E0     ;3
        LDX    #$02    ;2
-       STX    ENABL   ;3
+       STX    ENABL   ;3 ball sprite
 LF387: TAX            ;2
        LDA    #$1C    ;2
        STA    $EE     ;3
@@ -649,13 +671,13 @@ LF397: STA    $F0     ;3
        STY    $F3     ;3
        DEY            ;2
        STY    $F4     ;3
-       STY    BGCOLOR ;3
+       STY    PFCOLOR ;3
        LDA    #$08    ;2
        CLC            ;2
        ADC    FLOORNO ;3
        LDX    GAMEMODE;3
        BNE    LF3B3   ;2
-       STA    BGCOLOR ;3
+       STA    PFCOLOR ;3
        BPL    LF3B5   ;2
 LF3B3: STA    $F4     ;3
 LF3B5: LDA    $80     ;3
@@ -673,9 +695,9 @@ LF3C8: AND    CLOCK   ;3
        ROR            ;2
        BCC    LF3D5   ;2
        LDY    #$01    ;2
-       STY    BGCOLOR ;3
+       STY    PFCOLOR ;3
 LF3D5: LDX    #$F7    ;2
-       LDY    #$00    ;2
+       LDY    #0      ;2
        STY    $D0     ;3
        LDA    SWCHB   ;4
        AND    #$08    ;2
@@ -683,13 +705,14 @@ LF3D5: LDX    #$F7    ;2
        LDA    #$0C    ;2
        STA    $D0     ;3
        LDX    #$07    ;2
+; TODO: i think this has to do with the cycling BG color
 LF3E8: STX    $D3     ;3
        LDA    $84     ;3
        AND    #$10    ;2
        BEQ    LF3FF   ;2
-       LDA    CLOCK     ;3
+       LDA    CLOCK   ;3
        BNE    LF3F6   ;2
-       INC    $84     ;5
+       INC    $84     ;5 mem 84h increments every FF frames
 LF3F6: LDA    $84     ;3
        ORA    #$10    ;2
        STA    $84     ;3
@@ -723,7 +746,7 @@ LF429: STA    COLUP0  ;3
        BEQ    LF437   ;2
        LDA    CLOCK   ;3
        AND    $D3     ;3
-       STA    BGCOLOR ;3
+       STA    PFCOLOR ;3
 LF437: LDX    #$04    ;2
        LDA    $99     ;3
        CMP    #$02    ;2
@@ -755,10 +778,10 @@ LF45D: DEY            ;2
        BPL    LF441   ;2
        STA    WSYNC   ;3
        STA    HMOVE   ;3
-       LDA    #$4F    ;2
-       STA    MODULO8 ;3
+       LDA    #79     ;2 4Fh
+       STA    LINENO  ;3
        STA    $D3     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $D4     ;3
        BIT    $8A     ;3
        BVC    LF4A1   ;2
@@ -800,9 +823,9 @@ LF4AF: LSR            ;2 Logical Shift One Bit Right (accumulator)
        TAX            ;2
        BPL    LF4C9   ;2
 LF4BD: LDX    #$1E    ;2
-       LDA    #$00    ;2
+       LDA    #0      ;2
        BEQ    LF4C7   ;2
-LF4C3: LDX    #$00    ;2
+LF4C3: LDX    #0      ;2
        LDA    #$0F    ;2
 LF4C7: STA    $D0     ;3
 ; This might be some kind of deterministic PRNG
@@ -840,7 +863,7 @@ LF4F3: DEX            ;2
        BNE    LF505   ;2
 LF4FA: CPX    $86     ;3
        BNE    LF4F3   ;2
-LF4FE: LDA    #$00    ;2
+LF4FE: LDA    #0      ;2
        STA    $DC     ;3
        STA    $ED     ;3
        RTS            ;6
@@ -854,7 +877,7 @@ LF505: CPX    $9A     ;3
 LF511: LDA    GAMEMODE;3
        CMP    #$02    ;2
        BCS    LF51B   ;2
-       CPX    #$00    ;2
+       CPX    #0      ;2
        BEQ    LF4FA   ;2
 LF51B: LDA    $A0,X   ;4
        CMP    FLOORNO ;3
@@ -983,7 +1006,7 @@ LF5F9: STA    $D0     ;3
        ADC    $D0     ;3
        ADC    #$8C    ;2
        STA    $E1     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        ADC    #$FE    ;2
        STA    $E2     ;3
        TYA            ;2
@@ -995,7 +1018,7 @@ LF5F9: STA    $D0     ;3
        LDY    $9C     ;3
        LDA    LFF8C,Y ;4
        STA    $DC     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $F1     ;3
        LDA    #$11    ;2
        STA    $ED     ;3
@@ -1008,24 +1031,27 @@ LF62B: RTS            ;6
 ; field and sprites
 ;LF62C:
 STARTPF:
-       STA   CXCLR    ;3 Clear collision latches, we're drawing a new
+       STA    CXCLR   ;3 Clear collision latches, we're drawing a new
                       ;  playfield
-       LDY    #$00    ;2
-LF630: LDA    MODULO8 ;3
+       LDY    #0      ;2
+LF630: LDA    LINENO  ;3
        CMP    $D3     ;3
        BEQ    LF63E   ;2
        STA    WSYNC   ;3
        STA    WSYNC   ;3
-       DEC    MODULO8 ;5
+       DEC    LINENO  ;5
        BPL    LF630   ;2
-LF63E: LDA    $D0     ;3
-       AND    #$0F    ;2
-       BNE    LF647   ;2
-       INX            ;2
-       INX            ;2
-       INX            ;2
 
-; this subroutine handles drawing the background playfield
+LF63E: LDA    $D0     ; (initially 175)
+       AND    #$0F
+       BNE    LF647   ; We don't need to move to the next part of
+                      ; the playfield (it gets repeated vertically)
+       INX            ; Use the next playfield sprites (organized in
+                      ; blocks of three (PF0,PF1,PF2)
+       INX
+       INX
+
+; This subroutine handles drawing the background playfield
 ; Playfield breakdown
 ;   PF0: ABCD ----
 ;   PF1: EFGH IJKL
@@ -1036,54 +1062,62 @@ LF63E: LDA    $D0     ;3
 ;   DCBA EFGHIJKL TSRQPONM MNOPQRST LKJIHGFE ABCD
 ; Repeated:
 ;   DCBA EFGHIJKL TSRQPONM DCBA EFGHIJKL TSRQPONM
-LF647: STA    WSYNC
-       LDA    BGCOLOR ; loads BG color from RAM
-       STA    COLUPF  ; sets background color
-       STY    GRP1    ; sets color for player 1 sprite
-       LDA    SOLID,X ;
-       STA    PF0     ; loads $FF to playfield 0 RAM location
-       LDA    HALF,X
-       STA    PF1     ; loads $F0 to playfield 1 RAM location
-       LDA    SPRITES1,X
-       STA    PF2     ; selects a sprite from SPRITES1, draws to playfield
-                      ; this could be a piece of text, etc
-       LDA    MODULO8 ;3
-       SEC            ;2
-       SBC    $EF     ;3
-       CMP    $ED     ;3
-       BCS    LF68D   ;2
+
+; Main playfield kernel
+; Params:
+;   Y = player 1 graphic sprite
+;   X = playfield sprite offset
+;
+; Initial ram settings:
+;   LINENO = 79 (4Fh)
+LF647: STA    WSYNC   ;3
+       LDA    PFCOLOR ;3 loads wall color from RAM
+       STA    COLUPF  ;3 sets background color
+       STY    GRP1    ;3 draw player 1 sprite (passed in above, via Y)
+       LDA    GFX0,X  ;4 load playfield sprite to A
+       STA    PF0     ;3 draw playfield 0
+       LDA    GFX1,X  ;4
+       STA    PF1     ;3 loads $F0 to playfield 1 RAM location
+       LDA    GFX2,X  ;4
+       STA    PF2     ;3 selects a sprite from SPRITES1, draws to playfield
+                      ;  this could be a piece of text, etc
+       LDA    LINENO  ;3
+       SEC            ;2 set carry ...
+       SBC    $EF     ;3 subtract with carry (A-mem(EF)) (first pass: A - 61 == 12)
+       CMP    $ED     ;3 (initially, EDh=0)
+       BCS    LF68D   ;2 branch when carry set (yes, on first)
        TAY            ;2
        LDA    ($E1),Y ;5
        TAY            ;2
-LF66B: DEC    MODULO8 ;5
-       LDA    MODULO8 ;3
-       CMP    $D4     ;3
+LF66B: DEC    LINENO  ;5 LINENO--
+       LDA    LINENO  ;3
+       CMP    $D4     ;3 LINENO == mem($D4)
        BEQ    LF691   ;2
        DEC    $D0     ;5
        STA    WSYNC   ;3
-       STY    GRP0    ;3 draws sprite in Y via GRP0 (player 0 sprite)
-       LDA    MODULO8 ;3
-       SEC            ;2
-       SBC    $F0     ;3
-       CMP    $EE     ;3
-       BCS    LF689   ;2
+       STY    GRP0    ;3 draws player 0 sprite from Y
+       LDA    LINENO  ; This block checks to see if
+       SEC            ; our scanline is close to the same line ($F0)
+       SBC    $F0     ; as the player (EE=3 if eyes, more if torch)
+       CMP    $EE     ; and then jumps to set player sprite in Y.
+       BCS    LF689   ;
        TAY            ;2
-       LDA    ($E3),Y ;5
-       TAY            ;2
+       LDA    ($E3),Y ;5 mem(PTR($E3)+Y), pointer into mem for the eyes
+       TAY            ;2 set eye graphic into Y for later drawing
        JMP    LF63E   ;3
-LF689: LDY    #$00    ;2
+LF689: LDY    #0      ;2
        BEQ    LF63E   ;2
-LF68D: LDY    #$00    ;2
-       BEQ    LF66B   ;2
+LF68D: LDY    #0      ;2
+       BEQ    LF66B   ;2 always jump to LF66B (clear player 1 sprite)
 LF691: STA    WSYNC   ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    GRP0    ;3 draws A ref sprite via GRP0
        STA    GRP1    ;3 draws A reg sprite via GRP1
        STA    PF1     ;3
        STA    PF2     ;3
        STA    ENAM0   ;3
-       STA    ENABL   ;3
-LF6A1: DEC    MODULO8 ;5
+       STA    ENABL   ;3 ball sprite
+LF6A1: DEC    LINENO  ;5
        BMI    LF6AB   ;2
        STA    WSYNC   ;3
        STA    WSYNC   ;3
@@ -1182,7 +1216,7 @@ LF745: STA    WSYNC   ;3 wait for sync
        LDX    #$03    ;2
 LF751: DEX            ;2
        BPL    LF751   ;2
-       LDA    MODULO8 ;3
+       LDA    LINENO  ;3
        INX            ;2
        STX    GRP0    ;3 draws sprite in X via GRP0
        LDA    ($D8),Y ;5
@@ -1261,7 +1295,7 @@ LF7C4: CMP    #$22    ;2
        BPL    LF7DD   ;2
 
 ; Audio volume 0
-LF7DB: LDA    #$00    ;2
+LF7DB: LDA    #0      ;2
 ; Begin sound effects routine
 ; Params:
 ;   A - volume
@@ -1317,7 +1351,7 @@ LF839: CPY    #$08    ;2
        BNE    LF84A   ;2
        LDX    #$08    ;2
        BNE    LF80B   ;2
-LF841: LDY    #$00    ;2
+LF841: LDY    #0      ;2
 LF843: STY    AUDV1   ;3
        STA    AUDF1   ;3
        STX    AUDC1   ;3
@@ -1377,7 +1411,7 @@ LF8AC: LDA    $99     ;3
        BCC    LF8EC   ;2
        DEC    $80     ;5
        BNE    LF8EC   ;2
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $99     ;3
        STA    $93     ;3
        LDA    $96     ;3
@@ -1405,12 +1439,12 @@ LF8EB: RTS            ;6
 
 LF8EC: LDA    CLOCK   ;3
        AND    #$07    ;2
-       STA    MODULO8 ;3
+       STA    LINENO  ;3
        TAY            ;2
        LDA    #$88    ;2
        AND    MASK0,Y ;4
        STA    $DA     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    UNKNOWN3;3
        LDX    $EA     ;3
 LF900: LDA    $A5,X   ;4
@@ -1497,7 +1531,7 @@ LF99E: INC    $BB,X   ;6
 LF9A0: DEX            ;2
        BMI    LF9A6   ;2
        JMP    LF900   ;3
-LF9A6: LDX    #$00    ;2
+LF9A6: LDX    #0      ;2
        LDA    $95     ;3
 LF9AA: ROR            ;2
        BCS    LF9B5   ;2
@@ -1608,7 +1642,7 @@ LFA56: ASL    $D6     ;5
 
 ; Exit subroutine, sets return val to zero
 ;LFA65:
-RET1:  LDA    #$00    ;2
+RET1:  LDA    #0      ;2
        RTS            ;6
 
 LFA68: LDA    $94     ;3
@@ -1620,7 +1654,7 @@ LFA6F: LDA    GAMEMODE;3
        LDA    LFA8B,X ;4
        BNE    LFA7D   ;2
 LFA7A: LDA    LFA86,X ;4
-LFA7D: LDY    MODULO8 ;3
+LFA7D: LDY    LINENO  ;3
        AND    MASK0,Y ;4
        RTS            ;6
 
@@ -1684,7 +1718,7 @@ LFAE5: LDX    #$02    ;2
        DEX            ;2
 LFAEC: LDA    #STKTOP ;2
        STA    $9D,X   ;4
-       LDX    #$00    ;2
+       LDX    #0      ;2
        CPY    #$07    ;2
        BNE    LFAF7   ;2
        INX            ;2
@@ -1737,7 +1771,7 @@ LFB2B: LDA    GAMEMODE;3
        ORA    $9C     ;3
        STA    $D0     ;3
 LFB47: LDX    $EA     ;3
-LFB49: LDA    #$00    ;2
+LFB49: LDA    #0      ;2
        STA    $94     ;3
 LFB4D: LDA    $A5,X   ;4
        CMP    FLOORNO ;3
@@ -1824,7 +1858,7 @@ LFBD4: LDA    $81     ;3 move RAM 81 into A
        BEQ    RET0    ;2 if A == 0, return
        BIT    CXP0FB  ;3
        BMI    LFBFB   ;2
-       LDA    #$00    ;2
+       LDA    #0      ;2
        STA    $81     ;3
        BEQ    RET0    ;2
 LFBE2: LDA    #$05    ;2
@@ -1885,7 +1919,7 @@ LFC3A: SEC            ;2
 ; Initialize: $D0 = 5, X = 0, for LFC42
 LFC3C: LDA    #$05    ;2
        STA    $D0     ;3 initialize RAM $D0 = 5
-       LDX    #$00    ;2 X = 0
+       LDX    #0      ;2 X = 0
 ; Movement subroutine check. RAM MVMT ($8E) data masks are
 ; stored in DATA0, which are then used to pull data from DATA1
 ; RAM $D0 is a param here, specifying an offset in DATA0
@@ -1979,7 +2013,7 @@ LFCD8: STY    $D5     ;3
        STA    $D0     ;3
        PLA            ;4
        BEQ    LFCFC   ;2
-       LDX    #$00    ;2
+       LDX    #0      ;2
        JSR    LFB49   ;6
        BMI    LFCFF   ;2
 LFCFC: JSR    LFB47   ;6
@@ -1995,7 +2029,7 @@ LFD0A: LDA    #$02    ;2
        LDA    #$03    ;2
        JSR    LFD6C   ;6
        STA    $8C     ;3
-       LDA    #$00    ;2
+       LDA    #0      ;2
        JSR    LFD6C   ;6
        BEQ    LFD25   ;2
        LDA    #$47    ;2
@@ -2080,7 +2114,7 @@ LFDAE: JSR    LFD9A   ;6
        AND    MASK0,Y ;4
        RTS            ;6
 
-LFDC7: LDA    #$00    ;2
+LFDC7: LDA    #0      ;2
 LFDC9: RTS            ;6
 
 LFDCA: LDY    GAMEMODE;3
@@ -2385,37 +2419,42 @@ SPRITES0:
        .byte $FF,$FF,$FF,$FF,$00,$00,$FF,$FF,$00,$FF,$FF,$00,$00,$FF,$FF,$FF
        .byte $FF,$00,$00,$FF,$FF,$FF,$FF,$FF,$FF,$00
 
-; These may be playfield settings for drawing
+; These top blocks are the playfield. They're organized in groups
+; of three, PF0, PF1, PF2. Indexed from LF647 by X. We have three ROM
+; references into this block, one for each of the three pieces of the
+; playfield we draw.
 ;0ed0 |XXXXXXXX|
-;LFED0
-SOLID: .byte $FF
-
 ;0ed1 |XXXX    |
-;LFED1
-HALF: .byte $F0
-
 ;0ed2 |XXXXXXXX|
+;
 ;0ed3 |XXXXXXXX|
 ;0ed4 |        |
 ;0ed5 |XXXX    |
+;
 ;0ed6 |XXXXXXXX|
 ;0ed7 |        |
 ;0ed8 |XXXX    |
+;
 ;0ed9 |XXXXXXXX|
 ;0eda |        |
 ;0edb |        |
+;
 ;0edc |XXXXXXXX|
 ;0edd |        |
 ;0ede |XXXX    |
+;
 ;0edf |XXXXXXXX|
 ;0ee0 |XXXX    |
 ;0ee1 |XXXXXXXX|
+;
 ;0ee2 |XXXXXXXX|
 ;0ee3 |        |
 ;0ee4 |XXXX    |
+; Thinnest level walls (side doors)
 ;0ee5 |   X    |
 ;0ee6 |        |
 ;0ee7 |        |
+; ...
 ;0ee8 |XXXXXXXX|
 ;0ee9 |        |
 ;0eea |XXXX    |
@@ -2583,8 +2622,12 @@ HALF: .byte $F0
 ;0f85 |   XX   |
 ;0f86 |   XX   |
 ;0f87 |   XX   |
+;LFED0
+GFX0: .byte $FF
+;LFED1
+GFX1: .byte $F0
 ;LFED2:
-SPRITES1:
+GFX2:
        .byte $FF,$FF,$00,$F0,$FF,$00,$F0,$FF,$00,$00,$FF,$00,$F0,$FF,$F0,$FF
        .byte $FF,$00,$F0,$10,$00,$00,$FF,$00,$F0,$FF,$00,$F0,$FF,$F0,$FF,$FF
        .byte $00,$F0,$FF,$00,$F0,$FF,$00,$00,$FF,$00,$F0,$FF,$F0,$FF,$1C,$3E
