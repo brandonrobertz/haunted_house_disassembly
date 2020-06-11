@@ -142,6 +142,7 @@ UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
 UNKNOWN3 = $83 ; This has something to do with enemies
                ; distance to the player and ability to use
                ; a torch
+LIVES    = $96 ; holds number of lives
 
 ; Entry point (START)
 ;LF000
@@ -240,7 +241,7 @@ LF08E: STA    VSYNC,X ;4
        LDX    #$09    ;2 Initializes so A will get last item in DATA2
 ;LF097: Copies 10-byte array from DATA2 to $96
 COPY0: LDA    DATA2,X ;4
-       STA    $96,X   ;4 Then stores item from DATA2 in $96 + X offset
+       STA    LIVES,X ;4 Then stores item from DATA2 in $96 + X offset
        DEX            ;2
        BPL    COPY0   ;2
        JSR    LF0E7   ;6
@@ -1156,7 +1157,7 @@ LF6BC: DEX            ;2
        ASL            ;2
        ASL            ;2
        STA    $D6     ;3
-       LDA    $96     ;3
+       LDA    LIVES   ;3
        ASL            ;2
        ASL            ;2
        ASL            ;2
@@ -1425,7 +1426,7 @@ LF8AC: LDA    $99     ;3
        LDA    #0      ;2
        STA    $99     ;3
        STA    $93     ;3
-       LDA    $96     ;3
+       LDA    LIVES   ;3
        BNE    LF8C6   ;2
        JSR    LF141   ;6
 LF8C6: JSR    LF0E7   ;6
@@ -1759,7 +1760,7 @@ LFB1C: LDX    #$01    ;2
        STX    $99     ;3
        LDX    #STKTOP ;2
        STX    $80     ;3
-       DEC    $96     ;5
+       DEC    LIVES   ;5
        LDA    $85     ;3
        STA    $CA     ;3
        RTS            ;6
