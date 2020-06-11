@@ -136,6 +136,7 @@ POS_Y    = $B5 ; player Y position (vertical)
 FLOORNO  = $8D ; Which floor we're on 00-04
 GAMEMODE = $CC ; Game level 1-9
 LINENO   = $CD ; Counts the main game screen scan line (79 toal)
+EYE_PTR  = $E3
 UNKNOWN1 = $DD
 UNKNOWN2 = $EE ; 1c on torch, 03 on eyes
 UNKNOWN3 = $83 ; This has something to do with enemies
@@ -436,10 +437,10 @@ LF1EE: JSR    LF295   ;6
 LF201: LDX    #$03    ;2
        JSR    LF88C   ;6
 LF206: BIT    $91     ;3
-       BMI    LF253   ;2
+       BMI    LF253   ;2 return
        LDA    MVMT    ;3
        AND    #$30    ;2
-       BEQ    LF253   ;2
+       BEQ    LF253   ;2 return
        CMP    #$20    ;2
        BEQ    LF22E   ;2
        INC    $E8     ;5
@@ -606,13 +607,13 @@ LF332: ROL            ;2
        INX            ;2
 ; Set up eyes
 ; This could set up the eyeball graphic sprite
-; into memory via the pointer $E3, which leads
+; into memory via the EYE_PTR $E3, which leads
 ; to D8 (into ram) when the scanline is going
 ; to draw the start of the centered eyes.
 LF336: TYA            ;2
        STA    $D8,X   ;4
        LDA    #$D8    ;2
-       STA    $E3     ;3
+       STA    EYE_PTR ;3
        LDA    #0      ;2
        STA    $E4     ;3
        LDA    #$03    ;2
@@ -634,7 +635,7 @@ LF35F: LDA    CLOCK   ;3
        AND    #$06    ;2
        LSR            ;2
        TAX            ;2
-       LDA    LFF9A,X ;4
+       LDA    LFF9A,X ;4 eyeball sprite?
        STA    $E3     ;3
        LDA    #STKTOP ;2
        STA    $E4     ;3
@@ -1102,7 +1103,7 @@ LF66B: DEC    LINENO  ;5 LINENO--
        CMP    $EE     ; and then jumps to set player sprite in Y.
        BCS    LF689   ;
        TAY            ;2
-       LDA    ($E3),Y ;5 mem(PTR($E3)+Y), pointer into mem for the eyes
+       LDA    (EYE_PTR),Y ;5 mem(PTR($E3)+Y), pointer into mem for the eyes
        TAY            ;2 set eye graphic into Y for later drawing
        JMP    LF63E   ;3
 LF689: LDY    #0      ;2
@@ -1181,48 +1182,58 @@ LF70C: STA    $D0     ;3
        LDA    $F3     ;3
        STA    COLUP0  ;3
        STA    COLUP1  ;3
-       LDY    #$07    ;2
-LF716: STA    WSYNC   ;3
-       LDA    ($DA),Y ;5
-       STA    GRP0    ;3 draws sprite in A via GRP0
-       LDX    #$05    ;2
-LF71E: DEX            ;2
-       BPL    LF71E   ;2
-       LDA    ($D0),Y ;5
-       STA    GRP0    ;3 draws sprite in A via GRP0
-       DEY            ;2
-       BPL    LF716   ;2
-       INY            ;2
-       STY    WSYNC   ;3
-       STY    GRP0    ;3 draws sprite in Y via GRP0
-       STY    GRP1    ;3 draws Y reg sprite via GRP1
+       LDY    #7
+; Draw floor no. (bottom of the screen, above torch count & lives)
+LF716: STA    WSYNC
+       LDA    ($DA),Y ; number sprite pointer + Y index
+       STA    GRP0    ; draw floor number
+       LDX    #5
+; Draw urn piece
+LF71E: DEX            ; wait until score is drawn
+       BPL    LF71E
+       LDA    ($D0),Y ; urn piece sprite pointer + Y index
+       STA    GRP0    ; draw urn piece sprite
+       DEY            ; decrement sprite line counter
+       BPL    LF716   ; draw rest of sprites if >= 0
+       INY            ; Y = 0
+       STY    WSYNC   ; start next line ...
+       STY    GRP0    ; clear out sprites, we want to leave blank
+       STY    GRP1    ;   space between the floor/urn & torches/lives
+       LDX    #3
+       STA    WSYNC
+; Setup for torch count and lives drawing
+LF733: DEX
+       NOP            ; cycle counting is important here!
+       BPL    LF733
+       LDA    $D0
+       STA    RESP0   ; TODO: look these up, I thought we cleared
+       STA    RESP1   ;   the sprites out above
+       LDA    #$34    ; set the sprite draw mode: double wide
+       STA    NUSIZ0  ; for player sprite 0 (first torch no digit)
+       STA    NUSIZ1  ; and for player sprite 1 (second torch no digit)
+       LDY    #7
+; Draw torch count, this appears at the bottom
+; left of the screen and is the first thing drawn
+; LF745:
+DRAW_TORCH_CT:
+       STA    WSYNC   ;3 wait for sync
+       LDA    ($D4),Y ;5 load number sprite
+       STA    GRP0    ;3 draw torch count digit 1
+       LDA    ($D6),Y ;5 load number sprite
+       STA    GRP1    ;3 draw torch count digit 2
        LDX    #$03    ;2
-       STA    WSYNC   ;3
-LF733: DEX            ;2
-       NOP            ;2 cycle counting is important here!
-       BPL    LF733   ;2
-       LDA    $D0     ;3
-       STA    RESP0   ;3
-       STA    RESP1   ;3
-       LDA    #$34    ;2
-       STA    NUSIZ0  ;3
-       STA    NUSIZ1  ;3
-       LDY    #$07    ;2
-LF745: STA    WSYNC   ;3 wait for sync
-       LDA    ($D4),Y ;5 A <- mem(PTR($D4) + Y)
-       STA    GRP0    ;3 draws A as player sprite 0
-       LDA    ($D6),Y ;5 A <- mem(PTR($D6) + Y)
-       STA    GRP1    ;3 draws A as player sprite 1
-       LDX    #$03    ;2
+; wait for floor number sprite to be drawn on the left 
+; side of the screen (wait for scan line to get to
+; the right hand side of screen) ...
 LF751: DEX            ;2
        BPL    LF751   ;2
        LDA    LINENO  ;3
        INX            ;2
        STX    GRP0    ;3 draws sprite in X via GRP0
        LDA    ($D8),Y ;5
-       STA    GRP1    ;3 draws A reg sprite via GRP1
+       STA    GRP1    ;3 draw eyes or lives (if in bottom)
        DEY            ;2
-       BPL    LF745   ;2
+       BPL    DRAW_TORCH_CT
        INY            ;2
        STY    GRP1    ;3 draws Y reg sprite via GRP1
        LDA    $99     ;3
@@ -1820,7 +1831,7 @@ INPUT0:
        EOR    #$F0    ;2 since the register encodes "no movement" as ones
                       ;  we invert that encoding here to 1 means move
                       ;  in a direction
-       STA    MVMT    ;3 RAM $8E now holds movement bits, where 1=pressed
+       STA    MVMT    ;3 RAM MVMT ($8E) holds movement bits, where 1=pressed
                       ;  this is the opposite of the usual SWCHA format
        LDA    UNKNOWN3;3
        BNE    LFBD4   ;2 ?? jump if we're close to an enemy?
@@ -1926,7 +1937,7 @@ LFC3C: LDA    #$05    ;2
 LFC42: LDY    $D0     ;3 Y = RAM $D0 (initialized to 5)
        LDA    DATA0,Y ;4 A = DATA0[Y]
        TAY            ;2 move data to Y
-       LDA    MVMT    ;3
+       LDA    MVMT    ;3 (load eye ptr base?)
        AND    DATA1,Y ;4 AND A with DATA1[Y]
        BEQ    LFC61   ;2 jump if above result is zero
        LDA    POS_X   ;3
